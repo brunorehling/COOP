@@ -1,11 +1,11 @@
 import './App.css'
-import {FormLogin} from './components/FormLogin'
+import TelaLogin from './TelaLogin'
 
 function App() {
 
   return (
     <>
-      <FormLogin/>
+    <TelaLogin/>
     </>
   )
 }
