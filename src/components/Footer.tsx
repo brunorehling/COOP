@@ -11,4 +11,10 @@ export function Footer () {
             </footer>
         </>
     )
+<<<<<<< HEAD
 }
+=======
+}
+
+export default Footer;
+>>>>>>> origin/feat/TelaCadastro
