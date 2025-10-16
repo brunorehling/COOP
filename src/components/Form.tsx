@@ -62,11 +62,16 @@ function AuthForm({ tipo, usuario }: AuthFormProps) {
             Entrar
           </button>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="flex justify-between text-center text-sm text-gray-600 ">
             Novo por aqui?{' '}
-            <Link to="/cadastro" className="text-pink-500 hover:underline font-medium">
+            <div className='flex gap-5'>
+              <Link to="/cadastro" className="text-pink-500 hover:underline font-medium">
               Cadastre-se
             </Link>
+            <Link to="/land" className="text-pink-500 hover:underline font-medium">
+              land
+            </Link>
+            </div>
           </p>
         </form>
       </div>

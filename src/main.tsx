@@ -1,14 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-<<<<<<< HEAD
-import Land from './Land.tsx'
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Land />
-  </StrictMode>,
-)
-=======
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './App.css'
@@ -24,4 +15,3 @@ createRoot(document.getElementById('root')!).render(
     </StrictMode>
   </div>
 )
->>>>>>> origin/feat/TelaCadastro
