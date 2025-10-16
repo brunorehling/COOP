@@ -7,7 +7,7 @@ export default {
         client: 'react-query',           // pode ser axios, react-query etc
       },
       input: {
-        target: './openapi.yaml',        // ou uma URL: https://api.seudominio.com/openapi.json
+        target: 'http://localhost:3000/api-json',        // ou uma URL: https://api.seudominio.com/openapi.json
       },
     },
   };
