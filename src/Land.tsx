@@ -1,18 +1,19 @@
 // import { Link } from 'react-router-dom'
-import { Cabecalho_1 } from "./components/Cabecalho1.tsx"
+import { Link } from 'react-router-dom'
+import { Cabecalho1 } from "./components/Cabecalho1.tsx"
 import { Footer } from './components/Footer.tsx'
 
 function Land() {
 
   return (
     <>
-      <Cabecalho_1 />
+      <Cabecalho1 />
         <section className="bg-[#212b41] flex flex-col-reverse md:flex-row md:justify-around items-center gap-14 pr-14 pl-14 pt-7 pb-28 md:pr-28 md:pl-28 md:pt-10 md:pb-20">
           <div className="md:w-[650px] flex flex-col items-start gap-4">
             <h2 className=" text-white text-[44px] md:text-[60px] font-semibold font-Jost">COOPERE, CONHEÇA E COLABORE COM PESSOAS EM SEUS PROJETOS INDIE.</h2>
             <p className=" text-white/60 text-[22px] md:text-[24px] font-normal font-Jost">Buscamos impulsionar e criar um ecossistema  rico para desenvolvedores e idealizadores. Venha bater papo, curtir e colaborar!</p>
             <div className="flex justify-center items-center w-[648px] pt-6">
-              <button className="flex justify-center items-center w-[220.26px] h-[43px] bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost"><Link to="entrar">Let's CO-OP!</Link></button>
+              <button className="flex justify-center items-center w-[220.26px] h-[43px] bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost"><Link to="Feed">Let's CO-OP!</Link></button>
             </div>
           </div>
           <div className="">
