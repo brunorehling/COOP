@@ -14,16 +14,15 @@ import type {
 import type {
   CreatePortfolioDto,
   UpdatePortfolioDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getPortfolio = () => {
-/**
+  /**
  * @summary Criar novo portfólio
  */
-const portfolioControllerCreate = <TData = AxiosResponse<void>>(
+export const portfolioControllerCreate = <TData = AxiosResponse<void>>(
     createPortfolioDto: CreatePortfolioDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.post(
@@ -34,7 +33,7 @@ const portfolioControllerCreate = <TData = AxiosResponse<void>>(
 /**
  * @summary Listar todos os portfólios
  */
-const portfolioControllerFindAll = <TData = AxiosResponse<void>>(
+export const portfolioControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -44,7 +43,7 @@ const portfolioControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar portfólio por ID
  */
-const portfolioControllerFindOne = <TData = AxiosResponse<void>>(
+export const portfolioControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -54,7 +53,7 @@ const portfolioControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar portfólio
  */
-const portfolioControllerUpdate = <TData = AxiosResponse<void>>(
+export const portfolioControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updatePortfolioDto: UpdatePortfolioDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -66,14 +65,13 @@ const portfolioControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover portfólio
  */
-const portfolioControllerRemove = <TData = AxiosResponse<void>>(
+export const portfolioControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/portfolio/${id}`,options
     );
   }
-return {portfolioControllerCreate,portfolioControllerFindAll,portfolioControllerFindOne,portfolioControllerUpdate,portfolioControllerRemove}};
 export type PortfolioControllerCreateResult = AxiosResponse<void>
 export type PortfolioControllerFindAllResult = AxiosResponse<void>
 export type PortfolioControllerFindOneResult = AxiosResponse<void>

@@ -14,16 +14,15 @@ import type {
 import type {
   CreateSocialDto,
   UpdateSocialDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getSocial = () => {
-/**
+  /**
  * @summary Criar interação social
  */
-const socialControllerCreate = <TData = AxiosResponse<void>>(
+export const socialControllerCreate = <TData = AxiosResponse<void>>(
     createSocialDto: CreateSocialDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.post(
@@ -34,7 +33,7 @@ const socialControllerCreate = <TData = AxiosResponse<void>>(
 /**
  * @summary Listar todas as interações
  */
-const socialControllerFindAll = <TData = AxiosResponse<void>>(
+export const socialControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -44,7 +43,7 @@ const socialControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar interação por ID
  */
-const socialControllerFindOne = <TData = AxiosResponse<void>>(
+export const socialControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -54,7 +53,7 @@ const socialControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar interação
  */
-const socialControllerUpdate = <TData = AxiosResponse<void>>(
+export const socialControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updateSocialDto: UpdateSocialDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -66,14 +65,13 @@ const socialControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover interação
  */
-const socialControllerRemove = <TData = AxiosResponse<void>>(
+export const socialControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/social/${id}`,options
     );
   }
-return {socialControllerCreate,socialControllerFindAll,socialControllerFindOne,socialControllerUpdate,socialControllerRemove}};
 export type SocialControllerCreateResult = AxiosResponse<void>
 export type SocialControllerFindAllResult = AxiosResponse<void>
 export type SocialControllerFindOneResult = AxiosResponse<void>

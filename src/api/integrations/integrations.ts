@@ -14,16 +14,15 @@ import type {
 import type {
   CreateIntegrationDto,
   UpdateIntegrationDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getIntegrations = () => {
-/**
+  /**
  * @summary Criar nova integração
  */
-const integrationsControllerCreate = <TData = AxiosResponse<void>>(
+export const integrationsControllerCreate = <TData = AxiosResponse<void>>(
     createIntegrationDto: CreateIntegrationDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.post(
@@ -34,7 +33,7 @@ const integrationsControllerCreate = <TData = AxiosResponse<void>>(
 /**
  * @summary Listar todas as integrações
  */
-const integrationsControllerFindAll = <TData = AxiosResponse<void>>(
+export const integrationsControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -44,7 +43,7 @@ const integrationsControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar integração por ID
  */
-const integrationsControllerFindOne = <TData = AxiosResponse<void>>(
+export const integrationsControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -54,7 +53,7 @@ const integrationsControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar integração
  */
-const integrationsControllerUpdate = <TData = AxiosResponse<void>>(
+export const integrationsControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updateIntegrationDto: UpdateIntegrationDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -66,14 +65,13 @@ const integrationsControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover integração
  */
-const integrationsControllerRemove = <TData = AxiosResponse<void>>(
+export const integrationsControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/integrations/${id}`,options
     );
   }
-return {integrationsControllerCreate,integrationsControllerFindAll,integrationsControllerFindOne,integrationsControllerUpdate,integrationsControllerRemove}};
 export type IntegrationsControllerCreateResult = AxiosResponse<void>
 export type IntegrationsControllerFindAllResult = AxiosResponse<void>
 export type IntegrationsControllerFindOneResult = AxiosResponse<void>
