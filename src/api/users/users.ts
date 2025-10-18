@@ -13,16 +13,15 @@ import type {
 
 import type {
   UpdateUserDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getUsers = () => {
-/**
+  /**
  * @summary Listar todos os usuários
  */
-const usersControllerFindAll = <TData = AxiosResponse<void>>(
+export const usersControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -32,7 +31,7 @@ const usersControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar usuário por ID
  */
-const usersControllerFindOne = <TData = AxiosResponse<void>>(
+export const usersControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -42,7 +41,7 @@ const usersControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar dados do usuário
  */
-const usersControllerUpdate = <TData = AxiosResponse<void>>(
+export const usersControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updateUserDto: UpdateUserDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -54,14 +53,13 @@ const usersControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover usuário
  */
-const usersControllerRemove = <TData = AxiosResponse<void>>(
+export const usersControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/users/${id}`,options
     );
   }
-return {usersControllerFindAll,usersControllerFindOne,usersControllerUpdate,usersControllerRemove}};
 export type UsersControllerFindAllResult = AxiosResponse<void>
 export type UsersControllerFindOneResult = AxiosResponse<void>
 export type UsersControllerUpdateResult = AxiosResponse<void>

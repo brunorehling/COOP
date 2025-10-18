@@ -14,16 +14,15 @@ import type {
 import type {
   CreateProjectDto,
   UpdateProjectDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getProjects = () => {
-/**
+  /**
  * @summary Criar novo projeto
  */
-const projectsControllerCreate = <TData = AxiosResponse<void>>(
+export const projectsControllerCreate = <TData = AxiosResponse<void>>(
     createProjectDto: CreateProjectDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.post(
@@ -34,7 +33,7 @@ const projectsControllerCreate = <TData = AxiosResponse<void>>(
 /**
  * @summary Listar todos os projetos
  */
-const projectsControllerFindAll = <TData = AxiosResponse<void>>(
+export const projectsControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -44,7 +43,7 @@ const projectsControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar projeto por ID
  */
-const projectsControllerFindOne = <TData = AxiosResponse<void>>(
+export const projectsControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -54,7 +53,7 @@ const projectsControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar projeto
  */
-const projectsControllerUpdate = <TData = AxiosResponse<void>>(
+export const projectsControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updateProjectDto: UpdateProjectDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -66,14 +65,13 @@ const projectsControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover projeto
  */
-const projectsControllerRemove = <TData = AxiosResponse<void>>(
+export const projectsControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/projects/${id}`,options
     );
   }
-return {projectsControllerCreate,projectsControllerFindAll,projectsControllerFindOne,projectsControllerUpdate,projectsControllerRemove}};
 export type ProjectsControllerCreateResult = AxiosResponse<void>
 export type ProjectsControllerFindAllResult = AxiosResponse<void>
 export type ProjectsControllerFindOneResult = AxiosResponse<void>

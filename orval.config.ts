@@ -1,13 +1,12 @@
-export default {
-    coOpApi: {
-      output: {
-        mode: 'tags-split',
-        target: './src/api/orval/',     // onde serão gerados os arquivos
-        schemas: './src/api/orval/model', // onde ficam os tipos (opcional)
-        client: 'react-query',           // pode ser axios, react-query etc
-      },
-      input: {
-        target: 'http://localhost:3000/api-json',        // ou uma URL: https://api.seudominio.com/openapi.json
-      },
+/** @type {import('@orval/core').OrvalConfig} */
+module.exports = {
+  myApi: {
+    input: 'url da api no render',
+    output: {
+      mode: 'tags-split', // pode ser 'single' se preferir um único arquivo
+      target: './src/api/orval', // gera uma pasta com arquivos por tag
+      client: 'axios', // gera funções que usam axios
+      override: true, // sobrescreve se já existir
     },
-  };
+  },
+};

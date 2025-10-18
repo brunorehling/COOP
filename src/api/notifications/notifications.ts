@@ -14,16 +14,15 @@ import type {
 import type {
   CreateNotificationDto,
   UpdateNotificationDto
-} from '../coopApi.schemas';
+} from '../myApi.schemas';
 
 
 
 
-  export const getNotifications = () => {
-/**
+  /**
  * @summary Criar nova notificação
  */
-const notificationsControllerCreate = <TData = AxiosResponse<void>>(
+export const notificationsControllerCreate = <TData = AxiosResponse<void>>(
     createNotificationDto: CreateNotificationDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.post(
@@ -34,7 +33,7 @@ const notificationsControllerCreate = <TData = AxiosResponse<void>>(
 /**
  * @summary Listar todas as notificações
  */
-const notificationsControllerFindAll = <TData = AxiosResponse<void>>(
+export const notificationsControllerFindAll = <TData = AxiosResponse<void>>(
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -44,7 +43,7 @@ const notificationsControllerFindAll = <TData = AxiosResponse<void>>(
 /**
  * @summary Buscar notificação por ID
  */
-const notificationsControllerFindOne = <TData = AxiosResponse<void>>(
+export const notificationsControllerFindOne = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.get(
@@ -54,7 +53,7 @@ const notificationsControllerFindOne = <TData = AxiosResponse<void>>(
 /**
  * @summary Atualizar notificação
  */
-const notificationsControllerUpdate = <TData = AxiosResponse<void>>(
+export const notificationsControllerUpdate = <TData = AxiosResponse<void>>(
     id: string,
     updateNotificationDto: UpdateNotificationDto, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -66,14 +65,13 @@ const notificationsControllerUpdate = <TData = AxiosResponse<void>>(
 /**
  * @summary Remover notificação
  */
-const notificationsControllerRemove = <TData = AxiosResponse<void>>(
+export const notificationsControllerRemove = <TData = AxiosResponse<void>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.default.delete(
       `/notifications/${id}`,options
     );
   }
-return {notificationsControllerCreate,notificationsControllerFindAll,notificationsControllerFindOne,notificationsControllerUpdate,notificationsControllerRemove}};
 export type NotificationsControllerCreateResult = AxiosResponse<void>
 export type NotificationsControllerFindAllResult = AxiosResponse<void>
 export type NotificationsControllerFindOneResult = AxiosResponse<void>
