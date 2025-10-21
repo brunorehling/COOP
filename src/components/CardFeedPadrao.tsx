@@ -41,17 +41,30 @@ function CardFeedPadrao() {
                         {mostrarAba ? "Fechar" : "Saiba Mais"}
                     </button>
 
-                    <div className={`w-[1100px] h-[200px] flex justify-center items-center rounded-[10px] bg-white shadow-md mt-4 overflow-hidden transition-all duration-500 ease-in-out ${mostrarAba ? "max-h-[600px] opacity-100 p-6" : "max-h-0 opacity-0 p-0"}`}>
-                        <h2 className="text-xl font-semibold mb-3 text-center text-gray-800">
-                        Conteúdo da Aba
-                        </h2>
-                        <p className="text-gray-700 leading-relaxed text-center">
-                        Aqui você pode adicionar qualquer conteúdo adicional que deseje
-                        apresentar, como textos, imagens, links ou até outros componentes.
-                        <br />
-                        Esta aba foi projetada para expandir suavemente e empurrar o conteúdo
-                        abaixo, criando uma experiência de navegação fluida e agradável.
+                    <div className={`w-[1100px] h-[200px] flex flex-col justify-center items-start rounded-[10px] bg-white shadow-md mt-4 overflow-hidden transition-all duration-500 ease-in-out ${mostrarAba ? "max-h-[600px] opacity-100 p-6" : "max-h-0 opacity-0 p-0"}`}>
+                        <h2 className="text-xl font-semibold mb-3 text-center text-gray-800">Necessito de um dev front end para o meu projeto</h2>
+                        <p className="text-gray-700 leading-relaxed text-lg">
+                            Busco alguém para cuidar do front-end, ajudando a dar vida às telas e criando uma interface moderna e funcional junto comigo.
                         </p>
+                        <div className="flex flex-row justify-between items-center w-[1000px]">
+                            <div className="flex flex-col justify-center items-start gap-3 pt-6">
+                                <p className="font-semibold mb-3 text-center text-gray-800">Tecnologias necessárias</p>
+                                <div className="flex flex-row itens-center justify-center gap-6">
+                                    <div className="flex flex-row justify-center items-center gap-2">
+                                        <img src="./react.png" alt="" className="w-[41px] h-[35px]" />
+                                        <p className="text-gray-700 leading-relaxed text-lg">react js</p>
+                                    </div>
+                                    <div className="flex flex-row justify-center items-center gap-2">
+                                        <img src="./tailwind.png" alt="" className="w-[41px] h-[35px]" />
+                                        <p className="text-gray-700 leading-relaxed text-lg">tailwind</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-row justify-center items-center gap-3">
+                                <p className="text-gray-700 text-base md:text-lg font-semibold font-Jost">Colaborativo</p>
+                                <button className="w-[35px] h-[32px] flex items-center justify-center md:justify-between pl-6 md:w-[130px] md:h-[34px] bg-[#e64eeb] rounded-[21px] text-center text-white text-base md:text-lg font-semibold font-Jost">Participar</button>
+                            </div>
+                        </div>
                     </div>
             </div>
         </main> 

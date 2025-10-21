@@ -11,12 +11,12 @@ export function Cabecalho1() {
                     <Link to="entrar">
                         <Icon_buscar_1 />
                     </Link>
-                    <div className="flex justify-around items-center gap-4">
+                    <div className="flex justify-around items-center gap-10">
                         <Link to="entrar" className="">
-                            <p className="text-white text-2xl font-normal font-Jost flex justify-center items-center">Entrar</p>
+                            <img src="./perfil.png" alt="" className="w-[80px] h-[80px]" />
                         </Link>
                         <Link to="cadastrar" className="">
-                            <p className="w-[155px] h-9 bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost flex justify-center items-center">Cadastrar</p>
+                            <img src="./notification not selected.png" alt="" className="" />
                         </Link>
                     </div>
                 </div>

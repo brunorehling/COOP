@@ -7,7 +7,7 @@ function Feed() {
     return (
         <>
             <main className="bg-[#212b41]">
-                <Cabecalho2 />
+                <Cabecalho1 />
                 <Navegacao />
                 <div className="flex flex-col justify-center items-center pt-14 pb-8">
                     <CardFeedPadrao />
