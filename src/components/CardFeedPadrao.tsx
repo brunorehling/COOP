@@ -1,10 +1,18 @@
 import { InfoUserPages } from "./InfoUserPages"
+import { useState } from "react";
 
 
 function CardFeedPadrao() {
+
+    const [mostrarAba, setMostrarAba] = useState(false);
+
+    const toggleAba = () => {
+        setMostrarAba(!mostrarAba);
+    };
+
     return (
         <>
-        <main className="bg-cinza w-[1100px] h-[440px] rounded-[10px] mb-10">
+        <main className="bg-cinza w-[1100px] h-auto rounded-[10px] mb-10">
             <div className="">
                 <div className="flex justify-between items-center p-6 md:p-2">
                     <div className=""><InfoUserPages /></div>
@@ -26,12 +34,25 @@ function CardFeedPadrao() {
 
                             Vamos construir algo juntos. 🚀</p>
                     </div>
-                </div>
-                <div className="flex justify-end items-center pr-12">
-                    <button className="w-[170px] h-[34px] rounded-[25px] bg-black">
-                        <p className="text-white text-lg font-normal font-Jost ">Saiba Mais</p>
+                </div>  
+            </div>
+            <div className="flex justify-center flex-col items-center w-full">
+                    <button onClick={toggleAba} className="bg-black text-white text-lg font-normal font-Jost px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition">
+                        {mostrarAba ? "Fechar" : "Saiba Mais"}
                     </button>
-                </div>
+
+                    <div className={`w-[1100px] h-[200px] flex justify-center items-center rounded-[10px] bg-white shadow-md mt-4 overflow-hidden transition-all duration-500 ease-in-out ${mostrarAba ? "max-h-[600px] opacity-100 p-6" : "max-h-0 opacity-0 p-0"}`}>
+                        <h2 className="text-xl font-semibold mb-3 text-center text-gray-800">
+                        Conteúdo da Aba
+                        </h2>
+                        <p className="text-gray-700 leading-relaxed text-center">
+                        Aqui você pode adicionar qualquer conteúdo adicional que deseje
+                        apresentar, como textos, imagens, links ou até outros componentes.
+                        <br />
+                        Esta aba foi projetada para expandir suavemente e empurrar o conteúdo
+                        abaixo, criando uma experiência de navegação fluida e agradável.
+                        </p>
+                    </div>
             </div>
         </main> 
         </>
