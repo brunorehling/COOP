@@ -1,10 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App'
+import './App.css'
+import Footer from './components/Footer'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <div className="min-h-screen bg-fundo">
+    <StrictMode>
+      <BrowserRouter>
+        <App />
+        <Footer/>
+      </BrowserRouter>
+    </StrictMode>
+  </div>
 )
