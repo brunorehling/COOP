@@ -1,6 +1,5 @@
-import { Cabecalho1 } from "./components/Cabecalho1"
 import { Cabecalho2 } from "./components/Cabecalho2"
-import CardFeedPadrao from "./components/CardFeedPadrao"
+import {CardFeedPadrao} from "./components/CardFeedPadrao"
 import { Navegacao } from "./components/Navegacao"
 
 function Feed() {

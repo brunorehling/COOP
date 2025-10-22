@@ -1,10 +1,10 @@
 import { InfoUserPages } from "./InfoUserPages"
 
 
-function CardFeedPadrao() {
+export function CardFeedPadrao() {
     return (
         <>
-        <main className="bg-cinza w-[1100px] h-[440px] rounded-[10px] mb-10">
+        <main className="bg-[#3C4860] w-[1100px] h-[440px] rounded-[10px] mb-10">
             <div className="">
                 <div className="flex justify-between items-center p-6 md:p-2">
                     <div className=""><InfoUserPages /></div>
@@ -38,4 +38,3 @@ function CardFeedPadrao() {
     )
 }
 
-export default CardFeedPadrao

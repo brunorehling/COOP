@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
-type FormContainerProps = {
-  title: string
+type FormContainerProps = { 
+  title: string 
   children: ReactNode
   onSubmit: () => void
   isLoading?: boolean
