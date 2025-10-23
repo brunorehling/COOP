@@ -1,17 +1,25 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Land from './Land.tsx'
+import Feed from './Feed.tsx'
 import './App.css'
-import Footer from './components/Footer'
+import { Cadastro } from './cadastro'
+import { Login } from './Login.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <div className="min-h-screen bg-fundo">
-    <StrictMode>
-      <BrowserRouter>
-        <App />
-        <Footer/>
-      </BrowserRouter>
-    </StrictMode>
-  </div>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/" element={<Land/>} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>,
+
 )
+
+
+

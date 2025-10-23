@@ -16,7 +16,7 @@ export function FormContainer({
   submitLabel = 'Enviar',
 }: FormContainerProps) {
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center bg-[#212b41] items-center min-h-screen">
       <form
         onSubmit={(e) => {
           e.preventDefault()
