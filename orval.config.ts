@@ -1,5 +1,5 @@
 /** @type {import('@orval/core').OrvalConfig} */
-module.exports = {
+export default {
   myApi: {
     input: 'url da api no render',
     output: {

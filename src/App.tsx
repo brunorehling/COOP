@@ -4,6 +4,7 @@ import './App.css'
 import Land from './Land'
 import { Login } from './Login'
 import { Cadastro } from './cadastro'
+import { CriarProjetos } from './CriarProjetos'
 import Feed from './Feed'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/cadastroProjeto" element={<CriarProjetos />} />
         <Route path="/" element={<Land/>} />
       </Routes>
     </div>
