@@ -14,7 +14,7 @@ export default function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/cadastroProjeto" element={<CriarProjetos />} />
+        <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/" element={<Land/>} />
       </Routes>
     </div>
