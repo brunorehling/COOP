@@ -1,5 +1,4 @@
 import { Routes, Route} from 'react-router-dom'
-
 import './App.css'
 import Land from './Land'
 import { Login } from './Login'
