@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Icon_buscar_1 } from "./IconBuscar1.tsx";
 
@@ -9,10 +8,10 @@ export function Cabecalho2() {
                 <h1 className="text-white text-5xl md:text-7xl font-semibold font-Sans-serif ">CO-OP</h1>
                 <div className="flex justify-around items-center gap-10">
                     <div className="flex justify-around items-center gap-4">
-                        <Link to="entrar" className="">
+                        <Link to="/login" className="">
                             <p className="text-white text-2xl font-normal font-Jost flex justify-center items-center">Entrar</p>
                         </Link>
-                        <Link to="cadastrar" className="">
+                        <Link to="/cadastro" className="">
                             <p className="w-[155px] h-9 bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost flex justify-center items-center">Cadastrar</p>
                         </Link>
                     </div>
