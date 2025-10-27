@@ -6,6 +6,7 @@ import Feed from './Feed.tsx'
 import './App.css'
 import { Cadastro } from './cadastro'
 import { Login } from './Login.tsx'
+import { CriarProjetos } from './CriarProjetos.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/" element={<Land/>} />
       </Routes>
     </BrowserRouter>

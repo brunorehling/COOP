@@ -42,7 +42,7 @@ export default function ProjectForm({ onSubmit }: ProjectFormProps) {
           <input
             type="text"
             {...register("nome", { required: true })}
-            className="bg-white border border-gray-700 w-full rounded-2xl p-2 text-white focus:ring-2 focus:ring-pink-500 outline-none"
+            className="bg-white border border-gray-700 w-full rounded-2xl p-2 text-black focus:ring-2 focus:ring-pink-500 outline-none"
           />
         </div>
       </div>
