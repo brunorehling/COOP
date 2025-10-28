@@ -1,7 +1,7 @@
 /** @type {import('@orval/core').OrvalConfig} */
 export default {
   myApi: {
-    input: 'url do render',
+    input: 'https://projeto-api-7h8d.onrender.com',
     output: {
       mode: 'tags-split', // pode ser 'single' se preferir um único arquivo
       target: './src/api/orval', // gera uma pasta com arquivos por tag

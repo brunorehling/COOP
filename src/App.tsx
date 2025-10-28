@@ -6,6 +6,14 @@ import { Cadastro } from './cadastro'
 import { CriarProjetos } from './CriarProjetos'
 import Feed from './Feed'
 
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+
 export default function App() {
   return (
     <div className="min-h-screen bg-[#212C42]">

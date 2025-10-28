@@ -4,7 +4,6 @@ export type ProjectFormData = {
   integrantes: number
   nome: string
   descricao: string
-  tecnologias: string[]
 }
 
 interface ProjectFormProps {
@@ -16,6 +15,7 @@ export default function ProjectForm({ onSubmit }: ProjectFormProps) {
 
   return (
     <form
+      id="project-form"
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col justify-center items-center gap-10 text-white w-full py-10"
     >
@@ -54,6 +54,23 @@ export default function ProjectForm({ onSubmit }: ProjectFormProps) {
           className="bg-white border border-gray-700 w-[90%] h-[25vh] p-3 rounded-2xl text-black resize-none focus:ring-2 focus:ring-pink-500 outline-none"
           placeholder="Descreva o projeto..."
         />
+      </div>
+
+      <div className="flex gap-4 mt-6">
+        <button
+          type="button"
+          onClick={() => window.history.back()}
+          className="bg-black text-white px-6 py-2 rounded-full hover:opacity-80 transition"
+        >
+          Descartar Projeto
+        </button>
+
+        <button
+          type="submit"
+          className="bg-pink-500 text-white px-6 py-2 rounded-full hover:opacity-80 transition"
+        >
+          Publicar Projeto
+        </button>
       </div>
     </form>
   )

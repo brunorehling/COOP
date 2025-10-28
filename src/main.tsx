@@ -8,6 +8,14 @@ import { Cadastro } from './cadastro'
 import { Login } from './Login.tsx'
 import { CriarProjetos } from './CriarProjetos.tsx'
 
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

@@ -8,10 +8,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'url do render',
+        target: 'https://projeto-api-7h8d.onrender.com',
         changeOrigin: true,
-        secure: true
-      }
-    }
-  }
+        secure: true,
+      },
+      '/projects': {
+        target: 'https://projeto-api-7h8d.onrender.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
