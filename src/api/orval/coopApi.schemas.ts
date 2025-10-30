@@ -11,6 +11,21 @@ export interface CreatePortfolioDto { [key: string]: unknown }
 
 export interface UpdatePortfolioDto { [key: string]: unknown }
 
+/**
+ * Função / cargo do usuário
+ */
+export type RegisterDtoRole = typeof RegisterDtoRole[keyof typeof RegisterDtoRole];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const RegisterDtoRole = {
+  frontend: 'frontend',
+  backend: 'backend',
+  tester: 'tester',
+  data_scientist: 'data_scientist',
+  ux: 'ux',
+} as const;
+
 export interface RegisterDto {
   /**
    * Nome de usuário único
@@ -25,6 +40,10 @@ export interface RegisterDto {
    * @minLength 6
    */
   password: string;
+  /** Número no formato E.164 (recomendado: +55...) */
+  phone: string;
+  /** Função / cargo do usuário */
+  role: RegisterDtoRole;
 }
 
 export interface LoginDto {
@@ -49,7 +68,51 @@ export interface ResetPasswordDto {
   newPassword: string;
 }
 
-export interface CreateProjectDto { [key: string]: unknown }
+export type CreateProjectDtoStatus = typeof CreateProjectDtoStatus[keyof typeof CreateProjectDtoStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateProjectDtoStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  TESTING: 'TESTING',
+  FINISHED: 'FINISHED',
+} as const;
+
+/**
+ * Habilidades técnicas (botões pré-definidos)
+ */
+export type CreateProjectDtoTags = typeof CreateProjectDtoTags[keyof typeof CreateProjectDtoTags];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateProjectDtoTags = {
+  React: 'React',
+  Angular: 'Angular',
+  Vue: 'Vue',
+  Nodejs: 'Node.js',
+  Python: 'Python',
+  Java: 'Java',
+  TypeScript: 'TypeScript',
+  JavaScript: 'JavaScript',
+  PostgreSQL: 'PostgreSQL',
+  MongoDB: 'MongoDB',
+  Docker: 'Docker',
+  Kubernetes: 'Kubernetes',
+  AWS: 'AWS',
+  Azure: 'Azure',
+  Git: 'Git',
+} as const;
+
+export interface CreateProjectDto {
+  name: string;
+  description?: string;
+  status: CreateProjectDtoStatus;
+  /** Habilidades técnicas (botões pré-definidos) */
+  tags: CreateProjectDtoTags;
+  bannerUrl: string;
+  /** Número máximo de integrantes do projeto */
+  membersLimit: number;
+}
 
 export interface UpdateProjectDto { [key: string]: unknown }
 

@@ -9,10 +9,8 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers = config.headers || {};
     if ("set" in config.headers) {
-      // AxiosHeaders
       config.headers.set("Authorization", `Bearer ${token}`);
     } else {
-      // fallback para objeto simples (compatível com TS)
       (config.headers as any).Authorization = `Bearer ${token}`;
     }
   }

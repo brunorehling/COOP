@@ -2,20 +2,20 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormContainer } from './components/FormContainer'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth } from './api/orval/auth/auth'
-
-const myApi = getAuth()
+import { authControllerRegister } from './api/orval/auth/auth'
+import { RegisterDtoRole } from './api/orval/coopApi.schemas'
 
 type CadastroData = {
   username: string
   email: string
-  telefone: string
+  phone: string
   password: string
   senhaConfirm: string
+  role: keyof typeof RegisterDtoRole
 }
 
 export function Cadastro() {
-  const { register, handleSubmit} = useForm<CadastroData>()
+  const { register, handleSubmit } = useForm<CadastroData>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
@@ -31,10 +31,12 @@ export function Cadastro() {
     }
 
     try {
-      await myApi.authControllerRegister({
+      await authControllerRegister({
         username: data.username,
         email: data.email,
+        phone: data.phone,
         password: data.password,
+        role: data.role,
       })
       console.log('Usuário cadastrado')
       navigate('/login')
@@ -73,6 +75,15 @@ export function Cadastro() {
       </div>
 
       <div className="flex flex-col">
+        <label>Telefone</label>
+        <input
+          type="text"
+          {...register('phone', { required: true })}
+          className="border p-2 rounded"
+        />
+      </div>
+
+      <div className="flex flex-col">
         <label>Senha</label>
         <input
           type="password"
@@ -88,6 +99,21 @@ export function Cadastro() {
           {...register('senhaConfirm', { required: true })}
           className="border p-2 rounded"
         />
+      </div>
+
+      <div className="flex flex-col">
+        <label>Função</label>
+        <select
+          {...register('role', { required: true })}
+          className="border p-2 rounded"
+        >
+          <option value="">Selecione...</option>
+          {Object.entries(RegisterDtoRole).map(([key, value]) => (
+            <option key={key} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
       </div>
 
       <p className="text-sm text-center">

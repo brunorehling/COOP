@@ -5,12 +5,6 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   AuthControllerGetResetPasswordPageParams,
   LoginDto,
@@ -20,79 +14,293 @@ import type {
 } from '../coopApi.schemas';
 
 
-
-
-  export const getAuth = () => {
 /**
  * @summary Registrar novo usuário
  */
-const authControllerRegister = <TData = AxiosResponse<void>>(
-    registerDto: RegisterDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/auth/register`,
-      registerDto,options
-    );
+export type authControllerRegisterResponse201 = {
+  data: void
+  status: 201
+}
+
+export type authControllerRegisterResponse409 = {
+  data: void
+  status: 409
+}
+    
+export type authControllerRegisterResponseSuccess = (authControllerRegisterResponse201) & {
+  headers: Headers;
+};
+export type authControllerRegisterResponseError = (authControllerRegisterResponse409) & {
+  headers: Headers;
+};
+
+export type authControllerRegisterResponse = (authControllerRegisterResponseSuccess | authControllerRegisterResponseError)
+
+export const getAuthControllerRegisterUrl = () => {
+
+
+  
+
+  return `/auth/register`
+}
+
+export const authControllerRegister = async (registerDto: RegisterDto, options?: RequestInit): Promise<authControllerRegisterResponse> => {
+  
+  const res = await fetch(getAuthControllerRegisterUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      registerDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerRegisterResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerRegisterResponse
+}
+
+
 /**
  * @summary Fazer login
  */
-const authControllerLogin = <TData = AxiosResponse<void>>(
-    loginDto: LoginDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/auth/login`,
-      loginDto,options
-    );
+export type authControllerLoginResponse200 = {
+  data: void
+  status: 200
+}
+
+export type authControllerLoginResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type authControllerLoginResponseSuccess = (authControllerLoginResponse200) & {
+  headers: Headers;
+};
+export type authControllerLoginResponseError = (authControllerLoginResponse401) & {
+  headers: Headers;
+};
+
+export type authControllerLoginResponse = (authControllerLoginResponseSuccess | authControllerLoginResponseError)
+
+export const getAuthControllerLoginUrl = () => {
+
+
+  
+
+  return `/auth/login`
+}
+
+export const authControllerLogin = async (loginDto: LoginDto, options?: RequestInit): Promise<authControllerLoginResponse> => {
+  
+  const res = await fetch(getAuthControllerLoginUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      loginDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerLoginResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerLoginResponse
+}
+
+
 /**
  * @summary Obter perfil do usuário autenticado
  */
-const authControllerGetProfile = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/auth/profile`,options
-    );
+export type authControllerGetProfileResponse200 = {
+  data: void
+  status: 200
+}
+
+export type authControllerGetProfileResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type authControllerGetProfileResponseSuccess = (authControllerGetProfileResponse200) & {
+  headers: Headers;
+};
+export type authControllerGetProfileResponseError = (authControllerGetProfileResponse401) & {
+  headers: Headers;
+};
+
+export type authControllerGetProfileResponse = (authControllerGetProfileResponseSuccess | authControllerGetProfileResponseError)
+
+export const getAuthControllerGetProfileUrl = () => {
+
+
+  
+
+  return `/auth/profile`
+}
+
+export const authControllerGetProfile = async ( options?: RequestInit): Promise<authControllerGetProfileResponse> => {
+  
+  const res = await fetch(getAuthControllerGetProfileUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerGetProfileResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerGetProfileResponse
+}
+
+
 /**
  * @summary Solicitar Magic Link para recuperação de senha
  */
-const authControllerRequestMagicLink = <TData = AxiosResponse<void>>(
-    requestMagicLinkDto: RequestMagicLinkDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/auth/request-magic-link`,
-      requestMagicLinkDto,options
-    );
+export type authControllerRequestMagicLinkResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type authControllerRequestMagicLinkResponseSuccess = (authControllerRequestMagicLinkResponse200) & {
+  headers: Headers;
+};
+;
+
+export type authControllerRequestMagicLinkResponse = (authControllerRequestMagicLinkResponseSuccess)
+
+export const getAuthControllerRequestMagicLinkUrl = () => {
+
+
+  
+
+  return `/auth/request-magic-link`
+}
+
+export const authControllerRequestMagicLink = async (requestMagicLinkDto: RequestMagicLinkDto, options?: RequestInit): Promise<authControllerRequestMagicLinkResponse> => {
+  
+  const res = await fetch(getAuthControllerRequestMagicLinkUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestMagicLinkDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerRequestMagicLinkResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerRequestMagicLinkResponse
+}
+
+
 /**
  * @summary Página de redefinição de senha (GET)
  */
-const authControllerGetResetPasswordPage = <TData = AxiosResponse<void>>(
-    params: AuthControllerGetResetPasswordPageParams, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/auth/reset-password`,{
+export type authControllerGetResetPasswordPageResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type authControllerGetResetPasswordPageResponseSuccess = (authControllerGetResetPasswordPageResponse200) & {
+  headers: Headers;
+};
+;
+
+export type authControllerGetResetPasswordPageResponse = (authControllerGetResetPasswordPageResponseSuccess)
+
+export const getAuthControllerGetResetPasswordPageUrl = (params: AuthControllerGetResetPasswordPageParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/auth/reset-password?${stringifiedParams}` : `/auth/reset-password`
+}
+
+export const authControllerGetResetPasswordPage = async (params: AuthControllerGetResetPasswordPageParams, options?: RequestInit): Promise<authControllerGetResetPasswordPageResponse> => {
+  
+  const res = await fetch(getAuthControllerGetResetPasswordPageUrl(params),
+  {      
     ...options,
-        params: {...params, ...options?.params},}
-    );
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerGetResetPasswordPageResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerGetResetPasswordPageResponse
+}
+
+
 /**
  * @summary Redefinir senha usando Magic Link (POST)
  */
-const authControllerResetPassword = <TData = AxiosResponse<void>>(
-    resetPasswordDto: ResetPasswordDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/auth/reset-password`,
-      resetPasswordDto,options
-    );
+export type authControllerResetPasswordResponse200 = {
+  data: void
+  status: 200
+}
+
+export type authControllerResetPasswordResponse400 = {
+  data: void
+  status: 400
+}
+
+export type authControllerResetPasswordResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type authControllerResetPasswordResponseSuccess = (authControllerResetPasswordResponse200) & {
+  headers: Headers;
+};
+export type authControllerResetPasswordResponseError = (authControllerResetPasswordResponse400 | authControllerResetPasswordResponse404) & {
+  headers: Headers;
+};
+
+export type authControllerResetPasswordResponse = (authControllerResetPasswordResponseSuccess | authControllerResetPasswordResponseError)
+
+export const getAuthControllerResetPasswordUrl = () => {
+
+
+  
+
+  return `/auth/reset-password`
+}
+
+export const authControllerResetPassword = async (resetPasswordDto: ResetPasswordDto, options?: RequestInit): Promise<authControllerResetPasswordResponse> => {
+  
+  const res = await fetch(getAuthControllerResetPasswordUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      resetPasswordDto,)
   }
-return {authControllerRegister,authControllerLogin,authControllerGetProfile,authControllerRequestMagicLink,authControllerGetResetPasswordPage,authControllerResetPassword}};
-export type AuthControllerRegisterResult = AxiosResponse<void>
-export type AuthControllerLoginResult = AxiosResponse<void>
-export type AuthControllerGetProfileResult = AxiosResponse<void>
-export type AuthControllerRequestMagicLinkResult = AxiosResponse<void>
-export type AuthControllerGetResetPasswordPageResult = AxiosResponse<void>
-export type AuthControllerResetPasswordResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: authControllerResetPasswordResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as authControllerResetPasswordResponse
+}
+
+

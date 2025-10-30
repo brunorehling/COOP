@@ -13,12 +13,23 @@ export function CriarProjetos() {
   const navigate = useNavigate();
 
   async function handleCreateProject(data: ProjectFormData) {
+    const membersLimit = Math.floor(Number(data.integrantes));
+  
+    if (isNaN(membersLimit) || membersLimit < 1 || membersLimit > 50) {
+      setError("O número de integrantes deve ser entre 1 e 50");
+      return;
+    }
+  
     try {
       await api.post("/projects", {
         name: data.nome,
         description: data.descricao,
-        techs: tecnologias,
+        status: data.status || "IN_PROGRESS",
+        tags: tecnologias,    
+        bannerUrl: data.bannerUrl || "https://example.com/banner.png", 
+        membersLimit: membersLimit,
       });
+  
       navigate("/feed");
     } catch (err: any) {
       console.error(err);

@@ -5,77 +5,267 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CreateSocialDto,
   UpdateSocialDto
 } from '../coopApi.schemas';
 
 
-
-
-  export const getSocial = () => {
 /**
  * @summary Criar interação social
  */
-const socialControllerCreate = <TData = AxiosResponse<void>>(
-    createSocialDto: CreateSocialDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/social`,
-      createSocialDto,options
-    );
+export type socialControllerCreateResponse201 = {
+  data: void
+  status: 201
+}
+
+export type socialControllerCreateResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type socialControllerCreateResponseSuccess = (socialControllerCreateResponse201) & {
+  headers: Headers;
+};
+export type socialControllerCreateResponseError = (socialControllerCreateResponse401) & {
+  headers: Headers;
+};
+
+export type socialControllerCreateResponse = (socialControllerCreateResponseSuccess | socialControllerCreateResponseError)
+
+export const getSocialControllerCreateUrl = () => {
+
+
+  
+
+  return `/social`
+}
+
+export const socialControllerCreate = async (createSocialDto: CreateSocialDto, options?: RequestInit): Promise<socialControllerCreateResponse> => {
+  
+  const res = await fetch(getSocialControllerCreateUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createSocialDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: socialControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as socialControllerCreateResponse
+}
+
+
 /**
  * @summary Listar todas as interações
  */
-const socialControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/social`,options
-    );
+export type socialControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type socialControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type socialControllerFindAllResponseSuccess = (socialControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type socialControllerFindAllResponseError = (socialControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type socialControllerFindAllResponse = (socialControllerFindAllResponseSuccess | socialControllerFindAllResponseError)
+
+export const getSocialControllerFindAllUrl = () => {
+
+
+  
+
+  return `/social`
+}
+
+export const socialControllerFindAll = async ( options?: RequestInit): Promise<socialControllerFindAllResponse> => {
+  
+  const res = await fetch(getSocialControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: socialControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as socialControllerFindAllResponse
+}
+
+
 /**
  * @summary Buscar interação por ID
  */
-const socialControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/social/${id}`,options
-    );
+export type socialControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type socialControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type socialControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type socialControllerFindOneResponseSuccess = (socialControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type socialControllerFindOneResponseError = (socialControllerFindOneResponse401 | socialControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type socialControllerFindOneResponse = (socialControllerFindOneResponseSuccess | socialControllerFindOneResponseError)
+
+export const getSocialControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/social/${id}`
+}
+
+export const socialControllerFindOne = async (id: string, options?: RequestInit): Promise<socialControllerFindOneResponse> => {
+  
+  const res = await fetch(getSocialControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: socialControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as socialControllerFindOneResponse
+}
+
+
 /**
  * @summary Atualizar interação
  */
-const socialControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updateSocialDto: UpdateSocialDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/social/${id}`,
-      updateSocialDto,options
-    );
+export type socialControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type socialControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type socialControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type socialControllerUpdateResponseSuccess = (socialControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type socialControllerUpdateResponseError = (socialControllerUpdateResponse401 | socialControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type socialControllerUpdateResponse = (socialControllerUpdateResponseSuccess | socialControllerUpdateResponseError)
+
+export const getSocialControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/social/${id}`
+}
+
+export const socialControllerUpdate = async (id: string,
+    updateSocialDto: UpdateSocialDto, options?: RequestInit): Promise<socialControllerUpdateResponse> => {
+  
+  const res = await fetch(getSocialControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateSocialDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: socialControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as socialControllerUpdateResponse
+}
+
+
 /**
  * @summary Remover interação
  */
-const socialControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/social/${id}`,options
-    );
+export type socialControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type socialControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type socialControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type socialControllerRemoveResponseSuccess = (socialControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type socialControllerRemoveResponseError = (socialControllerRemoveResponse401 | socialControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type socialControllerRemoveResponse = (socialControllerRemoveResponseSuccess | socialControllerRemoveResponseError)
+
+export const getSocialControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/social/${id}`
+}
+
+export const socialControllerRemove = async (id: string, options?: RequestInit): Promise<socialControllerRemoveResponse> => {
+  
+  const res = await fetch(getSocialControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {socialControllerCreate,socialControllerFindAll,socialControllerFindOne,socialControllerUpdate,socialControllerRemove}};
-export type SocialControllerCreateResult = AxiosResponse<void>
-export type SocialControllerFindAllResult = AxiosResponse<void>
-export type SocialControllerFindOneResult = AxiosResponse<void>
-export type SocialControllerUpdateResult = AxiosResponse<void>
-export type SocialControllerRemoveResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: socialControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as socialControllerRemoveResponse
+}
+
+
