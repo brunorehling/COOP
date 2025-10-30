@@ -8,10 +8,16 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'url do render',
+        target: 'url da api',
         changeOrigin: true,
-        secure: true
-      }
-    }
-  }
-})
+        secure: true,
+      },
+      '/projects': {
+        target: 'url da api',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
+}
+)

@@ -1,5 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CardTech from "./CardTech"
+
+interface TechSelectorProps {
+  onChange?: (techs: string[]) => void
+}
 
 const tecnologias = [
   "html", "css", "js", "ts",
@@ -8,7 +12,7 @@ const tecnologias = [
   "python", "django", "next", "react"
 ]
 
-export default function TechSelector() {
+export default function TechSelector({ onChange }: TechSelectorProps) {
   const [busca, setBusca] = useState("")
   const [selecionadas, setSelecionadas] = useState<string[]>([])
 
@@ -17,12 +21,16 @@ export default function TechSelector() {
     .slice(0, 12)
 
   function toggleSelecao(tec: string) {
-    setSelecionadas(prev =>
-      prev.includes(tec)
+    setSelecionadas(prev => {
+      const novaSelecao = prev.includes(tec)
         ? prev.filter(t => t !== tec)
         : [...prev, tec]
-    )
+      return novaSelecao
+    })
   }
+  useEffect(() => {
+    onChange?.(selecionadas)
+  }, [selecionadas, onChange])
 
   return (
     <div className="flex flex-col items-center gap-6 text-white">
@@ -45,15 +53,6 @@ export default function TechSelector() {
             onClick={() => toggleSelecao(tec)}
           />
         ))}
-      </div>
-
-      <div className="flex gap-4 mt-6">
-        <button className="bg-black text-white px-6 py-2 rounded-full hover:opacity-80 transition">
-          Descartar Projeto
-        </button>
-        <button className="bg-pink-500 text-white px-6 py-2 rounded-full hover:opacity-80 transition">
-          Publicar Projeto
-        </button>
       </div>
     </div>
   )

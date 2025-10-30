@@ -5,77 +5,267 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CreateIntegrationDto,
   UpdateIntegrationDto
 } from '../coopApi.schemas';
 
 
-
-
-  export const getIntegrations = () => {
 /**
  * @summary Criar nova integração
  */
-const integrationsControllerCreate = <TData = AxiosResponse<void>>(
-    createIntegrationDto: CreateIntegrationDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/integrations`,
-      createIntegrationDto,options
-    );
+export type integrationsControllerCreateResponse201 = {
+  data: void
+  status: 201
+}
+
+export type integrationsControllerCreateResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type integrationsControllerCreateResponseSuccess = (integrationsControllerCreateResponse201) & {
+  headers: Headers;
+};
+export type integrationsControllerCreateResponseError = (integrationsControllerCreateResponse401) & {
+  headers: Headers;
+};
+
+export type integrationsControllerCreateResponse = (integrationsControllerCreateResponseSuccess | integrationsControllerCreateResponseError)
+
+export const getIntegrationsControllerCreateUrl = () => {
+
+
+  
+
+  return `/integrations`
+}
+
+export const integrationsControllerCreate = async (createIntegrationDto: CreateIntegrationDto, options?: RequestInit): Promise<integrationsControllerCreateResponse> => {
+  
+  const res = await fetch(getIntegrationsControllerCreateUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createIntegrationDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: integrationsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as integrationsControllerCreateResponse
+}
+
+
 /**
  * @summary Listar todas as integrações
  */
-const integrationsControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/integrations`,options
-    );
+export type integrationsControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type integrationsControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type integrationsControllerFindAllResponseSuccess = (integrationsControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type integrationsControllerFindAllResponseError = (integrationsControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type integrationsControllerFindAllResponse = (integrationsControllerFindAllResponseSuccess | integrationsControllerFindAllResponseError)
+
+export const getIntegrationsControllerFindAllUrl = () => {
+
+
+  
+
+  return `/integrations`
+}
+
+export const integrationsControllerFindAll = async ( options?: RequestInit): Promise<integrationsControllerFindAllResponse> => {
+  
+  const res = await fetch(getIntegrationsControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: integrationsControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as integrationsControllerFindAllResponse
+}
+
+
 /**
  * @summary Buscar integração por ID
  */
-const integrationsControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/integrations/${id}`,options
-    );
+export type integrationsControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type integrationsControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type integrationsControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type integrationsControllerFindOneResponseSuccess = (integrationsControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type integrationsControllerFindOneResponseError = (integrationsControllerFindOneResponse401 | integrationsControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type integrationsControllerFindOneResponse = (integrationsControllerFindOneResponseSuccess | integrationsControllerFindOneResponseError)
+
+export const getIntegrationsControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/integrations/${id}`
+}
+
+export const integrationsControllerFindOne = async (id: string, options?: RequestInit): Promise<integrationsControllerFindOneResponse> => {
+  
+  const res = await fetch(getIntegrationsControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: integrationsControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as integrationsControllerFindOneResponse
+}
+
+
 /**
  * @summary Atualizar integração
  */
-const integrationsControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updateIntegrationDto: UpdateIntegrationDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/integrations/${id}`,
-      updateIntegrationDto,options
-    );
+export type integrationsControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type integrationsControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type integrationsControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type integrationsControllerUpdateResponseSuccess = (integrationsControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type integrationsControllerUpdateResponseError = (integrationsControllerUpdateResponse401 | integrationsControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type integrationsControllerUpdateResponse = (integrationsControllerUpdateResponseSuccess | integrationsControllerUpdateResponseError)
+
+export const getIntegrationsControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/integrations/${id}`
+}
+
+export const integrationsControllerUpdate = async (id: string,
+    updateIntegrationDto: UpdateIntegrationDto, options?: RequestInit): Promise<integrationsControllerUpdateResponse> => {
+  
+  const res = await fetch(getIntegrationsControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateIntegrationDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: integrationsControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as integrationsControllerUpdateResponse
+}
+
+
 /**
  * @summary Remover integração
  */
-const integrationsControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/integrations/${id}`,options
-    );
+export type integrationsControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type integrationsControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type integrationsControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type integrationsControllerRemoveResponseSuccess = (integrationsControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type integrationsControllerRemoveResponseError = (integrationsControllerRemoveResponse401 | integrationsControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type integrationsControllerRemoveResponse = (integrationsControllerRemoveResponseSuccess | integrationsControllerRemoveResponseError)
+
+export const getIntegrationsControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/integrations/${id}`
+}
+
+export const integrationsControllerRemove = async (id: string, options?: RequestInit): Promise<integrationsControllerRemoveResponse> => {
+  
+  const res = await fetch(getIntegrationsControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {integrationsControllerCreate,integrationsControllerFindAll,integrationsControllerFindOne,integrationsControllerUpdate,integrationsControllerRemove}};
-export type IntegrationsControllerCreateResult = AxiosResponse<void>
-export type IntegrationsControllerFindAllResult = AxiosResponse<void>
-export type IntegrationsControllerFindOneResult = AxiosResponse<void>
-export type IntegrationsControllerUpdateResult = AxiosResponse<void>
-export type IntegrationsControllerRemoveResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: integrationsControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as integrationsControllerRemoveResponse
+}
+
+

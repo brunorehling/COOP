@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form"
 
 export type ProjectFormData = {
-  integrantes: number
   nome: string
   descricao: string
-  tecnologias: string[]
+  integrantes: number
+  bannerUrl?: string  
+  status?: "IN_PROGRESS" | "COMPLETED" | "ON_HOLD"
 }
 
 interface ProjectFormProps {
@@ -16,6 +17,7 @@ export default function ProjectForm({ onSubmit }: ProjectFormProps) {
 
   return (
     <form
+      id="project-form"
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col justify-center items-center gap-10 text-white w-full py-10"
     >

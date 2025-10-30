@@ -7,6 +7,18 @@ import './App.css'
 import { Cadastro } from './cadastro'
 import { Login } from './Login.tsx'
 import { CriarProjetos } from './CriarProjetos.tsx'
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.DEV ? '/' : 'https://projeto-api-7h8d.onrender.com'
+
+
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,12 +28,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/publicar" element={<CriarProjetos />} />
-        <Route path="/" element={<Land/>} />
+        <Route path="/" element={<Land />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
-
+  </StrictMode>
 )
-
-
-

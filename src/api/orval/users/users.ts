@@ -5,64 +5,217 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   UpdateUserDto
 } from '../coopApi.schemas';
 
 
-
-
-  export const getUsers = () => {
 /**
  * @summary Listar todos os usuários
  */
-const usersControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/users`,options
-    );
+export type usersControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type usersControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type usersControllerFindAllResponseSuccess = (usersControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type usersControllerFindAllResponseError = (usersControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type usersControllerFindAllResponse = (usersControllerFindAllResponseSuccess | usersControllerFindAllResponseError)
+
+export const getUsersControllerFindAllUrl = () => {
+
+
+  
+
+  return `/users`
+}
+
+export const usersControllerFindAll = async ( options?: RequestInit): Promise<usersControllerFindAllResponse> => {
+  
+  const res = await fetch(getUsersControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: usersControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as usersControllerFindAllResponse
+}
+
+
 /**
  * @summary Buscar usuário por ID
  */
-const usersControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/users/${id}`,options
-    );
+export type usersControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type usersControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type usersControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type usersControllerFindOneResponseSuccess = (usersControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type usersControllerFindOneResponseError = (usersControllerFindOneResponse401 | usersControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type usersControllerFindOneResponse = (usersControllerFindOneResponseSuccess | usersControllerFindOneResponseError)
+
+export const getUsersControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/users/${id}`
+}
+
+export const usersControllerFindOne = async (id: string, options?: RequestInit): Promise<usersControllerFindOneResponse> => {
+  
+  const res = await fetch(getUsersControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: usersControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as usersControllerFindOneResponse
+}
+
+
 /**
  * @summary Atualizar dados do usuário
  */
-const usersControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updateUserDto: UpdateUserDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/users/${id}`,
-      updateUserDto,options
-    );
+export type usersControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type usersControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type usersControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type usersControllerUpdateResponseSuccess = (usersControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type usersControllerUpdateResponseError = (usersControllerUpdateResponse401 | usersControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type usersControllerUpdateResponse = (usersControllerUpdateResponseSuccess | usersControllerUpdateResponseError)
+
+export const getUsersControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/users/${id}`
+}
+
+export const usersControllerUpdate = async (id: string,
+    updateUserDto: UpdateUserDto, options?: RequestInit): Promise<usersControllerUpdateResponse> => {
+  
+  const res = await fetch(getUsersControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateUserDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: usersControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as usersControllerUpdateResponse
+}
+
+
 /**
  * @summary Remover usuário
  */
-const usersControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/users/${id}`,options
-    );
+export type usersControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type usersControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type usersControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type usersControllerRemoveResponseSuccess = (usersControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type usersControllerRemoveResponseError = (usersControllerRemoveResponse401 | usersControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type usersControllerRemoveResponse = (usersControllerRemoveResponseSuccess | usersControllerRemoveResponseError)
+
+export const getUsersControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/users/${id}`
+}
+
+export const usersControllerRemove = async (id: string, options?: RequestInit): Promise<usersControllerRemoveResponse> => {
+  
+  const res = await fetch(getUsersControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {usersControllerFindAll,usersControllerFindOne,usersControllerUpdate,usersControllerRemove}};
-export type UsersControllerFindAllResult = AxiosResponse<void>
-export type UsersControllerFindOneResult = AxiosResponse<void>
-export type UsersControllerUpdateResult = AxiosResponse<void>
-export type UsersControllerRemoveResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: usersControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as usersControllerRemoveResponse
+}
+
+

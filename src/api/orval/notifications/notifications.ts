@@ -5,77 +5,267 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CreateNotificationDto,
   UpdateNotificationDto
 } from '../coopApi.schemas';
 
 
-
-
-  export const getNotifications = () => {
 /**
  * @summary Criar nova notificação
  */
-const notificationsControllerCreate = <TData = AxiosResponse<void>>(
-    createNotificationDto: CreateNotificationDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/notifications`,
-      createNotificationDto,options
-    );
+export type notificationsControllerCreateResponse201 = {
+  data: void
+  status: 201
+}
+
+export type notificationsControllerCreateResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type notificationsControllerCreateResponseSuccess = (notificationsControllerCreateResponse201) & {
+  headers: Headers;
+};
+export type notificationsControllerCreateResponseError = (notificationsControllerCreateResponse401) & {
+  headers: Headers;
+};
+
+export type notificationsControllerCreateResponse = (notificationsControllerCreateResponseSuccess | notificationsControllerCreateResponseError)
+
+export const getNotificationsControllerCreateUrl = () => {
+
+
+  
+
+  return `/notifications`
+}
+
+export const notificationsControllerCreate = async (createNotificationDto: CreateNotificationDto, options?: RequestInit): Promise<notificationsControllerCreateResponse> => {
+  
+  const res = await fetch(getNotificationsControllerCreateUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createNotificationDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: notificationsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as notificationsControllerCreateResponse
+}
+
+
 /**
  * @summary Listar todas as notificações
  */
-const notificationsControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/notifications`,options
-    );
+export type notificationsControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type notificationsControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type notificationsControllerFindAllResponseSuccess = (notificationsControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type notificationsControllerFindAllResponseError = (notificationsControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type notificationsControllerFindAllResponse = (notificationsControllerFindAllResponseSuccess | notificationsControllerFindAllResponseError)
+
+export const getNotificationsControllerFindAllUrl = () => {
+
+
+  
+
+  return `/notifications`
+}
+
+export const notificationsControllerFindAll = async ( options?: RequestInit): Promise<notificationsControllerFindAllResponse> => {
+  
+  const res = await fetch(getNotificationsControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: notificationsControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as notificationsControllerFindAllResponse
+}
+
+
 /**
  * @summary Buscar notificação por ID
  */
-const notificationsControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/notifications/${id}`,options
-    );
+export type notificationsControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type notificationsControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type notificationsControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type notificationsControllerFindOneResponseSuccess = (notificationsControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type notificationsControllerFindOneResponseError = (notificationsControllerFindOneResponse401 | notificationsControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type notificationsControllerFindOneResponse = (notificationsControllerFindOneResponseSuccess | notificationsControllerFindOneResponseError)
+
+export const getNotificationsControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/notifications/${id}`
+}
+
+export const notificationsControllerFindOne = async (id: string, options?: RequestInit): Promise<notificationsControllerFindOneResponse> => {
+  
+  const res = await fetch(getNotificationsControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: notificationsControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as notificationsControllerFindOneResponse
+}
+
+
 /**
  * @summary Atualizar notificação
  */
-const notificationsControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updateNotificationDto: UpdateNotificationDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/notifications/${id}`,
-      updateNotificationDto,options
-    );
+export type notificationsControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type notificationsControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type notificationsControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type notificationsControllerUpdateResponseSuccess = (notificationsControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type notificationsControllerUpdateResponseError = (notificationsControllerUpdateResponse401 | notificationsControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type notificationsControllerUpdateResponse = (notificationsControllerUpdateResponseSuccess | notificationsControllerUpdateResponseError)
+
+export const getNotificationsControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/notifications/${id}`
+}
+
+export const notificationsControllerUpdate = async (id: string,
+    updateNotificationDto: UpdateNotificationDto, options?: RequestInit): Promise<notificationsControllerUpdateResponse> => {
+  
+  const res = await fetch(getNotificationsControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateNotificationDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: notificationsControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as notificationsControllerUpdateResponse
+}
+
+
 /**
  * @summary Remover notificação
  */
-const notificationsControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/notifications/${id}`,options
-    );
+export type notificationsControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type notificationsControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type notificationsControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type notificationsControllerRemoveResponseSuccess = (notificationsControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type notificationsControllerRemoveResponseError = (notificationsControllerRemoveResponse401 | notificationsControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type notificationsControllerRemoveResponse = (notificationsControllerRemoveResponseSuccess | notificationsControllerRemoveResponseError)
+
+export const getNotificationsControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/notifications/${id}`
+}
+
+export const notificationsControllerRemove = async (id: string, options?: RequestInit): Promise<notificationsControllerRemoveResponse> => {
+  
+  const res = await fetch(getNotificationsControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {notificationsControllerCreate,notificationsControllerFindAll,notificationsControllerFindOne,notificationsControllerUpdate,notificationsControllerRemove}};
-export type NotificationsControllerCreateResult = AxiosResponse<void>
-export type NotificationsControllerFindAllResult = AxiosResponse<void>
-export type NotificationsControllerFindOneResult = AxiosResponse<void>
-export type NotificationsControllerUpdateResult = AxiosResponse<void>
-export type NotificationsControllerRemoveResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: notificationsControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as notificationsControllerRemoveResponse
+}
+
+

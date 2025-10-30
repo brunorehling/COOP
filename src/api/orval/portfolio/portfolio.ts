@@ -5,77 +5,267 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CreatePortfolioDto,
   UpdatePortfolioDto
 } from '../coopApi.schemas';
 
 
-
-
-  export const getPortfolio = () => {
 /**
  * @summary Criar novo portfólio
  */
-const portfolioControllerCreate = <TData = AxiosResponse<void>>(
-    createPortfolioDto: CreatePortfolioDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/portfolio`,
-      createPortfolioDto,options
-    );
+export type portfolioControllerCreateResponse201 = {
+  data: void
+  status: 201
+}
+
+export type portfolioControllerCreateResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type portfolioControllerCreateResponseSuccess = (portfolioControllerCreateResponse201) & {
+  headers: Headers;
+};
+export type portfolioControllerCreateResponseError = (portfolioControllerCreateResponse401) & {
+  headers: Headers;
+};
+
+export type portfolioControllerCreateResponse = (portfolioControllerCreateResponseSuccess | portfolioControllerCreateResponseError)
+
+export const getPortfolioControllerCreateUrl = () => {
+
+
+  
+
+  return `/portfolio`
+}
+
+export const portfolioControllerCreate = async (createPortfolioDto: CreatePortfolioDto, options?: RequestInit): Promise<portfolioControllerCreateResponse> => {
+  
+  const res = await fetch(getPortfolioControllerCreateUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createPortfolioDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: portfolioControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as portfolioControllerCreateResponse
+}
+
+
 /**
  * @summary Listar todos os portfólios
  */
-const portfolioControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/portfolio`,options
-    );
+export type portfolioControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type portfolioControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type portfolioControllerFindAllResponseSuccess = (portfolioControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type portfolioControllerFindAllResponseError = (portfolioControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type portfolioControllerFindAllResponse = (portfolioControllerFindAllResponseSuccess | portfolioControllerFindAllResponseError)
+
+export const getPortfolioControllerFindAllUrl = () => {
+
+
+  
+
+  return `/portfolio`
+}
+
+export const portfolioControllerFindAll = async ( options?: RequestInit): Promise<portfolioControllerFindAllResponse> => {
+  
+  const res = await fetch(getPortfolioControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: portfolioControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as portfolioControllerFindAllResponse
+}
+
+
 /**
  * @summary Buscar portfólio por ID
  */
-const portfolioControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/portfolio/${id}`,options
-    );
+export type portfolioControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type portfolioControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type portfolioControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type portfolioControllerFindOneResponseSuccess = (portfolioControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type portfolioControllerFindOneResponseError = (portfolioControllerFindOneResponse401 | portfolioControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type portfolioControllerFindOneResponse = (portfolioControllerFindOneResponseSuccess | portfolioControllerFindOneResponseError)
+
+export const getPortfolioControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/portfolio/${id}`
+}
+
+export const portfolioControllerFindOne = async (id: string, options?: RequestInit): Promise<portfolioControllerFindOneResponse> => {
+  
+  const res = await fetch(getPortfolioControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: portfolioControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as portfolioControllerFindOneResponse
+}
+
+
 /**
  * @summary Atualizar portfólio
  */
-const portfolioControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updatePortfolioDto: UpdatePortfolioDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/portfolio/${id}`,
-      updatePortfolioDto,options
-    );
+export type portfolioControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type portfolioControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type portfolioControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type portfolioControllerUpdateResponseSuccess = (portfolioControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type portfolioControllerUpdateResponseError = (portfolioControllerUpdateResponse401 | portfolioControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type portfolioControllerUpdateResponse = (portfolioControllerUpdateResponseSuccess | portfolioControllerUpdateResponseError)
+
+export const getPortfolioControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/portfolio/${id}`
+}
+
+export const portfolioControllerUpdate = async (id: string,
+    updatePortfolioDto: UpdatePortfolioDto, options?: RequestInit): Promise<portfolioControllerUpdateResponse> => {
+  
+  const res = await fetch(getPortfolioControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updatePortfolioDto,)
   }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: portfolioControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as portfolioControllerUpdateResponse
+}
+
+
 /**
  * @summary Remover portfólio
  */
-const portfolioControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/portfolio/${id}`,options
-    );
+export type portfolioControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type portfolioControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type portfolioControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type portfolioControllerRemoveResponseSuccess = (portfolioControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type portfolioControllerRemoveResponseError = (portfolioControllerRemoveResponse401 | portfolioControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type portfolioControllerRemoveResponse = (portfolioControllerRemoveResponseSuccess | portfolioControllerRemoveResponseError)
+
+export const getPortfolioControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/portfolio/${id}`
+}
+
+export const portfolioControllerRemove = async (id: string, options?: RequestInit): Promise<portfolioControllerRemoveResponse> => {
+  
+  const res = await fetch(getPortfolioControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {portfolioControllerCreate,portfolioControllerFindAll,portfolioControllerFindOne,portfolioControllerUpdate,portfolioControllerRemove}};
-export type PortfolioControllerCreateResult = AxiosResponse<void>
-export type PortfolioControllerFindAllResult = AxiosResponse<void>
-export type PortfolioControllerFindOneResult = AxiosResponse<void>
-export type PortfolioControllerUpdateResult = AxiosResponse<void>
-export type PortfolioControllerRemoveResult = AxiosResponse<void>
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: portfolioControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as portfolioControllerRemoveResponse
+}
+
+
