@@ -2,11 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormContainer } from './components/FormContainer'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth } from './api/orval/auth/auth'
-
-
-
-const myApi = getAuth()
+import { fetchMutator } from './api/orval/mutator'
 
 type LoginData = {
   usernameOrEmail: string
@@ -22,39 +18,59 @@ export function Login() {
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
     setError('')
+
     try {
-      const res = await myApi.authControllerLogin({ usernameOrEmail: data.usernameOrEmail, password: data.password })
-      console.log('Usuário logado:', res.data)
+      const res = await fetchMutator({
+        url: '/auth/login',
+        method: 'POST',
+        body: data,
+      })
+
+      const token = res.access_token
+      if (!token) throw new Error('Token não retornado pelo servidor')
+
+      localStorage.setItem('token', token)
+      localStorage.setItem('clienteKey', '8')
+
+      console.log('Usuário logado:', res)
       navigate('/feed')
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Erro ao logar')
+      setError(err.message || 'Erro ao logar')
     } finally {
       setLoading(false)
     }
   })
 
   return (
-    <section className='bg-[#212b41]'>
-    <FormContainer title="Entrar" onSubmit={onSubmit} isLoading={loading} submitLabel="Entrar">
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+    <section className='bg-[#212b41] min-h-screen flex items-center justify-center'>
+      <FormContainer title="Entrar" onSubmit={onSubmit} isLoading={loading} submitLabel="Entrar">
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-      <div className="flex flex-col">
-        <label>Email</label>
-        <input type="email" {...register('usernameOrEmail', { required: true })} className="border p-2 rounded" />
-      </div>
+        <div className="flex flex-col">
+          <label>Email ou usuário</label>
+          <input
+            type="text"
+            {...register('usernameOrEmail', { required: true })}
+            className="border p-2 rounded"
+          />
+        </div>
 
-      <div className="flex flex-col">
-        <label>Senha</label>
-        <input type="password" {...register('password', { required: true })} className="border p-2 rounded" />
-      </div>
+        <div className="flex flex-col">
+          <label>Senha</label>
+          <input
+            type="password"
+            {...register('password', { required: true })}
+            className="border p-2 rounded"
+          />
+        </div>
 
-      <p className="text-sm text-center">
-        Não tem conta?{' '}
-        <Link to="/cadastro" className="text-pink-500 hover:underline">
-          Cadastre-se
-        </Link>
-      </p>
-    </FormContainer>
+        <p className="text-sm text-center mt-2">
+          Não tem conta?{' '}
+          <Link to="/cadastro" className="text-pink-500 hover:underline">
+            Cadastre-se
+          </Link>
+        </p>
+      </FormContainer>
     </section>
   )
 }
