@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import { InfoUserPages } from "./InfoUserPages";
 import { projectsControllerFindAll } from "../api/orval/projects/projects";
 import type { Project } from "../utils/projectType";
+import { tecnologias } from "./projects/ListaTech";
 
 export function MapProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
+
+  function toggleAba(projectId: number) {
+    setExpandedProjectId(prev => (prev === projectId ? null : projectId));
+  }
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -40,44 +46,73 @@ export function MapProjects() {
   if (projects.length === 0) return <p className="text-white">Nenhum projeto encontrado.</p>;
 
   return (
-    <>
-      {projects.map((project) => (
-        <div
-          key={project.id}
-          className="bg-[#3C4860] w-[1100px] h-[440px] rounded-[10px] mb-10"
-        >
-          <div className="flex justify-between items-center p-6 md:p-2">
-            <InfoUserPages />
-            <div className="flex justify-center items-center w-[300px] gap-4">
-              <h4 className="text-white text-base md:text-2xl font-medium font-Jost">
-                {project.name}
-              </h4>
-            </div>
-          </div>
+    <div className="flex flex-col items-center gap-10">
+      {projects.map((project) => {
+        const isExpanded = expandedProjectId === project.id;
 
-          <div className="flex justify-center items-center gap-20 p-6 md:p-4">
-            <div>
+        return (
+          <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
+            {/* Header */}
+            <div className="flex justify-between items-center p-6">
+              <InfoUserPages />
+              <h4 className="text-white text-2xl font-medium">{project.name}</h4>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
                 src="./foto_1.png"
                 alt="Foto Computador"
-                className="w-[370px] h-[250px]"
+                className="w-[370px] h-[250px] object-cover"
               />
+              <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
+                <p className="text-white text-lg">{project.description}</p>
+              </div>
             </div>
-            <div className="w-[600px] flex flex-col justify-center items-start gap-4">
-              <p className="text-white text-base md:text-lg font-normal font-Jost">
-                {project.description}
-              </p>
-            </div>
-          </div>
 
-          <div className="flex justify-end items-center pr-12 gap-4">
-            <p className="text-white text-lg font-normal font-Jost">{project.status}</p>
-            <button className="w-[170px] h-[34px] rounded-[25px] bg-black">
-              <p className="text-white text-lg font-normal font-Jost">Saiba Mais</p>
-            </button>
+            {/* Footer: status e toggle */}
+            <div className="flex justify-between items-center px-6 pb-6">
+              <p className="text-white text-lg">{project.status}</p>
+              <button
+                onClick={() => toggleAba(project.id)}
+                className="bg-black text-white px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition"
+              >
+                {isExpanded ? "Fechar" : "Saiba Mais"}
+              </button>
+            </div>
+
+            <div
+              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+                isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
+              }`}
+            >
+              {/* Tecnologias */}
+              <div>
+                <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
+                <div className="flex flex-wrap gap-4">
+                  {project.tags?.map((techName) => {
+                    const tech = tecnologias.find(([_, nome]) => nome === techName);
+                    if (!tech) return null;
+                    const [src, nome] = tech;
+                    return (
+                      <div key={nome} className="flex items-center gap-2">
+                        <img src={src} alt={nome} className="w-[41px] h-[35px]" />
+                        <p className="text-gray-700 text-lg">{nome}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
+                <p className="text-gray-700 text-lg font-semibold">{project.status}</p>
+                <button className="bg-[#e64eeb] text-white px-4 py-2 rounded-lg font-semibold hover:bg-pink-600 transition">
+                  Participar
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
-    </>
+        );
+      })}
+    </div>
   );
 }

@@ -5,6 +5,11 @@ export type Project = {
   status: 'IN_PROGRESS' | 'TESTING' | 'FINISHED';
   ownerId: number;
   createdAt: string;
+
+  bannerUrl?: string | null;
+  tags?: string[];
+  membersLimit?: number;
+
   owner: {
     id: number;
     name: string;
