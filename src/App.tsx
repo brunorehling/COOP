@@ -2,7 +2,7 @@ import { Routes, Route} from 'react-router-dom'
 import './App.css'
 import Land from './Land'
 import { Login } from './Login'
-import { Cadastro } from './Cadastro'
+import { Cadastro } from './cadastro'
 import { CriarProjetos } from './CriarProjetos'
 import Feed from './Feed'
 
