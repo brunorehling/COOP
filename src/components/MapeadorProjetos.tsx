@@ -1,9 +1,9 @@
 // MapProjects.tsx
 import { useEffect, useState } from "react";
-import { InfoUserPages } from "./InfoUserPages";
 import { projectsControllerFindAll } from "../api/orval/projects/projects";
 import type { Project } from "../utils/projectType";
 import { tecnologias } from "./projects/ListaTech";
+import { UserInfo } from "./users/cabecalho_user";
 
 // criar lookup rápido: nome da tag (minúsculo) -> src
 const techLookup = Object.fromEntries(
@@ -58,9 +58,8 @@ export function MapProjects() {
 
         return (
           <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
-            {/* Header */}
             <div className="flex justify-between items-center p-6">
-              <InfoUserPages />
+              <UserInfo owner={project.owner} />
               <h4 className="text-white text-2xl font-medium">{project.name}</h4>
             </div>
 

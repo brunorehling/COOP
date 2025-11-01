@@ -38,7 +38,7 @@ export default function TechSelector({ onChange }: TechSelectorProps) {
         />
       </div>
 
-      <div className="flex flex-wrap justify-center items-center gap-3 max-w-md">
+      <div className="flex flex-wrap justify-center items-center gap-3 max-w-md min-w-md">
         {filtradas.map(([src, nome]) => (
           <CardTech
             key={nome}

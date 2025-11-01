@@ -12,7 +12,8 @@ export type Project = {
 
   owner: {
     id: number;
-    name: string;
+    username: string;
     email: string;
+    role : string;
   };
 };

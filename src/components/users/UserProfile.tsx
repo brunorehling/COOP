@@ -1,7 +1,7 @@
 import  CardTechUser  from './CardTechUser';
 
 
-export function userInfo(){
+export function userProfile(){
     return(
         <>
             <div className="flex flex-warp bg-white w-full h-20% items-center justify-center shadow-lg mb-10">
