@@ -1,33 +1,27 @@
 import { useState, useEffect } from "react"
 import CardTech from "./CardTech"
+import { tecnologias } from "./ListaTech"
 
 interface TechSelectorProps {
   onChange?: (techs: string[]) => void
 }
-
-const tecnologias = [
-  "html", "css", "js", "ts",
-  "jest", "java", "cobol", "express",
-  "postgres", "mysql", "mongo", "laravel",
-  "python", "django", "next", "react"
-]
 
 export default function TechSelector({ onChange }: TechSelectorProps) {
   const [busca, setBusca] = useState("")
   const [selecionadas, setSelecionadas] = useState<string[]>([])
 
   const filtradas = tecnologias
-    .filter(tec => tec.toLowerCase().includes(busca.toLowerCase()))
+    .filter(([_, nome]) => nome.toLowerCase().includes(busca.toLowerCase()))
     .slice(0, 12)
 
   function toggleSelecao(tec: string) {
-    setSelecionadas(prev => {
-      const novaSelecao = prev.includes(tec)
+    setSelecionadas(prev =>
+      prev.includes(tec)
         ? prev.filter(t => t !== tec)
         : [...prev, tec]
-      return novaSelecao
-    })
+    )
   }
+
   useEffect(() => {
     onChange?.(selecionadas)
   }, [selecionadas, onChange])
@@ -44,13 +38,14 @@ export default function TechSelector({ onChange }: TechSelectorProps) {
         />
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3 max-w-md">
-        {filtradas.map(tec => (
+      <div className="flex flex-wrap justify-center items-center gap-3 max-w-md min-w-md">
+        {filtradas.map(([src, nome]) => (
           <CardTech
-            key={tec}
-            name={tec}
-            selected={selecionadas.includes(tec)}
-            onClick={() => toggleSelecao(tec)}
+            key={nome}
+            name={nome}
+            img={src}
+            selected={selecionadas.includes(nome)}
+            onClick={() => toggleSelecao(nome)}
           />
         ))}
       </div>
