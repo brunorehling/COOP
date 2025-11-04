@@ -23,25 +23,32 @@ export function Cadastro() {
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
     setError('')
-
+  
     if (data.password !== data.senhaConfirm) {
       setError('As senhas não coincidem')
       setLoading(false)
       return
     }
-
+  
     try {
-      await authControllerRegister({
+      const response = await authControllerRegister({
         username: data.username,
         email: data.email,
         phone: data.phone,
         password: data.password,
         role: data.role,
       })
-      console.log('Usuário cadastrado')
-      navigate('/login')
+  
+      if (response.status === 201) {
+        console.log('Usuário cadastrado')
+        navigate('/login')
+      } else if (response.status === 409) {
+        setError('Username ou email já está em uso')
+      } else {
+        setError('Erro ao cadastrar')
+      }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Erro ao cadastrar')
+      setError('Erro de conexão ou inesperado')
     } finally {
       setLoading(false)
     }

@@ -1,4 +1,3 @@
-// UserInfo.tsx
 import type { Project } from "../../utils/projectType"
 interface UserInfoProps {
   owner: Project["owner"]

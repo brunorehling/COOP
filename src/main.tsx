@@ -7,6 +7,7 @@ import './App.css'
 import { Cadastro } from './cadastro.tsx'
 import { Login } from './Login.tsx'
 import { CriarProjetos } from './CriarProjetos.tsx'
+import { UserProfile } from './components/users/UserProfile.tsx'
 import axios from 'axios'
 
 axios.defaults.baseURL = import.meta.env.DEV ? '/' : 'https://projeto-api-7h8d.onrender.com'
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/publicar" element={<CriarProjetos />} />
+        <Route path="/perfil" element={<UserProfile />} />
         <Route path="/" element={<Land />} />
       </Routes>
     </BrowserRouter>

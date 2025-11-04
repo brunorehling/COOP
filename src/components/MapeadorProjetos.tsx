@@ -59,7 +59,13 @@ export function MapProjects() {
         return (
           <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
             <div className="flex justify-between items-center p-6">
+              <div className="flex flex-warp gap-20 justify-center items-center ">
               <UserInfo owner={project.owner} />
+                <div className="flex flex-warp gap-5">
+                  <img src="./userBranco.png" alt=""/>
+                  <h1 className="text-2xl text-white font-jost">{project.membersLimit}</h1>
+                </div>
+              </div>
               <h4 className="text-white text-2xl font-medium">{project.name}</h4>
             </div>
 
@@ -111,7 +117,6 @@ export function MapProjects() {
 
               {/* Footer expandido: status e participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <p className="text-gray-700 text-lg font-semibold">{project.status}</p>
                 <button className="bg-[#e64eeb] text-white px-4 py-2 rounded-lg font-semibold hover:bg-pink-600 transition">
                   Participar
                 </button>
