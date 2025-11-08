@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { projectsControllerFindAll } from "../api/orval/projects/projects";
 import type { Project } from "../utils/projectType";
 import { tecnologias } from "./projects/ListaTech";
-import { UserInfo } from "./users/cabecalho_user";
+import { UserInfo } from "./users/cabecalho_user_card";
 
 // criar lookup rápido: nome da tag (minúsculo) -> src
 const techLookup = Object.fromEntries(

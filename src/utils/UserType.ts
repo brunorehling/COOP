@@ -5,6 +5,6 @@ export type User = {
   username: string
   email: string
   phone?: string
-  avatarUrl?: string
+  avatarUrl: string
   role: RegisterDtoRole
 }
