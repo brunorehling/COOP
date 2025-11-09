@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* index.css ou App.css */
+body {
+    background-color: #212C42;
+  }
+  

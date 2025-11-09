@@ -16,7 +16,7 @@ export function Navegacao () {
                     <Link to="">
                         <img src="./explore_not_selected.png" alt="explorar" className="" />
                     </Link>
-                    <Link to="">
+                    <Link to="/meusProjetos">
                         <p className="hidden md:flex text-white text-2xl font-normal font-Jost">Meus Projetos</p>
                     </Link>
                 </div>

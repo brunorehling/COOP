@@ -1,17 +1,39 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Land from './Land.tsx'
+import Feed from './Feed.tsx'
 import './App.css'
-import Footer from './components/Footer'
+import { Cadastro } from './cadastro.tsx'
+import { Login } from './Login.tsx'
+import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
+import { CriarProjetos } from './CriarProjetos.tsx'
+import { UserProfile } from './components/users/UserProfile.tsx'
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.DEV ? '/' : 'https://projeto-api-7h8d.onrender.com'
+
+
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
 
 createRoot(document.getElementById('root')!).render(
-  <div className="min-h-screen bg-fundo">
-    <StrictMode>
-      <BrowserRouter>
-        <App />
-        <Footer/>
-      </BrowserRouter>
-    </StrictMode>
-  </div>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/publicar" element={<CriarProjetos />} />
+        <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/meusProjetos" element={<FeedUser />} />
+        <Route path="/" element={<Land />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
 )

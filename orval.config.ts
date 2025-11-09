@@ -1,12 +1,16 @@
-/** @type {import('@orval/core').OrvalConfig} */
-module.exports = {
+export default {
   myApi: {
-    input: 'url da api no render',
+    input: 'https://projeto-api-7h8d.onrender.com/api-json',
     output: {
-      mode: 'tags-split', // pode ser 'single' se preferir um único arquivo
-      target: './src/api/orval', // gera uma pasta com arquivos por tag
-      client: 'axios', // gera funções que usam axios
-      override: true, // sobrescreve se já existir
+      mode: 'tags-split',
+      target: './src/api/orval',
+      client: 'fetch',
+      override: {
+        mutator: {
+          path: './src/api/fetcher.ts',
+          name: 'customFetcher',
+        },
+      },
     },
   },
 };

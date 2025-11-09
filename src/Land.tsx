@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Cabecalho1 } from "./components/Cabecalho1.tsx"
 import { Footer } from './components/Footer.tsx'
@@ -13,7 +12,7 @@ function Land() {
             <h2 className=" text-white text-[44px] md:text-[60px] font-semibold font-Jost">COOPERE, CONHEÇA E COLABORE COM PESSOAS EM SEUS PROJETOS.</h2>
             <p className=" text-white/60 text-[22px] md:text-[24px] font-normal font-Jost">Buscamos impulsionar e criar um ecossistema  rico para desenvolvedores e idealizadores. Venha bater papo, curtir e colaborar!</p>
             <div className="flex justify-center items-center w-[648px] pt-6">
-              <button className="flex justify-center items-center w-[220.26px] h-[43px] bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost"><Link to="Feed">Let's CO-OP!</Link></button>
+              <button className="flex justify-center items-center w-[220.26px] h-[43px] bg-[#e64eeb] rounded-[21px] text-white text-2xl font-normal font-Jost"><Link to="/feed">Let's CO-OP!</Link></button>
             </div>
           </div>
           <div className="">

@@ -5,77 +5,322 @@
  * API completa para gerenciamento de projetos colaborativos com autenticação JWT e recuperação de senha via Magic Link
  * OpenAPI spec version: 1.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CreateProjectDto,
   UpdateProjectDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
-
-
-  export const getProjects = () => {
 /**
  * @summary Criar novo projeto
  */
-const projectsControllerCreate = <TData = AxiosResponse<void>>(
-    createProjectDto: CreateProjectDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.post(
-      `/projects`,
-      createProjectDto,options
-    );
+export type projectsControllerCreateResponse201 = {
+  data: void
+  status: 201
+}
+
+export type projectsControllerCreateResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type projectsControllerCreateResponseSuccess = (projectsControllerCreateResponse201) & {
+  headers: Headers;
+};
+export type projectsControllerCreateResponseError = (projectsControllerCreateResponse401) & {
+  headers: Headers;
+};
+
+export type projectsControllerCreateResponse = (projectsControllerCreateResponseSuccess | projectsControllerCreateResponseError)
+
+export const getProjectsControllerCreateUrl = () => {
+
+
+  
+
+  return `/projects`
+}
+
+export const projectsControllerCreate = async (createProjectDto: CreateProjectDto, options?: RequestInit): Promise<projectsControllerCreateResponse> => {
+  
+  return customFetcher<projectsControllerCreateResponse>(getProjectsControllerCreateUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createProjectDto,)
   }
+);}
+
+
 /**
  * @summary Listar todos os projetos
  */
-const projectsControllerFindAll = <TData = AxiosResponse<void>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/projects`,options
-    );
+export type projectsControllerFindAllResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerFindAllResponse401 = {
+  data: void
+  status: 401
+}
+    
+export type projectsControllerFindAllResponseSuccess = (projectsControllerFindAllResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerFindAllResponseError = (projectsControllerFindAllResponse401) & {
+  headers: Headers;
+};
+
+export type projectsControllerFindAllResponse = (projectsControllerFindAllResponseSuccess | projectsControllerFindAllResponseError)
+
+export const getProjectsControllerFindAllUrl = () => {
+
+
+  
+
+  return `/projects`
+}
+
+export const projectsControllerFindAll = async ( options?: RequestInit): Promise<projectsControllerFindAllResponse> => {
+  
+  return customFetcher<projectsControllerFindAllResponse>(getProjectsControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+);}
+
+
 /**
  * @summary Buscar projeto por ID
  */
-const projectsControllerFindOne = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.get(
-      `/projects/${id}`,options
-    );
+export type projectsControllerFindOneResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerFindOneResponse401 = {
+  data: void
+  status: 401
+}
+
+export type projectsControllerFindOneResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type projectsControllerFindOneResponseSuccess = (projectsControllerFindOneResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerFindOneResponseError = (projectsControllerFindOneResponse401 | projectsControllerFindOneResponse404) & {
+  headers: Headers;
+};
+
+export type projectsControllerFindOneResponse = (projectsControllerFindOneResponseSuccess | projectsControllerFindOneResponseError)
+
+export const getProjectsControllerFindOneUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}`
+}
+
+export const projectsControllerFindOne = async (id: string, options?: RequestInit): Promise<projectsControllerFindOneResponse> => {
+  
+  return customFetcher<projectsControllerFindOneResponse>(getProjectsControllerFindOneUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
+);}
+
+
 /**
  * @summary Atualizar projeto
  */
-const projectsControllerUpdate = <TData = AxiosResponse<void>>(
-    id: string,
-    updateProjectDto: UpdateProjectDto, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.patch(
-      `/projects/${id}`,
-      updateProjectDto,options
-    );
+export type projectsControllerUpdateResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerUpdateResponse401 = {
+  data: void
+  status: 401
+}
+
+export type projectsControllerUpdateResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type projectsControllerUpdateResponseSuccess = (projectsControllerUpdateResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerUpdateResponseError = (projectsControllerUpdateResponse401 | projectsControllerUpdateResponse404) & {
+  headers: Headers;
+};
+
+export type projectsControllerUpdateResponse = (projectsControllerUpdateResponseSuccess | projectsControllerUpdateResponseError)
+
+export const getProjectsControllerUpdateUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}`
+}
+
+export const projectsControllerUpdate = async (id: string,
+    updateProjectDto: UpdateProjectDto, options?: RequestInit): Promise<projectsControllerUpdateResponse> => {
+  
+  return customFetcher<projectsControllerUpdateResponse>(getProjectsControllerUpdateUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateProjectDto,)
   }
+);}
+
+
 /**
  * @summary Remover projeto
  */
-const projectsControllerRemove = <TData = AxiosResponse<void>>(
-    id: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.default.delete(
-      `/projects/${id}`,options
-    );
+export type projectsControllerRemoveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerRemoveResponse401 = {
+  data: void
+  status: 401
+}
+
+export type projectsControllerRemoveResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type projectsControllerRemoveResponseSuccess = (projectsControllerRemoveResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerRemoveResponseError = (projectsControllerRemoveResponse401 | projectsControllerRemoveResponse404) & {
+  headers: Headers;
+};
+
+export type projectsControllerRemoveResponse = (projectsControllerRemoveResponseSuccess | projectsControllerRemoveResponseError)
+
+export const getProjectsControllerRemoveUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}`
+}
+
+export const projectsControllerRemove = async (id: string, options?: RequestInit): Promise<projectsControllerRemoveResponse> => {
+  
+  return customFetcher<projectsControllerRemoveResponse>(getProjectsControllerRemoveUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-return {projectsControllerCreate,projectsControllerFindAll,projectsControllerFindOne,projectsControllerUpdate,projectsControllerRemove}};
-export type ProjectsControllerCreateResult = AxiosResponse<void>
-export type ProjectsControllerFindAllResult = AxiosResponse<void>
-export type ProjectsControllerFindOneResult = AxiosResponse<void>
-export type ProjectsControllerUpdateResult = AxiosResponse<void>
-export type ProjectsControllerRemoveResult = AxiosResponse<void>
+);}
+
+
+/**
+ * @summary Entrar em um projeto (incrementa integrantes)
+ */
+export type projectsControllerJoinResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerJoinResponse400 = {
+  data: void
+  status: 400
+}
+    
+export type projectsControllerJoinResponseSuccess = (projectsControllerJoinResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerJoinResponseError = (projectsControllerJoinResponse400) & {
+  headers: Headers;
+};
+
+export type projectsControllerJoinResponse = (projectsControllerJoinResponseSuccess | projectsControllerJoinResponseError)
+
+export const getProjectsControllerJoinUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}/join`
+}
+
+export const projectsControllerJoin = async (id: string, options?: RequestInit): Promise<projectsControllerJoinResponse> => {
+  
+  return customFetcher<projectsControllerJoinResponse>(getProjectsControllerJoinUrl(id),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+);}
+
+
+/**
+ * @summary Sair de um projeto (decrementa integrantes)
+ */
+export type projectsControllerLeaveResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerLeaveResponse400 = {
+  data: void
+  status: 400
+}
+    
+export type projectsControllerLeaveResponseSuccess = (projectsControllerLeaveResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerLeaveResponseError = (projectsControllerLeaveResponse400) & {
+  headers: Headers;
+};
+
+export type projectsControllerLeaveResponse = (projectsControllerLeaveResponseSuccess | projectsControllerLeaveResponseError)
+
+export const getProjectsControllerLeaveUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}/leave`
+}
+
+export const projectsControllerLeave = async (id: string, options?: RequestInit): Promise<projectsControllerLeaveResponse> => {
+  
+  return customFetcher<projectsControllerLeaveResponse>(getProjectsControllerLeaveUrl(id),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+);}
+
+
