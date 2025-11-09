@@ -4,8 +4,13 @@ export default {
     output: {
       mode: 'tags-split',
       target: './src/api/orval',
-      client: 'fetch', // <--- aqui
-      override: true,
+      client: 'fetch',
+      override: {
+        mutator: {
+          path: './src/api/fetcher.ts',
+          name: 'customFetcher',
+        },
+      },
     },
   },
 };

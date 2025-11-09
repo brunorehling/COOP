@@ -10,6 +10,7 @@ import type {
   UpdatePortfolioDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Criar novo portfólio
@@ -43,7 +44,7 @@ export const getPortfolioControllerCreateUrl = () => {
 
 export const portfolioControllerCreate = async (createPortfolioDto: CreatePortfolioDto, options?: RequestInit): Promise<portfolioControllerCreateResponse> => {
   
-  const res = await fetch(getPortfolioControllerCreateUrl(),
+  return customFetcher<portfolioControllerCreateResponse>(getPortfolioControllerCreateUrl(),
   {      
     ...options,
     method: 'POST',
@@ -51,13 +52,7 @@ export const portfolioControllerCreate = async (createPortfolioDto: CreatePortfo
     body: JSON.stringify(
       createPortfolioDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: portfolioControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as portfolioControllerCreateResponse
-}
+);}
 
 
 /**
@@ -92,20 +87,14 @@ export const getPortfolioControllerFindAllUrl = () => {
 
 export const portfolioControllerFindAll = async ( options?: RequestInit): Promise<portfolioControllerFindAllResponse> => {
   
-  const res = await fetch(getPortfolioControllerFindAllUrl(),
+  return customFetcher<portfolioControllerFindAllResponse>(getPortfolioControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: portfolioControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as portfolioControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -145,20 +134,14 @@ export const getPortfolioControllerFindOneUrl = (id: string,) => {
 
 export const portfolioControllerFindOne = async (id: string, options?: RequestInit): Promise<portfolioControllerFindOneResponse> => {
   
-  const res = await fetch(getPortfolioControllerFindOneUrl(id),
+  return customFetcher<portfolioControllerFindOneResponse>(getPortfolioControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: portfolioControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as portfolioControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -199,7 +182,7 @@ export const getPortfolioControllerUpdateUrl = (id: string,) => {
 export const portfolioControllerUpdate = async (id: string,
     updatePortfolioDto: UpdatePortfolioDto, options?: RequestInit): Promise<portfolioControllerUpdateResponse> => {
   
-  const res = await fetch(getPortfolioControllerUpdateUrl(id),
+  return customFetcher<portfolioControllerUpdateResponse>(getPortfolioControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -207,13 +190,7 @@ export const portfolioControllerUpdate = async (id: string,
     body: JSON.stringify(
       updatePortfolioDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: portfolioControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as portfolioControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -253,19 +230,13 @@ export const getPortfolioControllerRemoveUrl = (id: string,) => {
 
 export const portfolioControllerRemove = async (id: string, options?: RequestInit): Promise<portfolioControllerRemoveResponse> => {
   
-  const res = await fetch(getPortfolioControllerRemoveUrl(id),
+  return customFetcher<portfolioControllerRemoveResponse>(getPortfolioControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: portfolioControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as portfolioControllerRemoveResponse
-}
+);}
 
 

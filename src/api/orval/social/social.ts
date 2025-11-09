@@ -10,6 +10,7 @@ import type {
   UpdateSocialDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Criar interação social
@@ -43,7 +44,7 @@ export const getSocialControllerCreateUrl = () => {
 
 export const socialControllerCreate = async (createSocialDto: CreateSocialDto, options?: RequestInit): Promise<socialControllerCreateResponse> => {
   
-  const res = await fetch(getSocialControllerCreateUrl(),
+  return customFetcher<socialControllerCreateResponse>(getSocialControllerCreateUrl(),
   {      
     ...options,
     method: 'POST',
@@ -51,13 +52,7 @@ export const socialControllerCreate = async (createSocialDto: CreateSocialDto, o
     body: JSON.stringify(
       createSocialDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: socialControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as socialControllerCreateResponse
-}
+);}
 
 
 /**
@@ -92,20 +87,14 @@ export const getSocialControllerFindAllUrl = () => {
 
 export const socialControllerFindAll = async ( options?: RequestInit): Promise<socialControllerFindAllResponse> => {
   
-  const res = await fetch(getSocialControllerFindAllUrl(),
+  return customFetcher<socialControllerFindAllResponse>(getSocialControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: socialControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as socialControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -145,20 +134,14 @@ export const getSocialControllerFindOneUrl = (id: string,) => {
 
 export const socialControllerFindOne = async (id: string, options?: RequestInit): Promise<socialControllerFindOneResponse> => {
   
-  const res = await fetch(getSocialControllerFindOneUrl(id),
+  return customFetcher<socialControllerFindOneResponse>(getSocialControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: socialControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as socialControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -199,7 +182,7 @@ export const getSocialControllerUpdateUrl = (id: string,) => {
 export const socialControllerUpdate = async (id: string,
     updateSocialDto: UpdateSocialDto, options?: RequestInit): Promise<socialControllerUpdateResponse> => {
   
-  const res = await fetch(getSocialControllerUpdateUrl(id),
+  return customFetcher<socialControllerUpdateResponse>(getSocialControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -207,13 +190,7 @@ export const socialControllerUpdate = async (id: string,
     body: JSON.stringify(
       updateSocialDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: socialControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as socialControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -253,19 +230,13 @@ export const getSocialControllerRemoveUrl = (id: string,) => {
 
 export const socialControllerRemove = async (id: string, options?: RequestInit): Promise<socialControllerRemoveResponse> => {
   
-  const res = await fetch(getSocialControllerRemoveUrl(id),
+  return customFetcher<socialControllerRemoveResponse>(getSocialControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: socialControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as socialControllerRemoveResponse
-}
+);}
 
 

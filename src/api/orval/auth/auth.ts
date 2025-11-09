@@ -13,6 +13,7 @@ import type {
   ResetPasswordDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Registrar novo usuário
@@ -46,7 +47,7 @@ export const getAuthControllerRegisterUrl = () => {
 
 export const authControllerRegister = async (registerDto: RegisterDto, options?: RequestInit): Promise<authControllerRegisterResponse> => {
   
-  const res = await fetch(getAuthControllerRegisterUrl(),
+  return customFetcher<authControllerRegisterResponse>(getAuthControllerRegisterUrl(),
   {      
     ...options,
     method: 'POST',
@@ -54,13 +55,7 @@ export const authControllerRegister = async (registerDto: RegisterDto, options?:
     body: JSON.stringify(
       registerDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerRegisterResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerRegisterResponse
-}
+);}
 
 
 /**
@@ -95,7 +90,7 @@ export const getAuthControllerLoginUrl = () => {
 
 export const authControllerLogin = async (loginDto: LoginDto, options?: RequestInit): Promise<authControllerLoginResponse> => {
   
-  const res = await fetch(getAuthControllerLoginUrl(),
+  return customFetcher<authControllerLoginResponse>(getAuthControllerLoginUrl(),
   {      
     ...options,
     method: 'POST',
@@ -103,13 +98,7 @@ export const authControllerLogin = async (loginDto: LoginDto, options?: RequestI
     body: JSON.stringify(
       loginDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerLoginResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerLoginResponse
-}
+);}
 
 
 /**
@@ -144,20 +133,14 @@ export const getAuthControllerGetProfileUrl = () => {
 
 export const authControllerGetProfile = async ( options?: RequestInit): Promise<authControllerGetProfileResponse> => {
   
-  const res = await fetch(getAuthControllerGetProfileUrl(),
+  return customFetcher<authControllerGetProfileResponse>(getAuthControllerGetProfileUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerGetProfileResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerGetProfileResponse
-}
+);}
 
 
 /**
@@ -185,7 +168,7 @@ export const getAuthControllerRequestMagicLinkUrl = () => {
 
 export const authControllerRequestMagicLink = async (requestMagicLinkDto: RequestMagicLinkDto, options?: RequestInit): Promise<authControllerRequestMagicLinkResponse> => {
   
-  const res = await fetch(getAuthControllerRequestMagicLinkUrl(),
+  return customFetcher<authControllerRequestMagicLinkResponse>(getAuthControllerRequestMagicLinkUrl(),
   {      
     ...options,
     method: 'POST',
@@ -193,13 +176,7 @@ export const authControllerRequestMagicLink = async (requestMagicLinkDto: Reques
     body: JSON.stringify(
       requestMagicLinkDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerRequestMagicLinkResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerRequestMagicLinkResponse
-}
+);}
 
 
 /**
@@ -234,20 +211,14 @@ export const getAuthControllerGetResetPasswordPageUrl = (params: AuthControllerG
 
 export const authControllerGetResetPasswordPage = async (params: AuthControllerGetResetPasswordPageParams, options?: RequestInit): Promise<authControllerGetResetPasswordPageResponse> => {
   
-  const res = await fetch(getAuthControllerGetResetPasswordPageUrl(params),
+  return customFetcher<authControllerGetResetPasswordPageResponse>(getAuthControllerGetResetPasswordPageUrl(params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerGetResetPasswordPageResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerGetResetPasswordPageResponse
-}
+);}
 
 
 /**
@@ -287,7 +258,7 @@ export const getAuthControllerResetPasswordUrl = () => {
 
 export const authControllerResetPassword = async (resetPasswordDto: ResetPasswordDto, options?: RequestInit): Promise<authControllerResetPasswordResponse> => {
   
-  const res = await fetch(getAuthControllerResetPasswordUrl(),
+  return customFetcher<authControllerResetPasswordResponse>(getAuthControllerResetPasswordUrl(),
   {      
     ...options,
     method: 'POST',
@@ -295,12 +266,6 @@ export const authControllerResetPassword = async (resetPasswordDto: ResetPasswor
     body: JSON.stringify(
       resetPasswordDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: authControllerResetPasswordResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as authControllerResetPasswordResponse
-}
+);}
 
 

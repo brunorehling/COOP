@@ -10,6 +10,7 @@ import type {
   UpdateIntegrationDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Criar nova integração
@@ -43,7 +44,7 @@ export const getIntegrationsControllerCreateUrl = () => {
 
 export const integrationsControllerCreate = async (createIntegrationDto: CreateIntegrationDto, options?: RequestInit): Promise<integrationsControllerCreateResponse> => {
   
-  const res = await fetch(getIntegrationsControllerCreateUrl(),
+  return customFetcher<integrationsControllerCreateResponse>(getIntegrationsControllerCreateUrl(),
   {      
     ...options,
     method: 'POST',
@@ -51,13 +52,7 @@ export const integrationsControllerCreate = async (createIntegrationDto: CreateI
     body: JSON.stringify(
       createIntegrationDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: integrationsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as integrationsControllerCreateResponse
-}
+);}
 
 
 /**
@@ -92,20 +87,14 @@ export const getIntegrationsControllerFindAllUrl = () => {
 
 export const integrationsControllerFindAll = async ( options?: RequestInit): Promise<integrationsControllerFindAllResponse> => {
   
-  const res = await fetch(getIntegrationsControllerFindAllUrl(),
+  return customFetcher<integrationsControllerFindAllResponse>(getIntegrationsControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: integrationsControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as integrationsControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -145,20 +134,14 @@ export const getIntegrationsControllerFindOneUrl = (id: string,) => {
 
 export const integrationsControllerFindOne = async (id: string, options?: RequestInit): Promise<integrationsControllerFindOneResponse> => {
   
-  const res = await fetch(getIntegrationsControllerFindOneUrl(id),
+  return customFetcher<integrationsControllerFindOneResponse>(getIntegrationsControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: integrationsControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as integrationsControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -199,7 +182,7 @@ export const getIntegrationsControllerUpdateUrl = (id: string,) => {
 export const integrationsControllerUpdate = async (id: string,
     updateIntegrationDto: UpdateIntegrationDto, options?: RequestInit): Promise<integrationsControllerUpdateResponse> => {
   
-  const res = await fetch(getIntegrationsControllerUpdateUrl(id),
+  return customFetcher<integrationsControllerUpdateResponse>(getIntegrationsControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -207,13 +190,7 @@ export const integrationsControllerUpdate = async (id: string,
     body: JSON.stringify(
       updateIntegrationDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: integrationsControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as integrationsControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -253,19 +230,13 @@ export const getIntegrationsControllerRemoveUrl = (id: string,) => {
 
 export const integrationsControllerRemove = async (id: string, options?: RequestInit): Promise<integrationsControllerRemoveResponse> => {
   
-  const res = await fetch(getIntegrationsControllerRemoveUrl(id),
+  return customFetcher<integrationsControllerRemoveResponse>(getIntegrationsControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: integrationsControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as integrationsControllerRemoveResponse
-}
+);}
 
 

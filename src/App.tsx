@@ -5,6 +5,7 @@ import { Login } from './Login'
 import { Cadastro } from './cadastro'
 import { CriarProjetos } from './CriarProjetos'
 import Feed from './Feed'
+import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { Cabecalho2 } from './components/Cabecalho2'
 import { UserProfile } from './components/users/UserProfile'
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/meusProjetos" element={<FeedUser />} />
         <Route path="/" element={<Land />} />
       </Routes>
     </div>

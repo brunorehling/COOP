@@ -10,6 +10,7 @@ import type {
   UpdateNotificationDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Criar nova notificação
@@ -43,7 +44,7 @@ export const getNotificationsControllerCreateUrl = () => {
 
 export const notificationsControllerCreate = async (createNotificationDto: CreateNotificationDto, options?: RequestInit): Promise<notificationsControllerCreateResponse> => {
   
-  const res = await fetch(getNotificationsControllerCreateUrl(),
+  return customFetcher<notificationsControllerCreateResponse>(getNotificationsControllerCreateUrl(),
   {      
     ...options,
     method: 'POST',
@@ -51,13 +52,7 @@ export const notificationsControllerCreate = async (createNotificationDto: Creat
     body: JSON.stringify(
       createNotificationDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: notificationsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as notificationsControllerCreateResponse
-}
+);}
 
 
 /**
@@ -92,20 +87,14 @@ export const getNotificationsControllerFindAllUrl = () => {
 
 export const notificationsControllerFindAll = async ( options?: RequestInit): Promise<notificationsControllerFindAllResponse> => {
   
-  const res = await fetch(getNotificationsControllerFindAllUrl(),
+  return customFetcher<notificationsControllerFindAllResponse>(getNotificationsControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: notificationsControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as notificationsControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -145,20 +134,14 @@ export const getNotificationsControllerFindOneUrl = (id: string,) => {
 
 export const notificationsControllerFindOne = async (id: string, options?: RequestInit): Promise<notificationsControllerFindOneResponse> => {
   
-  const res = await fetch(getNotificationsControllerFindOneUrl(id),
+  return customFetcher<notificationsControllerFindOneResponse>(getNotificationsControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: notificationsControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as notificationsControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -199,7 +182,7 @@ export const getNotificationsControllerUpdateUrl = (id: string,) => {
 export const notificationsControllerUpdate = async (id: string,
     updateNotificationDto: UpdateNotificationDto, options?: RequestInit): Promise<notificationsControllerUpdateResponse> => {
   
-  const res = await fetch(getNotificationsControllerUpdateUrl(id),
+  return customFetcher<notificationsControllerUpdateResponse>(getNotificationsControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -207,13 +190,7 @@ export const notificationsControllerUpdate = async (id: string,
     body: JSON.stringify(
       updateNotificationDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: notificationsControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as notificationsControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -253,19 +230,13 @@ export const getNotificationsControllerRemoveUrl = (id: string,) => {
 
 export const notificationsControllerRemove = async (id: string, options?: RequestInit): Promise<notificationsControllerRemoveResponse> => {
   
-  const res = await fetch(getNotificationsControllerRemoveUrl(id),
+  return customFetcher<notificationsControllerRemoveResponse>(getNotificationsControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: notificationsControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as notificationsControllerRemoveResponse
-}
+);}
 
 

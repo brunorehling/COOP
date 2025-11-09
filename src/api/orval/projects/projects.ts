@@ -10,6 +10,7 @@ import type {
   UpdateProjectDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Criar novo projeto
@@ -43,7 +44,7 @@ export const getProjectsControllerCreateUrl = () => {
 
 export const projectsControllerCreate = async (createProjectDto: CreateProjectDto, options?: RequestInit): Promise<projectsControllerCreateResponse> => {
   
-  const res = await fetch(getProjectsControllerCreateUrl(),
+  return customFetcher<projectsControllerCreateResponse>(getProjectsControllerCreateUrl(),
   {      
     ...options,
     method: 'POST',
@@ -51,13 +52,7 @@ export const projectsControllerCreate = async (createProjectDto: CreateProjectDt
     body: JSON.stringify(
       createProjectDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerCreateResponse
-}
+);}
 
 
 /**
@@ -92,20 +87,14 @@ export const getProjectsControllerFindAllUrl = () => {
 
 export const projectsControllerFindAll = async ( options?: RequestInit): Promise<projectsControllerFindAllResponse> => {
   
-  const res = await fetch(getProjectsControllerFindAllUrl(),
+  return customFetcher<projectsControllerFindAllResponse>(getProjectsControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -145,20 +134,14 @@ export const getProjectsControllerFindOneUrl = (id: string,) => {
 
 export const projectsControllerFindOne = async (id: string, options?: RequestInit): Promise<projectsControllerFindOneResponse> => {
   
-  const res = await fetch(getProjectsControllerFindOneUrl(id),
+  return customFetcher<projectsControllerFindOneResponse>(getProjectsControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -199,7 +182,7 @@ export const getProjectsControllerUpdateUrl = (id: string,) => {
 export const projectsControllerUpdate = async (id: string,
     updateProjectDto: UpdateProjectDto, options?: RequestInit): Promise<projectsControllerUpdateResponse> => {
   
-  const res = await fetch(getProjectsControllerUpdateUrl(id),
+  return customFetcher<projectsControllerUpdateResponse>(getProjectsControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -207,13 +190,7 @@ export const projectsControllerUpdate = async (id: string,
     body: JSON.stringify(
       updateProjectDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -253,20 +230,14 @@ export const getProjectsControllerRemoveUrl = (id: string,) => {
 
 export const projectsControllerRemove = async (id: string, options?: RequestInit): Promise<projectsControllerRemoveResponse> => {
   
-  const res = await fetch(getProjectsControllerRemoveUrl(id),
+  return customFetcher<projectsControllerRemoveResponse>(getProjectsControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerRemoveResponse
-}
+);}
 
 
 /**
@@ -301,20 +272,14 @@ export const getProjectsControllerJoinUrl = (id: string,) => {
 
 export const projectsControllerJoin = async (id: string, options?: RequestInit): Promise<projectsControllerJoinResponse> => {
   
-  const res = await fetch(getProjectsControllerJoinUrl(id),
+  return customFetcher<projectsControllerJoinResponse>(getProjectsControllerJoinUrl(id),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerJoinResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerJoinResponse
-}
+);}
 
 
 /**
@@ -349,19 +314,13 @@ export const getProjectsControllerLeaveUrl = (id: string,) => {
 
 export const projectsControllerLeave = async (id: string, options?: RequestInit): Promise<projectsControllerLeaveResponse> => {
   
-  const res = await fetch(getProjectsControllerLeaveUrl(id),
+  return customFetcher<projectsControllerLeaveResponse>(getProjectsControllerLeaveUrl(id),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: projectsControllerLeaveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as projectsControllerLeaveResponse
-}
+);}
 
 

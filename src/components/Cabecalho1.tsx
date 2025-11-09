@@ -1,6 +1,5 @@
 // import { Link } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { Icon_buscar_1 } from "./IconBuscar1.tsx";
 
 export function Cabecalho1() {
     return(

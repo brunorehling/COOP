@@ -9,6 +9,7 @@ import type {
   UpdateUserDto
 } from '../coopApi.schemas';
 
+import { customFetcher } from '../../fetcher';
 
 /**
  * @summary Listar todos os usuários
@@ -42,20 +43,14 @@ export const getUsersControllerFindAllUrl = () => {
 
 export const usersControllerFindAll = async ( options?: RequestInit): Promise<usersControllerFindAllResponse> => {
   
-  const res = await fetch(getUsersControllerFindAllUrl(),
+  return customFetcher<usersControllerFindAllResponse>(getUsersControllerFindAllUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: usersControllerFindAllResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as usersControllerFindAllResponse
-}
+);}
 
 
 /**
@@ -95,20 +90,14 @@ export const getUsersControllerFindOneUrl = (id: string,) => {
 
 export const usersControllerFindOne = async (id: string, options?: RequestInit): Promise<usersControllerFindOneResponse> => {
   
-  const res = await fetch(getUsersControllerFindOneUrl(id),
+  return customFetcher<usersControllerFindOneResponse>(getUsersControllerFindOneUrl(id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: usersControllerFindOneResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as usersControllerFindOneResponse
-}
+);}
 
 
 /**
@@ -149,7 +138,7 @@ export const getUsersControllerUpdateUrl = (id: string,) => {
 export const usersControllerUpdate = async (id: string,
     updateUserDto: UpdateUserDto, options?: RequestInit): Promise<usersControllerUpdateResponse> => {
   
-  const res = await fetch(getUsersControllerUpdateUrl(id),
+  return customFetcher<usersControllerUpdateResponse>(getUsersControllerUpdateUrl(id),
   {      
     ...options,
     method: 'PATCH',
@@ -157,13 +146,7 @@ export const usersControllerUpdate = async (id: string,
     body: JSON.stringify(
       updateUserDto,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: usersControllerUpdateResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as usersControllerUpdateResponse
-}
+);}
 
 
 /**
@@ -203,19 +186,13 @@ export const getUsersControllerRemoveUrl = (id: string,) => {
 
 export const usersControllerRemove = async (id: string, options?: RequestInit): Promise<usersControllerRemoveResponse> => {
   
-  const res = await fetch(getUsersControllerRemoveUrl(id),
+  return customFetcher<usersControllerRemoveResponse>(getUsersControllerRemoveUrl(id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: usersControllerRemoveResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as usersControllerRemoveResponse
-}
+);}
 
 

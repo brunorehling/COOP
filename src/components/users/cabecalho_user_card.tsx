@@ -13,9 +13,9 @@ interface UserInfoProps {
 }
 
 export function UserInfo({ owner, user }: UserInfoProps) {
-  const data = owner || user // usa o que vier
+  const data = owner || user
 
-  if (!data) return null // se não vier nada, não renderiza nada
+  if (!data) return null
 
   return (
     <div className="flex items-center gap-4 px-4 py-2">
