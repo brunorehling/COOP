@@ -2,14 +2,16 @@ export const customFetcher = async <T>(
   url: string,
   options?: RequestInit
 ): Promise<T> => {
-  // baseUrl deve vir do .env (ajusta se estiver diferente)
   const baseUrl = import.meta.env.VITE_API_URL || 'https://projeto-api-7h8d.onrender.com';
   const fullUrl = `${baseUrl}${url}`;
+
+  const token = localStorage.getItem("token");
 
   const response = await fetch(fullUrl, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : "",
       ...options?.headers,
     },
   });
