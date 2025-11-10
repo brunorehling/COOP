@@ -4,6 +4,7 @@ import { projectsControllerFindAll } from "../api/orval/projects/projects";
 import type { Project } from "../utils/projectType";
 import { tecnologias } from "./projects/ListaTech";
 import { UserInfo } from "./users/cabecalho_user_card";
+import { JoinProjectButton } from "./projects/JoinProjectButtom";
 
 // criar lookup rápido: nome da tag (minúsculo) -> src
 const techLookup = Object.fromEntries(
@@ -94,7 +95,7 @@ export function MapProjects() {
 
             {/* Aba expandida */}
             <div
-              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+              className={`flex flex-warp justify-between w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
               }`}
             >
@@ -106,9 +107,11 @@ export function MapProjects() {
                     const src = techLookup[tag.toLowerCase()];
                     if (!src) return null;
                     return (
-                      <div key={tag} className="flex items-center gap-2">
-                        <img src={src} alt={tag} className="w-[41px] h-[35px]" />
-                        <p className="text-black text-lg">{tag}</p>
+                      <div key={tag} className="flex items-center gap-2 border rounded-2xl ">
+                        <div className="flex flex-warp mx-2 my-1">
+                          <img src={src} alt={tag} className="w-[41px] h-[35px]" />
+                          <p className="text-black text-lg">{tag}</p>
+                        </div>
                       </div>
                     );
                   })}
@@ -117,9 +120,7 @@ export function MapProjects() {
 
               {/* Footer expandido: status e participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <button className="bg-[#e64eeb] text-white px-4 py-2 rounded-lg font-semibold hover:bg-pink-600 transition">
-                  Participar
-                </button>
+                <JoinProjectButton projectId={project.id} />
               </div>
             </div>
           </div>
