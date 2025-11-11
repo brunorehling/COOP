@@ -8,6 +8,7 @@ import { Cadastro } from './cadastro.tsx'
 import { Login } from './Login.tsx'
 import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { CriarProjetos } from './CriarProjetos.tsx'
+import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
 import { UserProfile } from './components/users/UserProfile.tsx'
 import axios from 'axios'
 
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/meusProjetos" element={<FeedUser />} />
+        <Route path="/gestao/:id" element={<GestaoProjeto />} />
         <Route path="/" element={<Land />} />
       </Routes>
     </BrowserRouter>

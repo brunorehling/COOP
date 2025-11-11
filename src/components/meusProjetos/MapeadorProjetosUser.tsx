@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { projectsControllerFindAll } from "../../api/orval/projects/projects";
 import { authControllerGetProfile } from "../../api/orval/auth/auth";
 import type { Project } from "../../utils/projectType";
-import type { User } from "../../utils/UserType";
 import { tecnologias } from "../projects/ListaTech";
 import { UserInfo } from "../users/cabecalho_user_card";
+import { Link } from "react-router-dom";
 
 const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
@@ -110,7 +110,7 @@ export function MapProjectsUser() {
             </div>
 
             <div
-              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+              className={` flex flex-warp justify-between w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
               }`}
             >
@@ -128,6 +128,13 @@ export function MapProjectsUser() {
                     );
                   })}
                 </div>
+              </div>
+              <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
+                  <Link to={`/gestao/${project.id}`}>
+                    <p className="hidden md:flex text-2xl font-normal font-Jost bg-[#e64eeb] rounded-2xl px-2 py-1 hover:border">
+                      Inspecionar
+                    </p>
+                  </Link>
               </div>
             </div>
           </div>

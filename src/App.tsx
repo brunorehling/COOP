@@ -8,6 +8,7 @@ import Feed from './Feed'
 import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { Cabecalho2 } from './components/Cabecalho2'
 import { UserProfile } from './components/users/UserProfile'
+import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
 
 export default function App() {
   const token = localStorage.getItem('token') 
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/meusProjetos" element={<FeedUser />} />
+        <Route path="/gestao/:id" element={<GestaoProjeto />} />
         <Route path="/" element={<Land />} />
       </Routes>
     </div>
