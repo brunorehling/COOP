@@ -20,7 +20,7 @@ export function Navegacao() {
         <Link to="/feed">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/feed' ? 'text-[#e64eeb]' : 'text-white'
+              location.pathname === '/feed' ? 'text-white underline decoration-[#e64eeb] decoration-2' : 'text-white'
             }`}
           >
             Página inicial
@@ -44,7 +44,7 @@ export function Navegacao() {
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
               location.pathname === '/meusProjetos'
-                ? 'text-[#e64eeb]'
+                ?  'text-white underline decoration-[#e64eeb] decoration-2' 
                 : 'text-white'
             }`}
           >
@@ -68,7 +68,7 @@ export function Navegacao() {
         <Link to="">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/mensagens' ? 'text-[#e64eeb]' : 'text-white'
+              location.pathname === '/mensagens' ?  'text-white underline decoration-[#e64eeb] decoration-2'  : 'text-white'
             }`}
           >
             Mensagens
@@ -91,7 +91,7 @@ export function Navegacao() {
         <Link to="/publicar">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/publicar' ? 'text-[#e64eeb]' : 'text-white'
+              location.pathname === '/publicar' ? 'text-white underline decoration-[#e64eeb] decoration-2' : 'text-white'
             }`}
           >
             Publicar
@@ -114,7 +114,7 @@ export function Navegacao() {
         <Link to="">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/artigos' ? 'text-[#e64eeb]' : 'text-white'
+              location.pathname === '/artigos' ? 'text-white underline decoration-[#e64eeb] decoration-2' : 'text-white'
             }`}
           >
             Artigos
