@@ -45,17 +45,15 @@ export function GestaoProjeto() {
   if (!project) return <p className="text-white text-center py-10">Projeto não encontrado.</p>;
 
   return (
-    <>
-      <Cabecalho2 />
+    <div className="min-h-screen flex flex-col bg-[#1A2333]">
+      <Cabecalho2 />     
 
-      <NavProject activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <div className="p-10">
-        {activeTab === "visaoGeral" && project && <VisaoGeralProjeto project={project} />}
-        {activeTab === "tarefas" && <p className="text-white">Tarefas do projeto...</p>}
+      <main className="flex flex-col items-center flex-1 py-10">
+        <NavProject activeTab={activeTab} setActiveTab={setActiveTab} />
+        {activeTab === "visaoGeral" && <VisaoGeralProjeto project={project} />}
         {activeTab === "equipe" && <p className="text-white">Equipe do projeto...</p>}
         {activeTab === "config" && <p className="text-white">Configurações do projeto...</p>}
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ interface VisaoGeralProjetoProps {
 
 export function VisaoGeralProjeto({ project }: VisaoGeralProjetoProps) {
   return (
-    <div className="flex flex-col items-center gap-6 py-10 text-white bg-[#3C4860] w-[70vw] mx-auto my-10 rounded-3xl">
+    <div className="flex flex-col items-center gap-6 py-10 text-white  bg-[#3C4860] w-[70vw] mx-auto my-10 rounded-3xl">
       <h1 className="text-4xl font-bold">{project.name}</h1>
 
       <img

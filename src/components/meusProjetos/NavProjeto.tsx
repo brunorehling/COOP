@@ -12,12 +12,6 @@ export function NavProject({ activeTab, setActiveTab }: NavProjectProps) {
       iconActive: "/home_selected.png",
     },
     {
-      id: "tarefas",
-      label: "Tarefas",
-      icon: "/tasks.png",
-      iconActive: "/tasks.png",
-    },
-    {
       id: "equipe",
       label: "Equipe",
       icon: "/team_not_selected.png",
@@ -32,7 +26,7 @@ export function NavProject({ activeTab, setActiveTab }: NavProjectProps) {
   ];
 
   return (
-    <nav className="flex justify-center gap-10 border-b border-gray-600 py-4 bg-[#1A2333]">
+    <nav className="flex justify-center items-center gap-10 border-b border-gray-600 py-4">
       {tabs.map((tab) => (
         <button
           key={tab.id}

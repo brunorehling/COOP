@@ -67,7 +67,7 @@ export function MapProjectsUser() {
   }, []);
 
   if (loading) return <p className="text-white">Carregando projetos...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error) return <p className="text-red-500">Erro</p>;
   if (projects.length === 0) return <p className="text-white">Nenhum projeto encontrado.</p>;
 
   return (
@@ -90,7 +90,7 @@ export function MapProjectsUser() {
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
-                src={project.bannerUrl || "./foto_1.png"}
+                src={project.bannerUrl || "/foto_1.png"}
                 alt="Foto Computador"
                 className="w-[370px] h-[250px] object-cover"
               />

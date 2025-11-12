@@ -97,28 +97,35 @@ export function MapProjects() {
             <div
               className={`flex flex-warp justify-between w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
-              }`}
-            >
+              }`}>
+
               {/* Tecnologias */}
               <div>
                 <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
-                <div className="flex flex-wrap gap-4">
-                  {project.tags?.map((tag) => {
+                <footer className="flex gap-4 pb-3">
+                  {project.tags?.slice(0, 5).map((tag) => {
                     const src = techLookup[tag.toLowerCase()];
                     if (!src) return null;
                     return (
-                      <div key={tag} className="flex items-center gap-2 border rounded-2xl ">
-                        <div className="flex flex-warp mx-2 my-1">
+                      <div
+                        key={tag}
+                        className="flex items-center gap-2 border rounded-2xl bg-gray-50 hover:bg-gray-100 transition"
+                      >
+                        <div className="flex items-center mx-2 my-1">
                           <img src={src} alt={tag} className="w-[41px] h-[35px]" />
-                          <p className="text-black text-lg">{tag}</p>
+                          <p className="text-black text-lg ml-2">{tag}</p>
                         </div>
                       </div>
                     );
                   })}
-                </div>
-              </div>
 
-              {/* Footer expandido: status e participar */}
+                  {project.tags && project.tags.length > 5 && (
+                    <div className="flex items-center justify-center text-gray-700 font-medium px-4 py-2 border rounded-2xl bg-gray-100">
+                      +{project.tags.length - 5}
+                    </div>
+                  )}
+                </footer>
+              </div>
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
                 <JoinProjectButton projectId={project.id} />
               </div>
