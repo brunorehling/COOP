@@ -83,7 +83,7 @@ export function Navegacao() {
             src={
               location.pathname === '/publicar'
                 ? '/publish_selected.png'
-                : '/publish not selected.png'
+                : '/publish_not_selected.png'
             }
             alt="Publicar"
           />

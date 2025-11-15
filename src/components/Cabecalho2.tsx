@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { User } from '../utils/UserType'
 import { usersControllerFindOne } from '../api/orval/users/users'
+import { NotificationModal } from '../Notificacoes'
 
 export function Cabecalho2() {
   const [user, setUser] = useState<User | null>(null)
+  const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
     async function fetchUser() {
@@ -51,6 +53,22 @@ export function Cabecalho2() {
               <div className="w-10 h-10 bg-gray-500 rounded-full" />
             )}
           </Link>
+         <button onClick={() => setOpenModal(!openModal)}>
+          <img
+            src={
+              openModal
+                ? "/notification_selected.png"
+                : "/notification_not_selected.png"
+            }
+            alt="Notificações"
+            className="w-7 h-7"
+          />
+        </button>
+
+        <NotificationModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+        />
         </div>
       </div>
     </header>
