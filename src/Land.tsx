@@ -19,7 +19,7 @@ function Land() {
             <img src="./image1.png" alt="" className="w-[551px] h-[488px] md:w-[547px] md:h-[530px]" />
           </div>
         </section>
-        <section className="flex flex-col md:flex-row md:justify-around items-center gap-14 pr-14 pl-14 pt-20 pb-28 md:pr-24 md:pl-28 md:pt-10 md:pb-20">
+        <section className="flex flex-col md:flex-row md:justify-around bg-white items-center gap-14 pr-14 pl-14 pt-20 pb-28 md:pr-24 md:pl-28 md:pt-10 md:pb-20">
           <div className="hidden md:block">
             <img src="./image2.png" alt="" className="" />
           </div>

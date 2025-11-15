@@ -1,34 +1,71 @@
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 
 export type ProjectFormData = {
   nome: string
   descricao: string
   integrantes: number
-  bannerUrl?: string  
   status?: "IN_PROGRESS" | "COMPLETED" | "ON_HOLD"
+  bannerFile?: FileList
 }
 
 interface ProjectFormProps {
-  onSubmit: (data: ProjectFormData) => void
+  onSubmit: (data: { nome: string; descricao: string; integrantes: number; status?: string; bannerUrl?: string }) => void
 }
 
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
+
 export default function ProjectForm({ onSubmit }: ProjectFormProps) {
-  const { register, handleSubmit } = useForm<ProjectFormData>()
+  const { register, handleSubmit, watch } = useForm<ProjectFormData>()
+  const bannerFile = watch("bannerFile")
+  const [preview, setPreview] = useState<string | null>(null)
+
+  async function handleFormSubmit(data: ProjectFormData) {
+    let bannerUrl: string | undefined
+
+    if (data.bannerFile?.[0]) {
+      const file = data.bannerFile[0]
+      const formData = new FormData()
+      formData.append("file", file)
+      formData.append("upload_preset", UPLOAD_PRESET)
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        { method: "POST", body: formData }
+      )
+      const json = await res.json()
+      bannerUrl = json.secure_url
+    }
+
+    onSubmit({
+      nome: data.nome,
+      descricao: data.descricao,
+      integrantes: data.integrantes,
+      status: data.status,
+      bannerUrl,
+    })
+  }
 
   return (
-    <form
-      id="project-form"
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-center gap-10 text-white w-full py-10"
-    >
-      <div className="flex justify-center w-full">
-        <img
-          src="./foto_1.png"
-          alt="Foto Computador"
-          className="rounded-xl shadow-lg object-cover w-[30vw] min-w-[320px] max-w-[500px] h-auto"
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col justify-center items-center gap-10 text-white w-full py-10">
+      
+      {/* Upload do Banner */}
+      <div className="flex flex-col items-center gap-2">
+        <label className="text-sm font-bold">Banner do projeto</label>
+        <input
+          type="file"
+          accept="image/*"
+          {...register("bannerFile")}
+          className="text-white"
+          onChange={(e) => {
+            if (e.target.files?.[0]) setPreview(URL.createObjectURL(e.target.files[0]))
+          }}
         />
+        {preview && <img src={preview} className="mt-2 w-[300px] h-auto rounded-lg" />}
       </div>
 
+      {/* Outras informações do projeto */}
       <div className="flex items-center justify-center gap-16 w-[60vw] min-w-[600px] max-w-[900px]">
         <div className="flex flex-warp items-center gap-2 w-[40%]">
           <label className="mb-1 text-sm font-bold">Nº de integrantes</label>
@@ -57,6 +94,10 @@ export default function ProjectForm({ onSubmit }: ProjectFormProps) {
           placeholder="Descreva o projeto..."
         />
       </div>
+
+      <button type="submit" className="bg-[#E64EEB] px-6 py-3 rounded-xl text-white font-semibold mt-4">
+        Salvar Projeto
+      </button>
     </form>
   )
 }

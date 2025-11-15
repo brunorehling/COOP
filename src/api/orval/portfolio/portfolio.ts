@@ -39,7 +39,7 @@ export const getPortfolioControllerCreateUrl = () => {
 
   
 
-  return `/portfolio`
+  return `/portfolios`
 }
 
 export const portfolioControllerCreate = async (createPortfolioDto: CreatePortfolioDto, options?: RequestInit): Promise<portfolioControllerCreateResponse> => {
@@ -82,7 +82,7 @@ export const getPortfolioControllerFindAllUrl = () => {
 
   
 
-  return `/portfolio`
+  return `/portfolios`
 }
 
 export const portfolioControllerFindAll = async ( options?: RequestInit): Promise<portfolioControllerFindAllResponse> => {
@@ -129,7 +129,7 @@ export const getPortfolioControllerFindOneUrl = (id: string,) => {
 
   
 
-  return `/portfolio/${id}`
+  return `/portfolios/${id}`
 }
 
 export const portfolioControllerFindOne = async (id: string, options?: RequestInit): Promise<portfolioControllerFindOneResponse> => {
@@ -176,7 +176,7 @@ export const getPortfolioControllerUpdateUrl = (id: string,) => {
 
   
 
-  return `/portfolio/${id}`
+  return `/portfolios/${id}`
 }
 
 export const portfolioControllerUpdate = async (id: string,
@@ -225,7 +225,7 @@ export const getPortfolioControllerRemoveUrl = (id: string,) => {
 
   
 
-  return `/portfolio/${id}`
+  return `/portfolios/${id}`
 }
 
 export const portfolioControllerRemove = async (id: string, options?: RequestInit): Promise<portfolioControllerRemoveResponse> => {

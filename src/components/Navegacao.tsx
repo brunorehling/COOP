@@ -11,8 +11,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/feed'
-                ? './home_selected.png'
-                : './home_not_selected.png'
+                ? '/home_selected.png'
+                : '/home_not_selected.png'
             }
             alt="Página inicial"
           />
@@ -30,20 +30,20 @@ export function Navegacao() {
 
       {/* Meus Projetos */}
       <div className="flex items-center justify-left md:gap-6">
-        <Link to="/meusProjetos">
+        <Link to="/meus_projetos">
           <img
             src={
-              location.pathname === '/meusProjetos'
-                ? './explore_selected.png'
-                : './explore_not_selected.png'
+              location.pathname === '/meus_projetos'
+                ? '/explore_selected.png'
+                : '/explore_not_selected.png'
             }
             alt="Meus Projetos"
           />
         </Link>
-        <Link to="/meusProjetos">
+        <Link to="/meus_projetos">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/meusProjetos'
+              location.pathname === '/meus_projetos'
                 ?  'text-white underline decoration-[#e64eeb] decoration-2' 
                 : 'text-white'
             }`}
@@ -59,8 +59,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/mensagens'
-                ? './message_selected.png'
-                : './message not selected.png'
+                ? '/message_selected.png'
+                : '/message not selected.png'
             }
             alt="Mensagens"
           />
@@ -82,8 +82,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/publicar'
-                ? './publish_selected.png'
-                : './publish not selected.png'
+                ? '/publish_selected.png'
+                : '/publish not selected.png'
             }
             alt="Publicar"
           />
@@ -95,29 +95,6 @@ export function Navegacao() {
             }`}
           >
             Publicar
-          </p>
-        </Link>
-      </div>
-
-      {/* Artigos */}
-      <div className="flex items-center justify-left md:gap-6">
-        <Link to="">
-          <img
-            src={
-              location.pathname === '/artigos'
-                ? './artigo selecionado.png'
-                : './artigo nao selecionado.png'
-            }
-            alt="Artigos"
-          />
-        </Link>
-        <Link to="">
-          <p
-            className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/artigos' ? 'text-white underline decoration-[#e64eeb] decoration-2' : 'text-white'
-            }`}
-          >
-            Artigos
           </p>
         </Link>
       </div>

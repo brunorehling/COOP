@@ -31,18 +31,18 @@ export function Login() {
 
       localStorage.setItem('token', token)
       localStorage.setItem('clienteKey', '8')
+      localStorage.setItem('userId', res.user.id)
 
       console.log('Usuário logado:', res)
       navigate('/feed')
     } catch (err: any) {
-      setError(err.message || 'Erro ao logar')
+      setError('Erro ao logar')
     } finally {
       setLoading(false)
     }
   })
 
   return (
-    <section className='bg-[#212b41] min-h-screen flex items-center justify-center'>
       <FormContainer title="Entrar" onSubmit={onSubmit} isLoading={loading} submitLabel="Entrar">
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
@@ -71,6 +71,5 @@ export function Login() {
           </Link>
         </p>
       </FormContainer>
-    </section>
   )
 }
