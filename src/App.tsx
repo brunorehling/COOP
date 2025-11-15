@@ -9,12 +9,14 @@ import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { Cabecalho2 } from './components/Cabecalho2'
 import { UserProfile } from './components/users/UserProfile'
 import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
+import { UserProfileEdit } from './components/users/ProfileEdit.tsx'
+import { CreatePortfolio } from './components/users/portifolio/PortifolioCreate.tsx'
 
 export default function App() {
   const token = localStorage.getItem('token') 
 
   return (
-    <div className="min-h-screen bg-[#212C42]">
+    <div className="min-h-screen bg-gradient-[#212C42]">
       {token && <Cabecalho2 />}
       <Routes>
         <Route path="/feed" element={<Feed />} />
@@ -24,6 +26,8 @@ export default function App() {
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/meusProjetos" element={<FeedUser />} />
         <Route path="/gestao/:id" element={<GestaoProjeto />} />
+        <Route path="/editar_perfil/:id" element={<UserProfileEdit />} />
+        <Route path="/criar_portifolio" element={<CreatePortfolio />} />
         <Route path="/" element={<Land />} />
       </Routes>
     </div>

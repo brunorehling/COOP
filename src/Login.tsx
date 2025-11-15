@@ -31,6 +31,7 @@ export function Login() {
 
       localStorage.setItem('token', token)
       localStorage.setItem('clienteKey', '8')
+      localStorage.setItem('userId', res.user.id)
 
       console.log('Usuário logado:', res)
       navigate('/feed')

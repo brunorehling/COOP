@@ -11,6 +11,12 @@ const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
 );
 
+  const statusMap = {
+  IN_PROGRESS: "EM ANDAMENTO",
+  TESTING: "FASE DE TESTES",
+  FINISHED: "FINALIZADO",
+};
+
 export function MapProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +54,7 @@ export function MapProjects() {
     fetchProjects();
   }, []);
 
+
   if (loading) return <p className="text-white">Carregando projetos...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
   if (projects.length === 0) return <p className="text-white">Nenhum projeto encontrado.</p>;
@@ -60,22 +67,22 @@ export function MapProjects() {
         return (
           <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
             <div className="flex justify-between items-center p-6">
-              <div className="flex flex-warp gap-20 justify-center items-center ">
+              <div className="flex flex-warp gap-20 justify-center justify-between items-center">
               <UserInfo owner={project.owner} />
-                <div className="flex flex-warp gap-5">
+                <div className="flex flex-warp items-center gap-5 mb-5">
                   <img src="./userBranco.png" alt=""/>
                   <h1 className="text-2xl text-white font-jost">{project.membersLimit}</h1>
                 </div>
               </div>
-              <h4 className="text-white text-2xl font-medium">{project.name}</h4>
+              <h4 className="text-white text-2xl font-medium mb-8">{project.name}</h4>
             </div>
 
-            {/* Conteúdo */}
+           {/* Conteúdo */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
-                src="./foto_1.png"
-                alt="Foto Computador"
-                className="w-[370px] h-[250px] object-cover"
+                src={project.bannerUrl || "./foto_1.png"}
+                alt={project.bannerUrl ? `Banner do projeto ${project.name}` : "Imagem curinga do projeto"}
+                className="w-full md:w-[15vw] md:h-[20vh] h-auto rounded-xl object-cover"
               />
               <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
                 <p className="text-white text-lg">{project.description}</p>
@@ -84,7 +91,7 @@ export function MapProjects() {
 
             {/* Footer: status e toggle */}
             <div className="flex justify-between items-center px-6 pb-6">
-              <p className="text-white text-lg">{project.status}</p>
+              <p className="text-white text-lg">{statusMap[project.status]}</p>
               <button
                 onClick={() => toggleAba(project.id)}
                 className="bg-black text-white px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition"
@@ -109,7 +116,7 @@ export function MapProjects() {
                     return (
                       <div
                         key={tag}
-                        className="flex items-center gap-2 border rounded-2xl bg-gray-50 hover:bg-gray-100 transition"
+                        className="flex items-center gap-2 border rounded-2xl bg-gray-50 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
                       >
                         <div className="flex items-center mx-2 my-1">
                           <img src={src} alt={tag} className="w-[41px] h-[35px]" />

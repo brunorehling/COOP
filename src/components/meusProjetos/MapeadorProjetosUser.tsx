@@ -10,6 +10,13 @@ const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
 );
 
+
+  const statusMap = {
+  IN_PROGRESS: "EM ANDAMENTO",
+  TESTING: "FASE DE TESTES",
+  FINISHED: "FINALIZADO",
+};
+
 export function MapProjectsUser() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,7 +99,7 @@ export function MapProjectsUser() {
               <img
                 src={project.bannerUrl || "/foto_1.png"}
                 alt="Foto Computador"
-                className="w-[370px] h-[250px] object-cover"
+                className="w-full md:w-[15vw] md:h-[20vh] h-auto rounded-xl object-cover"
               />
               <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
                 <p className="text-white text-lg">{project.description}</p>
@@ -100,7 +107,7 @@ export function MapProjectsUser() {
             </div>
 
             <div className="flex justify-between items-center px-6 pb-6">
-              <p className="text-white text-lg">{project.status}</p>
+              <p className="text-white text-lg">{statusMap[project.status]}</p>
               <button
                 onClick={() => toggleAba(project.id)}
                 className="bg-black text-white px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition"
