@@ -6,6 +6,7 @@ type FormContainerProps = {
   onSubmit: () => void
   isLoading?: boolean
   submitLabel?: string
+  fullHeight?: boolean // nova prop
 }
 
 export function FormContainer({
@@ -14,21 +15,22 @@ export function FormContainer({
   onSubmit,
   isLoading = false,
   submitLabel = 'Enviar',
+  fullHeight = false, // default false
 }: FormContainerProps) {
   return (
-    <div className="flex justify-center bg-[#212b41] items-center min-h-screen">
+    <div className={`flex justify-center bg-[#212b41] ${fullHeight ? 'items-center min-h-screen' : 'items-start'}`}>
       <form
         onSubmit={(e) => {
           e.preventDefault()
           onSubmit()
         }}
-        className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md space-y-4"
+        className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg space-y-4"
       >
         <h1 className="text-2xl font-semibold text-center text-gray-800">{title}</h1>
         {children}
         <button
           type="submit"
-          className="w-full bg-[#E64EEB] text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
+          className="w-full bg-[#E64EEB] text-white font-semibold py-2 rounded-3xl transition disabled:opacity-50"
           disabled={isLoading}
         >
           {isLoading ? 'Carregando...' : submitLabel}

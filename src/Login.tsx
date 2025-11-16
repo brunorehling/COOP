@@ -43,33 +43,41 @@ export function Login() {
   })
 
   return (
-      <FormContainer title="Entrar" onSubmit={onSubmit} isLoading={loading} submitLabel="Entrar">
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+    <div className="flex flex-col items-center justify-start min-h-[80vh] pt-10 px-4 gap-10">
+      <div className='flex flex-col gap-5'>
+        <h1 style={{ fontFamily: '"Jersey 15", sans-serif' }} className="text-white text-5xl md:text-7xl font-semibold text-center">CO-OP</h1>
+        <h2 className="text-white text-2xl mt-2 text-center">Que bom ver você de volta!</h2>
+      </div>
+      <div className="w-full max-w-md mt-8">
+        <FormContainer title="Entrar" onSubmit={onSubmit} isLoading={loading} submitLabel="Entrar">
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        <div className="flex flex-col">
-          <label>Email ou usuário</label>
-          <input
-            type="text"
-            {...register('usernameOrEmail', { required: true })}
-            className="border p-2 rounded"
-          />
-        </div>
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-semibold">Email ou usuário</label>
+            <input
+              type="text"
+              {...register('usernameOrEmail', { required: true })}
+              className="border p-2 rounded bg-[rgba(230,78,235,0.15)]"
+            />
+          </div>
 
-        <div className="flex flex-col">
-          <label>Senha</label>
-          <input
-            type="password"
-            {...register('password', { required: true })}
-            className="border p-2 rounded"
-          />
-        </div>
+          <div className="flex flex-col mb-4">
+            <label className="mb-1 font-semibold">Senha</label>
+            <input
+              type="password"
+              {...register('password', { required: true })}
+              className="border p-2 rounded bg-[rgba(230,78,235,0.15)]"
+            />
+          </div>
 
-        <p className="text-sm text-center mt-2">
-          Não tem conta?{' '}
-          <Link to="/cadastro" className="text-pink-500 hover:underline">
-            Cadastre-se
-          </Link>
-        </p>
-      </FormContainer>
+          <p className="text-sm text-center mt-2">
+            Não tem conta?{' '}
+            <Link to="/cadastro" className="text-pink-500 hover:underline">
+              Cadastre-se
+            </Link>
+          </p>
+        </FormContainer>
+      </div>
+    </div>
   )
 }

@@ -66,23 +66,31 @@ export function MapProjects() {
 
         return (
           <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
+            
+            {/* SEÇÃO DO CABEÇALHO AJUSTADA NOVAMENTE */}
             <div className="flex justify-between items-center p-6">
-              <div className="flex items-center gap-4">
-                  <UserInfo owner={project.owner} />
-                  <div className="flex items-center mb-4 gap-2">
-                    <img src="./userBranco.png" alt="" className="w-7 h-7" />
-                    <h1 className="text-2xl text-white font-jost">{project.membersLimit}</h1>
-                  </div>
+              {/* Agrupa a UserInfo e o contador de participantes lado a lado */}
+              <div className="flex items-center gap-4"> 
+                <UserInfo owner={project.owner} />
+                
+                {/* Este bloco agora segue o UserInfo imediatamente, com um pequeno gap */}
+                <div className="flex items-center gap-2"> 
+                  <img src="./userBranco.png" alt="Participantes" className="w-7 h-7" />
+                  <span className="text-xl text-white font-jost">{project.membersLimit}</span>
+                </div>
               </div>
-              <h4 className="text-white text-2xl font-medium mb-8">{project.name}</h4>
+
+              {/* O nome do projeto permanece na extremidade direita */}
+              <h4 className="text-white text-2xl font-medium">{project.name}</h4> 
             </div>
+            {/* FIM DA SEÇÃO AJUSTADA */}
 
            {/* Conteúdo */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
                 src={project.bannerUrl || "./foto_1.png"}
                 alt={project.bannerUrl ? `Banner do projeto ${project.name}` : "Imagem curinga do projeto"}
-                className="w-full md:w-[15vw] md:h-[20vh] h-auto rounded-xl object-cover"
+                className="w-full md:w-[20vw] md:h-[25vh] h-auto rounded-xl object-cover"
               />
               <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
                 <p className="text-white text-lg">{project.description}</p>
