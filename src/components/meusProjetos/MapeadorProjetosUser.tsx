@@ -87,8 +87,8 @@ export function MapProjectsUser() {
             <div className="flex justify-between items-center p-6">
               <div className="flex flex-wrap gap-20 justify-center items-center">
                 <UserInfo owner={project.owner} />
-                <div className="flex flex-wrap gap-5">
-                  <img src="./userBranco.png" alt="" />
+                <div className="flex flex-wrap gap-5 mb-5 ">
+                  <img src="./userBranco.png" alt="" className="w-7 h-7"/>
                   <h1 className="text-2xl text-white font-jost">{project.membersLimit}</h1>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export function MapProjectsUser() {
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
-                src={project.bannerUrl || "/foto_1.png"}
+                src={project.bannerUrl || "./foto_1.png"}
                 alt="Foto Computador"
                 className="w-full md:w-[15vw] md:h-[20vh] h-auto rounded-xl object-cover"
               />

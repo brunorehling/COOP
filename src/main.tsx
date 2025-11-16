@@ -8,6 +8,7 @@ import { Cadastro } from './cadastro.tsx'
 import { Login } from './Login.tsx'
 import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { CriarProjetos } from './CriarProjetos.tsx'
+import  EditarProjeto  from './EditarProjeto.tsx'
 import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
 import { UserProfile } from './components/users/UserProfile.tsx'
 import {CreatePortfolio} from './components/users/portifolio/PortifolioCreate.tsx'
@@ -33,6 +34,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/publicar" element={<CriarProjetos />} />
+        <Route path="/projetos/:id/editar" element={<EditarProjeto />} />
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/meus_projetos" element={<FeedUser />} />
         <Route path="/gestao/:id" element={<GestaoProjeto />} />
