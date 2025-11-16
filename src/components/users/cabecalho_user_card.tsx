@@ -1,3 +1,4 @@
+
 interface UserInfoProps {
   owner?: {
     username: string
@@ -17,10 +18,10 @@ export function UserInfo({ owner, user }: UserInfoProps) {
   const data = owner || user
   if (!data) return null
 
-  const isProfilePage = !!user // se tem user, estamos no perfil
+  const isProfilePage = !!user
 
   return (
-    <div className={`flex items-center gap-5 bg-[#3C4860] rounded-t-xl px-4 py-2 ${ isProfilePage ? "w-[60vw] justify-between" : "w-[25vw]"  }`}>
+    <div className={`flex items-center gap-5 bg-[#3C4860] rounded-t-xl px-5 py-3 ${ isProfilePage ? "justify-between w-[60vw]" : "flex-shrink"  }`}>
       <img
         src={data.avatarUrl || '/foto_perfil.jpg'}
         alt={data.username}

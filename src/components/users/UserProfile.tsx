@@ -6,15 +6,17 @@ import { portfolioControllerFindAll } from '../../api/orval/portfolio/portfolio'
 import { Cabecalho2 } from '../Cabecalho2'
 import { Navegacao } from '../Navegacao'
 import { UserInfo } from './cabecalho_user_card'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom' // Importado useNavigate
 
 export function UserProfile() {
   const [user, setUser] = useState<User | null>(null)
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const navigate = useNavigate() // Inicializa o hook de navegação
 
   useEffect(() => {
+    // ... (sua lógica de useEffect permanece a mesma)
     async function fetchData() {
       try {
         const token = localStorage.getItem('token')
@@ -54,6 +56,12 @@ export function UserProfile() {
     fetchData()
   }, [])
 
+  const handleLogoff = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    navigate('/') 
+  }
+
   if (loading) return <p>Carregando...</p>
   if (error && !user) return <p>{error}</p>
   if (!user) return <p>Usuário não encontrado.</p>
@@ -66,8 +74,6 @@ export function UserProfile() {
       <div className="flex flex-col text-white justify-center items-center mt-[5%] h-full">
         <h1 className="text-3xl mb-4">Perfil do Usuário</h1>
         <UserInfo user={portfolio?.user || user} />
-        
-        {/* Se existir portfólio, mostra os destaques */}
         {portfolio ? (
           <div className="p-6 text-white w-[60vw] bg-white rounded-b-xl">
             {portfolio.highlightedProjects?.length ? (
@@ -93,23 +99,29 @@ export function UserProfile() {
                 </ul>
               </div>
             ) : (
+              <div className='flex justify-between'>
               <p className="mt-2 text-black">Nenhum asset destacado.</p>
+                <Link to={`/criar_portifolio`} className='bg-[#E64EEB] p-2 rounded-lg text-white font-semibold'>
+                  Criar portfólio
+                </Link>
+              </div>
             )}
           </div>
         ) : (
-          <div className='flex items-center justify-center bg-white w-[60vw] '>
-              <p className='flex  p-10 font-bold text-black'>Você ainda não possui um portifólio</p>
+          <div className='flex flex-col items-center justify-center bg-white w-[60vw] p-10 rounded-b-xl gap-4'>
+              <p className='font-bold text-black'>Você ainda não possui um portfólio</p>
           </div>
-
         )}
 
         <div className='flex justify-between items-center gap-30 mt-10 w-[25vw]'>
-          <Link to={`/criar_portifolio`} className='bg-[#E64EEB] p-1 rounded-2xl'>
+          <Link to={`/editar_perfil/${user}`} className='bg-[#E64EEB] p-2 rounded-3xl'>
             editar perfil
           </Link>
-          <Link to="/" className='flex bg-black p-1 rounded-2xl w-[5vw] justify-center'>
+          <button 
+            onClick={handleLogoff} 
+            className='flex bg-black p-2 rounded-3xl w-[5vw] justify-center text-white cursor-pointer'>
             <p>Log off</p>
-          </Link>
+          </button>
         </div>
       </div>
     </>

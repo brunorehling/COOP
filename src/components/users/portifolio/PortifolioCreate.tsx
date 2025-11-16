@@ -68,54 +68,40 @@ export function CreatePortfolio({ portfolio }: CreatePortfolioProps) {
     return json.secure_url
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
   try {
-    const normalizedPhone =
-      phone.trim() === "" ? null : phone.trim()
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Usuário não logado');
 
-    const skillsLower = skills.map(s => s.toLowerCase())
+    const normalizedPhone = phone.trim() === "" ? null : phone.trim();
+    const skillsLower = skills.map(s => s.toLowerCase());
 
-    let avatarUrl = portfolio?.user?.avatarUrl || ""
-    if (avatarFile) {
-      avatarUrl = await uploadToCloudinary(avatarFile)
-    }
 
-    // ===============================
-    // 🔇 TODA LÓGICA DE PORTFÓLIO DESATIVADA
-    // ===============================
+   const portfolioData = {
+    name, // obrigatório
+    bio: bio || null,
+    location: location || null,
+    phone: normalizedPhone,
+    skills: skillsLower.length > 0 ? skillsLower : undefined,
+  };
 
-    /*
+
+
     if (portfolio?.id) {
       await portfolioControllerUpdate(
         String(portfolio.id),
-        {
-          name,
-          bio,
-          location,
-          phone: normalizedPhone,
-          skills: skillsLower,
-        },
+        portfolioData,
         { headers: { Authorization: `Bearer ${token}` } }
-      )
+      );
     } else {
       await portfolioControllerCreate(
-        {
-          name,
-          bio,
-          location,
-          phone: normalizedPhone,
-          skills: skillsLower,
-        },
+        portfolioData,
         { headers: { Authorization: `Bearer ${token}` } }
-      )
+      );
     }
-    */
 
-    // ===============================
-    // 👍 SOMENTE UPDATE DO USER
-    // ===============================
     await usersControllerUpdate(
       String(userId),
       {
@@ -123,16 +109,16 @@ export function CreatePortfolio({ portfolio }: CreatePortfolioProps) {
         email,
         phone: normalizedPhone,
         role,
-        avatarUrl,
       },
       { headers: { Authorization: `Bearer ${token}` } }
-    )
+    );
 
-    navigate('/perfil')
+    navigate('/perfil');
   } catch (error) {
-    console.error("Erro:", error)
+    console.error("Erro:", error);
   }
-}
+};
+
 
 
   return (

@@ -36,7 +36,7 @@ export function Cabecalho2() {
 
   return (
     <header className="bg-[#212b41] flex justify-between items-center pr-14 pl-14 pt-7 pb-7 md:pr-32 md:pl-32 md:pt-10 md:pb-14">
-<h1 style={{ fontFamily: '"Jersey 15", sans-serif' }}  className="text-white text-5xl md:text-7xl font-semibold">  CO-OP</h1>
+      <h1 style={{ fontFamily: '"Jersey 15", sans-serif' }}  className="text-white text-5xl md:text-7xl font-semibold">  CO-OP</h1>
       <div className="flex flex-wrap justify-around items-center gap-10">
         <div className="flex flex-wrap justify-around items-center gap-4">
           <Link to="/perfil" className='flex flex-wrap gap-5 justify-center items-center'>
