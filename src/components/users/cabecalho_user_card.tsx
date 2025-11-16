@@ -20,7 +20,7 @@ export function UserInfo({ owner, user }: UserInfoProps) {
   const isProfilePage = !!user // se tem user, estamos no perfil
 
   return (
-    <div className="flex items-center gap-5 bg-[#3C4860] w-[25vw] rounded-t-xl px-4 py-2">
+    <div className={`flex items-center gap-5 bg-[#3C4860] rounded-t-xl px-4 py-2 ${ isProfilePage ? "w-[60vw] justify-between" : "w-[25vw]"  }`}>
       <img
         src={data.avatarUrl || '/foto_perfil.jpg'}
         alt={data.username}

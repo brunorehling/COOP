@@ -1,12 +1,5 @@
 import { useEffect, useRef } from "react"
 
-interface Notification {
-  id: number
-  title: string
-  author?: string
-  message: string
-  time: string
-}
 
 interface Props {
   open: boolean

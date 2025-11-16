@@ -11,6 +11,7 @@ import { UserProfile } from './components/users/UserProfile'
 import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
 import { UserProfileEdit } from './components/users/ProfileEdit.tsx'
 import { CreatePortfolio } from './components/users/portifolio/PortifolioCreate.tsx'
+import EditarProjeto from './EditarProjeto.tsx'
 
 export default function App() {
   const token = localStorage.getItem('token') 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/publicar" element={<CriarProjetos />} />
+        <Route path="/projetos/:id/editar" element={<EditarProjeto />} />
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/meusProjetos" element={<FeedUser />} />
         <Route path="/gestao/:id" element={<GestaoProjeto />} />
