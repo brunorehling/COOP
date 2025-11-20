@@ -8,7 +8,7 @@ function Land() {
       <Cabecalho1 />
 
       {/* Hero Section */}
-      <section className="bg-[#212b41] flex flex-col-reverse md:flex-row md:justify-between items-center gap-10 md:gap-14 px-6 md:px-28 pt-10 md:pt-16 pb-20 md:pb-28">
+      <section className="flex flex-col-reverse md:flex-row md:justify-between items-center gap-10 md:gap-14 px-6 md:px-28 pt-10 md:pt-16 pb-20 md:pb-28">
         <div className="md:w-[600px] flex flex-col gap-4">
           <h2 className="text-white text-[28px] md:text-[60px] font-semibold font-Jost leading-tight md:leading-tight">
             COOPERE, CONHEÇA E COLABORE COM PESSOAS EM SEUS PROJETOS.

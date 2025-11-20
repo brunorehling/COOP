@@ -1,49 +1,54 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react";
+import { customFetcher } from "./api/fetcher";
 
+interface Notification {
+  id: number;
+  title?: string;
+  author?: string;
+  message: string;
+  createdAt: string;
+  isRead: boolean;
+}
 
 interface Props {
-  open: boolean
-  onClose: () => void
+  open: boolean;
+  onClose: () => void;
 }
 
 export function NotificationModal({ open, onClose }: Props) {
-  const ref = useRef<HTMLDivElement | null>(null)
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  
+async function fetchNotifications() {
+  try {
+    const token = localStorage.getItem("token");
 
-  const mock = [
-    {
-      id: 1,
-      title: "Solicitação de Participação",
-      author: "Matheus Castro",
-      message: "quer participar do seu projeto!",
-      time: "20:04",
-    },
-    {
-      id: 2,
-      title: "Solicitação de Participação",
-      author: "Manuel Silveira",
-      message: "quer participar do seu projeto!",
-      time: "20:04",
-    },
-    {
-      id: 3,
-      title: "Projeto publicado",
-      message: "Seu projeto foi publicado com sucesso!",
-      time: "19:43",
-    },
-  ]
+    // Aqui tipamos a resposta como um array de Notification
+    const res = (await customFetcher("/notifications", {
+      headers: { Authorization: token ? `Bearer ${token}` : "" },
+    })) as { data: Notification[] };
+
+    setNotifications(res.data || []);
+  } catch (error) {
+    console.error("Erro ao buscar notificações:", error);
+  }
+}
+
 
   useEffect(() => {
+    if (open) fetchNotifications();
+
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClose()
+        onClose();
       }
     }
 
-    if (open) document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [open])
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
-  if (!open) return null
+  if (!open) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50">
@@ -64,8 +69,9 @@ export function NotificationModal({ open, onClose }: Props) {
       >
         <h2 className="text-white font-semibold mb-3 text-lg">Notificações</h2>
 
-        <div className="space-y-3">
-          {mock.map((n) => (
+        <div className="space-y-3 max-h-[400px] overflow-y-auto">
+          {notifications.length === 0 && <p className="text-gray-300">Nenhuma notificação</p>}
+          {notifications.map((n) => (
             <div
               key={n.id}
               className="
@@ -80,18 +86,17 @@ export function NotificationModal({ open, onClose }: Props) {
               "
             >
               <div>
-                <p className="font-medium">{n.title}</p>
-                {n.author && (
-                  <p className="text-pink-400 text-sm">{n.author}</p>
-                )}
+                {n.title && <p className="font-medium">{n.title}</p>}
+                {n.author && <p className="text-pink-400 text-sm">{n.author}</p>}
                 <p className="text-gray-300 text-sm">{n.message}</p>
               </div>
-
-              <span className="text-gray-400 text-sm">{n.time}</span>
+              <span className="text-gray-400 text-sm">
+                {new Date(n.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+              </span>
             </div>
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

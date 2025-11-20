@@ -5,6 +5,7 @@ import type { Project } from "../../utils/projectType";
 import { Cabecalho2 } from "../Cabecalho2";
 import { NavProject } from "./NavProjeto";
 import { VisaoGeralProjeto } from "./abas/VisaoGeral";
+import ProjectMembers from "./abas/membros";
 
 export function GestaoProjeto() {
   const { id } = useParams<{ id?: string }>();
@@ -51,7 +52,7 @@ export function GestaoProjeto() {
       <main className="flex flex-col items-center flex-1 py-10">
         <NavProject activeTab={activeTab} setActiveTab={setActiveTab} />
         {activeTab === "visaoGeral" && <VisaoGeralProjeto project={project} />}
-        {activeTab === "equipe" && <p className="text-white">Equipe do projeto...</p>}
+        {activeTab === "equipe" && <ProjectMembers project={project} />}
         {activeTab === "config" && <p className="text-white">Configurações do projeto...</p>}
       </main>
     </div>

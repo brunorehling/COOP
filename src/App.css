@@ -1,12 +1,8 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-@import "tailwindcss";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body {
-  background-color: #212C42;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #2d3d5b 0%, #080d17 100%);
+  background-attachment: fixed;
 }

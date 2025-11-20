@@ -7,6 +7,8 @@
  */
 import type {
   CreateProjectDto,
+  InviteMemberDto,
+  RespondInvitationDto,
   UpdateProjectDto
 } from '../coopApi.schemas';
 
@@ -88,6 +90,41 @@ export const getProjectsControllerFindAllUrl = () => {
 export const projectsControllerFindAll = async ( options?: RequestInit): Promise<projectsControllerFindAllResponse> => {
   
   return customFetcher<projectsControllerFindAllResponse>(getProjectsControllerFindAllUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+/**
+ * @summary Listar meus convites pendentes
+ */
+export type projectsControllerGetMyInvitationsResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type projectsControllerGetMyInvitationsResponseSuccess = (projectsControllerGetMyInvitationsResponse200) & {
+  headers: Headers;
+};
+;
+
+export type projectsControllerGetMyInvitationsResponse = (projectsControllerGetMyInvitationsResponseSuccess)
+
+export const getProjectsControllerGetMyInvitationsUrl = () => {
+
+
+  
+
+  return `/projects/my-invitations`
+}
+
+export const projectsControllerGetMyInvitations = async ( options?: RequestInit): Promise<projectsControllerGetMyInvitationsResponse> => {
+  
+  return customFetcher<projectsControllerGetMyInvitationsResponse>(getProjectsControllerGetMyInvitationsUrl(),
   {      
     ...options,
     method: 'GET'
@@ -318,6 +355,156 @@ export const projectsControllerLeave = async (id: string, options?: RequestInit)
   {      
     ...options,
     method: 'POST'
+    
+    
+  }
+);}
+
+
+/**
+ * @summary Convidar um usuário para participar do projeto
+ */
+export type projectsControllerInviteMemberResponse201 = {
+  data: void
+  status: 201
+}
+
+export type projectsControllerInviteMemberResponse403 = {
+  data: void
+  status: 403
+}
+
+export type projectsControllerInviteMemberResponse404 = {
+  data: void
+  status: 404
+}
+
+export type projectsControllerInviteMemberResponse409 = {
+  data: void
+  status: 409
+}
+    
+export type projectsControllerInviteMemberResponseSuccess = (projectsControllerInviteMemberResponse201) & {
+  headers: Headers;
+};
+export type projectsControllerInviteMemberResponseError = (projectsControllerInviteMemberResponse403 | projectsControllerInviteMemberResponse404 | projectsControllerInviteMemberResponse409) & {
+  headers: Headers;
+};
+
+export type projectsControllerInviteMemberResponse = (projectsControllerInviteMemberResponseSuccess | projectsControllerInviteMemberResponseError)
+
+export const getProjectsControllerInviteMemberUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}/invite`
+}
+
+export const projectsControllerInviteMember = async (id: string,
+    inviteMemberDto: InviteMemberDto, options?: RequestInit): Promise<projectsControllerInviteMemberResponse> => {
+  
+  return customFetcher<projectsControllerInviteMemberResponse>(getProjectsControllerInviteMemberUrl(id),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      inviteMemberDto,)
+  }
+);}
+
+
+/**
+ * @summary Responder a um convite de projeto (aceitar ou rejeitar)
+ */
+export type projectsControllerRespondInvitationResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerRespondInvitationResponse400 = {
+  data: void
+  status: 400
+}
+
+export type projectsControllerRespondInvitationResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type projectsControllerRespondInvitationResponseSuccess = (projectsControllerRespondInvitationResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerRespondInvitationResponseError = (projectsControllerRespondInvitationResponse400 | projectsControllerRespondInvitationResponse404) & {
+  headers: Headers;
+};
+
+export type projectsControllerRespondInvitationResponse = (projectsControllerRespondInvitationResponseSuccess | projectsControllerRespondInvitationResponseError)
+
+export const getProjectsControllerRespondInvitationUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}/respond-invitation`
+}
+
+export const projectsControllerRespondInvitation = async (id: string,
+    respondInvitationDto: RespondInvitationDto, options?: RequestInit): Promise<projectsControllerRespondInvitationResponse> => {
+  
+  return customFetcher<projectsControllerRespondInvitationResponse>(getProjectsControllerRespondInvitationUrl(id),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      respondInvitationDto,)
+  }
+);}
+
+
+/**
+ * @summary Listar convites pendentes do projeto
+ */
+export type projectsControllerGetPendingInvitationsResponse200 = {
+  data: void
+  status: 200
+}
+
+export type projectsControllerGetPendingInvitationsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type projectsControllerGetPendingInvitationsResponse404 = {
+  data: void
+  status: 404
+}
+    
+export type projectsControllerGetPendingInvitationsResponseSuccess = (projectsControllerGetPendingInvitationsResponse200) & {
+  headers: Headers;
+};
+export type projectsControllerGetPendingInvitationsResponseError = (projectsControllerGetPendingInvitationsResponse403 | projectsControllerGetPendingInvitationsResponse404) & {
+  headers: Headers;
+};
+
+export type projectsControllerGetPendingInvitationsResponse = (projectsControllerGetPendingInvitationsResponseSuccess | projectsControllerGetPendingInvitationsResponseError)
+
+export const getProjectsControllerGetPendingInvitationsUrl = (id: string,) => {
+
+
+  
+
+  return `/projects/${id}/pending-invitations`
+}
+
+export const projectsControllerGetPendingInvitations = async (id: string, options?: RequestInit): Promise<projectsControllerGetPendingInvitationsResponse> => {
+  
+  return customFetcher<projectsControllerGetPendingInvitationsResponse>(getProjectsControllerGetPendingInvitationsUrl(id),
+  {      
+    ...options,
+    method: 'GET'
     
     
   }

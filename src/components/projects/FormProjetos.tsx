@@ -80,7 +80,7 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
               setPreview(URL.createObjectURL(e.target.files[0]))
             }
           }}
-          className="text-white"
+          className="flex bg-[#e64eeb] p-3 rounded-2xl text-white justify-center" 
         />
 
         {preview && <img src={preview} className="mt-2 w-[300px] rounded-lg" />}

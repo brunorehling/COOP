@@ -11,8 +11,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/feed'
-                ? '/home_selected.png'
-                : '/home_not_selected.png'
+                ? '/home_selected.webp'
+                : '/home_not_selected.webp'
             }
             alt="Página inicial"
           />
@@ -34,8 +34,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/meus_projetos'
-                ? '/explore_selected.png'
-                : '/explore_not_selected.png'
+                ? '/explore_selected.webp'
+                : '/explore_not_selected.webp'
             }
             alt="Meus Projetos"
           />
@@ -82,8 +82,8 @@ export function Navegacao() {
           <img
             src={
               location.pathname === '/publicar'
-                ? '/publish_selected.png'
-                : '/publish_not_selected.png'
+                ? '/publish_selected.webp'
+                : '/publish_not_selected.webp'
             }
             alt="Publicar"
           />

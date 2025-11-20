@@ -4,14 +4,14 @@ import { projectsControllerFindAll } from "../api/orval/projects/projects";
 import type { Project } from "../utils/projectType";
 import { tecnologias } from "./projects/ListaTech";
 import { UserInfo } from "./users/cabecalho_user_card";
-import { JoinProjectButton } from "./projects/JoinProjectButtom";
+import { JoinProjectButton } from "./projects/JoinProjectButton";
 
 // criar lookup rápido: nome da tag (minúsculo) -> src
 const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
 );
 
-  const statusMap = {
+const statusMap = {
   IN_PROGRESS: "EM ANDAMENTO",
   TESTING: "FASE DE TESTES",
   FINISHED: "FINALIZADO",
@@ -22,6 +22,8 @@ export function MapProjects() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
+
+  const userId = Number(localStorage.getItem("userId"));
 
   function toggleAba(projectId: number) {
     setExpandedProjectId(prev => (prev === projectId ? null : projectId));
@@ -39,7 +41,11 @@ export function MapProjects() {
           },
         });
 
-        const data = response.data as unknown as Project[];
+        let data = response.data as unknown as Project[];
+
+        // filtra projetos em que o usuário já é membro
+        data = data.filter(project => !project.memberIds.includes(userId));
+
         setProjects(data || []);
         setError(null);
       } catch (err: any) {
@@ -52,8 +58,7 @@ export function MapProjects() {
     };
 
     fetchProjects();
-  }, []);
-
+  }, [userId]);
 
   if (loading) return <p className="text-white">Carregando projetos...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -61,35 +66,28 @@ export function MapProjects() {
 
   return (
     <div className="flex flex-col items-center gap-10">
-      {projects.map((project) => {
+      {projects.map(project => {
         const isExpanded = expandedProjectId === project.id;
 
         return (
           <div key={project.id} className="bg-[#3C4860] w-full max-w-[1100px] rounded-[2rem]">
-            
-            {/* SEÇÃO DO CABEÇALHO AJUSTADA NOVAMENTE */}
+            {/* Cabeçalho */}
             <div className="flex justify-between items-center p-6">
-              {/* Agrupa a UserInfo e o contador de participantes lado a lado */}
-              <div className="flex items-center gap-4"> 
+              <div className="flex items-center gap-4">
                 <UserInfo owner={project.owner} />
-                
-                {/* Este bloco agora segue o UserInfo imediatamente, com um pequeno gap */}
-                <div className="flex items-center gap-2"> 
+                <div className="flex items-center gap-2">
                   <img src="./userBranco.png" alt="Participantes" className="w-7 h-7" />
                   <span className="text-xl text-white font-jost">{project.membersLimit}</span>
                 </div>
               </div>
-
-              {/* O nome do projeto permanece na extremidade direita */}
-              <h4 className="text-white text-2xl font-medium">{project.name}</h4> 
+              <h4 className="text-white text-2xl font-medium">{project.name}</h4>
             </div>
-            {/* FIM DA SEÇÃO AJUSTADA */}
 
-           {/* Conteúdo */}
+            {/* Conteúdo */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-6">
               <img
                 src={project.bannerUrl || "./foto_1.png"}
-                alt={project.bannerUrl ? `Banner do projeto ${project.name}` : "Imagem curinga do projeto"}
+                alt={`Banner do projeto ${project.name}`}
                 className="w-full md:w-[20vw] md:h-[25vh] h-auto rounded-xl object-cover"
               />
               <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
@@ -99,7 +97,7 @@ export function MapProjects() {
 
             {/* Footer: status e toggle */}
             <div className="flex justify-between items-center px-6 pb-6">
-              <p></p>
+              <p className="text-white text-lg">{statusMap[project.status]}</p>
               <button
                 onClick={() => toggleAba(project.id)}
                 className="bg-black text-white px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition"
@@ -110,45 +108,37 @@ export function MapProjects() {
 
             {/* Aba expandida */}
             <div
-              className={`flex flex-warp justify-between w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
-              }`}>
-
-              {/* Tecnologias */}
+              }`}
+            >
+              <div className="flex justify-between">
               <div>
                 <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
-                <footer className="flex gap-4 pb-3">
-                  {project.tags?.slice(0, 5).map((tag) => {
+                <div className="flex flex-wrap gap-4">
+                  {project.tags?.map(tag => {
                     const src = techLookup[tag.toLowerCase()];
                     if (!src) return null;
                     return (
-                      <div
-                        key={tag}
-                        className="flex items-center gap-2 border rounded-2xl bg-gray-50 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
-                      >
-                        <div className="flex items-center mx-2 my-1">
-                          <img src={src} alt={tag} className="w-[41px] h-[35px]" />
-                          <p className="text-black text-lg ml-2">{tag}</p>
-                        </div>
+                      <div key={tag} className="flex items-center gap-2">
+                        <img src={src} alt={tag} className="w-[41px] h-[35px]" />
+                        <p className="text-black text-lg">{tag}</p>
                       </div>
                     );
                   })}
-
-                  {project.tags && project.tags.length > 5 && (
-                    <div className="flex items-center justify-center text-gray-700 font-medium px-4 py-2 border rounded-2xl bg-gray-100">
-                      +{project.tags.length - 5}
-                    </div>
-                  )}
-                </footer>
+                </div>
               </div>
+
+              {/* Footer expandido: botão participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <p className="text-black text-lg">{statusMap[project.status]}</p>
-                <JoinProjectButton projectId={project.id} />
+                <JoinProjectButton projectId={project.id} ownerId={project.owner.id}/>
               </div>
             </div>
+          </div>
           </div>
         );
       })}
     </div>
+    
   );
 }

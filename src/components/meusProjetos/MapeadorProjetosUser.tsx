@@ -55,9 +55,12 @@ export function MapProjectsUser() {
         const data = projectsResponse.data as unknown as Project[];
 
         // filtra só os projetos do usuário logado
-        const userProjects = data.filter(
-          (project) => String(project.owner?.id) === String(userId)
-        );
+        const userProjects = data.filter((project) => {
+        const isOwner = String(project.owner?.id) === String(userId);
+        const isMember = project.memberIds?.map(String).includes(String(userId));
+
+        return isOwner || isMember;
+      });
 
         setProjects(userProjects);
         setError(null);

@@ -5,7 +5,7 @@ import { Navegacao } from "../Navegacao"
 function FeedUser() {
     return (
         <>
-            <main className="bg-[#212b41]">
+            <main className="">
                 <Cabecalho2 />
                 <Navegacao />
                 <div className="flex flex-col justify-center items-center pt-14 pb-8">

@@ -8,7 +8,7 @@ function Feed() {
   const isLogged = !!token
 
   return (
-    <main className="bg-[#212b41]">
+    <main >
       {isLogged ? <Cabecalho2 /> : <Cabecalho1 />}
       {isLogged && <Navegacao />}
       <div className="flex flex-col justify-center items-center pt-14 pb-8">

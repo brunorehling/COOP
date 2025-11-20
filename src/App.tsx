@@ -7,17 +7,18 @@ import { CriarProjetos } from './CriarProjetos'
 import Feed from './Feed'
 import  FeedUser  from './components/meusProjetos/FeedMeusProjetos.tsx'
 import { Cabecalho2 } from './components/Cabecalho2'
-import { UserProfile } from './components/users/UserProfile'
+import { UserProfile } from './components/users/UserLogado/UserProfile.tsx'
 import { GestaoProjeto } from './components/meusProjetos/GestãoProjeto.tsx'
-import { UserProfileEdit } from './components/users/ProfileEdit.tsx'
-import { CreatePortfolio } from './components/users/portifolio/PortifolioCreate.tsx'
+import { UserProfileEdit } from './components/users/UserLogado/ProfileEdit.tsx'
+import  CreatePortfolio  from './components/users/portifolio/PortifolioCreate.tsx'
 import EditarProjeto from './EditarProjeto.tsx'
+import { PublicProfile } from './components/users/UserDeslogado/PublicProfile.tsx'
 
 export default function App() {
   const token = localStorage.getItem('token') 
 
   return (
-    <div className="min-h-screen bg-gradient-[#212C42]">
+    <div className="min-h-screen">
       {token && <Cabecalho2 />}
       <Routes>
         <Route path="/feed" element={<Feed />} />
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/publicar" element={<CriarProjetos />} />
         <Route path="/projetos/:id/editar" element={<EditarProjeto />} />
         <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/perfil/:id" element={<PublicProfile />} />
         <Route path="/meusProjetos" element={<FeedUser />} />
         <Route path="/gestao/:id" element={<GestaoProjeto />} />
         <Route path="/editar_perfil/:id" element={<UserProfileEdit />} />

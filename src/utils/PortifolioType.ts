@@ -1,13 +1,16 @@
 export type Portfolio = {
   id: number | string
   userId: number | string
-  bio: string
+
+  // --- campos DO PORTFOLIO ---
+  name: string                     // <-- aqui agora está correto
+  bio: string | null
   skills: string[]
-  location: string
+  location: string | null
   profileImageUrl: string | null
-  phone: string
-  highlightedProjects: string[] | null
-  highlightedAssets: string[] | null
+  phone: string | null
+
+  // --- dados do usuário dono do portfolio ---
   user: {
     id: number | string
     username: string

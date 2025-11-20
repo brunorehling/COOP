@@ -7,7 +7,46 @@
  */
 export interface UpdateUserDto { [key: string]: unknown }
 
-export interface CreatePortfolioDto { [key: string]: unknown }
+/**
+ * Habilidades técnicas (botões pré-definidos em lowercase)
+ */
+export type CreatePortfolioDtoSkills = typeof CreatePortfolioDtoSkills[keyof typeof CreatePortfolioDtoSkills];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreatePortfolioDtoSkills = {
+  react: 'react',
+  angular: 'angular',
+  vue: 'vue',
+  nodejs: 'nodejs',
+  python: 'python',
+  java: 'java',
+  typescript: 'typescript',
+  javascript: 'javascript',
+  postgresql: 'postgresql',
+  mongodb: 'mongodb',
+  docker: 'docker',
+  kubernetes: 'kubernetes',
+  aws: 'aws',
+  azure: 'azure',
+  git: 'git',
+  css: 'css',
+  html: 'html',
+  mysql: 'mysql',
+  express: 'express',
+  jest: 'jest',
+  laravel: 'laravel',
+} as const;
+
+export interface CreatePortfolioDto {
+  name: string;
+  bio: string;
+  location: string;
+  /** Número opcional no formato E.164 (pode diferir do telefone principal da conta) */
+  phone?: string;
+  /** Habilidades técnicas (botões pré-definidos em lowercase) */
+  skills: CreatePortfolioDtoSkills[];
+}
 
 export interface UpdatePortfolioDto { [key: string]: unknown }
 
@@ -115,6 +154,33 @@ export interface CreateProjectDto {
 }
 
 export interface UpdateProjectDto { [key: string]: unknown }
+
+/**
+ * Role do membro no projeto
+ */
+export type InviteMemberDtoRole = typeof InviteMemberDtoRole[keyof typeof InviteMemberDtoRole];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const InviteMemberDtoRole = {
+  OWNER: 'OWNER',
+  DEVELOPER: 'DEVELOPER',
+  DESIGNER: 'DESIGNER',
+  TESTER: 'TESTER',
+  COLLABORATOR: 'COLLABORATOR',
+} as const;
+
+export interface InviteMemberDto {
+  /** ID do usuário a ser convidado */
+  userId: number;
+  /** Role do membro no projeto */
+  role?: InviteMemberDtoRole;
+}
+
+export interface RespondInvitationDto {
+  /** Aceitar ou rejeitar o convite */
+  accept: boolean;
+}
 
 export interface CreateSocialDto { [key: string]: unknown }
 
