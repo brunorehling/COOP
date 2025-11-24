@@ -44,7 +44,7 @@ export function MapProjects() {
         let data = response.data as unknown as Project[];
 
         // filtra projetos em que o usuário já é membro
-        data = data.filter(project => !project.memberIds.includes(userId));
+        data = data.filter(project => !(project.memberIds ?? []).includes(userId));
 
         setProjects(data || []);
         setError(null);
@@ -131,7 +131,7 @@ export function MapProjects() {
 
               {/* Footer expandido: botão participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <JoinProjectButton projectId={project.id} ownerId={project.owner.id}/>
+                <JoinProjectButton projectId={project.id} ownerId={project.owner.id} projectName={project.name}/>
               </div>
             </div>
           </div>

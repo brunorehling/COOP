@@ -9,7 +9,6 @@ export type Portfolio = {
   location: string | null
   profileImageUrl: string | null
   phone: string | null
-
   // --- dados do usuário dono do portfolio ---
   user: {
     id: number | string
@@ -20,4 +19,9 @@ export type Portfolio = {
     role: string
     createdAt: string
   }
+}
+// Tipo derivado apenas para páginas que exibem os destaques
+export type PortfolioWithHighlights = Portfolio & {
+  highlightedProjects?: { id: string; name: string; imageUrl?: string }[]
+  highlightedAssets?: { id: string; name: string }[]
 }

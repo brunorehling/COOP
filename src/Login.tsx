@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { fetchMutator } from './api/orval/mutator'
 
 type LoginData = {
+  username: string,
   usernameOrEmail: string
   password: string
 }
@@ -32,6 +33,7 @@ export function Login() {
       localStorage.setItem('token', token)
       localStorage.setItem('clienteKey', '8')
       localStorage.setItem('userId', res.user.id)
+      localStorage.setItem("username", res.user.username);
 
       console.log('Usuário logado:', res)
       navigate('/feed')
@@ -40,6 +42,7 @@ export function Login() {
     } finally {
       setLoading(false)
     }
+    console.log("DATA LOGIN:", data);
   })
 
   return (

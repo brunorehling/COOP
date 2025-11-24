@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { customFetcher } from "./api/fetcher";
 
-interface Notification {
+export interface Notification {
   id: number;
-  title?: string;
-  author?: string;
-  message: string;
-  createdAt: string;
+  userId: number;
+  type: string;
+  content: string;
+  projectId?: number | null;
   isRead: boolean;
+  createdAt: string;
 }
 
 interface Props {
@@ -18,25 +19,26 @@ interface Props {
 export function NotificationModal({ open, onClose }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  
-async function fetchNotifications() {
-  try {
-    const token = localStorage.getItem("token");
 
-    // Aqui tipamos a resposta como um array de Notification
-    const res = (await customFetcher("/notifications", {
-      headers: { Authorization: token ? `Bearer ${token}` : "" },
-    })) as { data: Notification[] };
+  async function fetchNotifications() {
+    try {
+      const token = localStorage.getItem("token");
 
-    setNotifications(res.data || []);
-  } catch (error) {
-    console.error("Erro ao buscar notificações:", error);
+      const res = await customFetcher("/notifications", {
+        headers: { Authorization: token ? `Bearer ${token}` : "" },
+      });
+
+      const data = (res as { data?: Notification[] }).data ?? [];
+      setNotifications(data);
+    } catch (error) {
+      console.error("Erro ao buscar notificações:", error);
+    }
   }
-}
-
 
   useEffect(() => {
-    if (open) fetchNotifications();
+    if (!open) return;
+
+    fetchNotifications();
 
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -44,7 +46,7 @@ async function fetchNotifications() {
       }
     }
 
-    if (open) document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
@@ -70,7 +72,10 @@ async function fetchNotifications() {
         <h2 className="text-white font-semibold mb-3 text-lg">Notificações</h2>
 
         <div className="space-y-3 max-h-[400px] overflow-y-auto">
-          {notifications.length === 0 && <p className="text-gray-300">Nenhuma notificação</p>}
+          {notifications.length === 0 && (
+            <p className="text-gray-300">Nenhuma notificação</p>
+          )}
+
           {notifications.map((n) => (
             <div
               key={n.id}
@@ -86,12 +91,25 @@ async function fetchNotifications() {
               "
             >
               <div>
-                {n.title && <p className="font-medium">{n.title}</p>}
-                {n.author && <p className="text-pink-400 text-sm">{n.author}</p>}
-                <p className="text-gray-300 text-sm">{n.message}</p>
+                <p className="font-medium capitalize">{n.type}</p>
+
+                <p
+                  className="text-gray-300 text-sm"
+                  dangerouslySetInnerHTML={{ __html: n.content }}
+                />
+
+                {n.projectId != null && (
+                  <p className="text-blue-400 text-xs mt-1">
+                    Projeto: {n.projectId}
+                  </p>
+                )}
               </div>
+
               <span className="text-gray-400 text-sm">
-                {new Date(n.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                {new Date(n.createdAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </span>
             </div>
           ))}

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { projectsControllerJoin } from "../../api/orval/projects/projects";
 import { sendNotification } from "../../utils/sendNotifications";
 
 interface JoinProjectButtonProps {
   projectId: number;
   ownerId: number;
+  projectName: string;
 }
 
-export function JoinProjectButton({ projectId, ownerId }: JoinProjectButtonProps) {
+export function JoinProjectButton({ projectId, ownerId, projectName }: JoinProjectButtonProps) {
   const [loading, setLoading] = useState(false);
 
   async function handleJoin() {
@@ -15,23 +15,34 @@ export function JoinProjectButton({ projectId, ownerId }: JoinProjectButtonProps
       setLoading(true);
 
       const token = localStorage.getItem("token");
+      const currentUserId = localStorage.getItem("userId");
+      const currentUsername = localStorage.getItem("username");
 
-      // 1️⃣ Entrar no projeto
-      await projectsControllerJoin(projectId.toString(), {
-        headers: { Authorization: token ? `Bearer ${token}` : "" },
-      });
-
-      // 2️⃣ Notificar o owner
-      await sendNotification(ownerId, "Um usuário entrou no seu projeto!", "JOIN_ACCEPTED");
-
-      alert("Você entrou no projeto!");
-    } catch (error: any) {
-      console.error(error);
-      if (error.response?.status === 409) {
-        alert("Você já é membro deste projeto.");
-      } else {
-        alert("Erro ao entrar no projeto.");
+      if (!currentUserId) {
+        alert("Usuário não encontrado (ID).");
+        return;
       }
+
+      if (!currentUsername) {
+        alert("Username não está no localStorage.");
+        return;
+      }
+
+      // 🔥 Agora NÃO entra mais no projeto, só envia a notificação
+
+      const profileUrl = `/perfil/${currentUserId}`;
+
+      const message =
+        `<a href="${profileUrl}" style="color:#e64eeb;">${currentUsername}</a> ` +
+        `solicitou participação no projeto <b>${projectName}</b>.`;
+
+      // Envia notificação pro dono
+      await sendNotification(ownerId, message, "Solicitação de perticipação", projectId);
+
+      alert("Solicitação enviada!");
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao enviar solicitação.");
     } finally {
       setLoading(false);
     }
@@ -45,7 +56,7 @@ export function JoinProjectButton({ projectId, ownerId }: JoinProjectButtonProps
         loading ? "bg-gray-500" : "bg-[#e64eeb] hover:bg-[#c13cc7]"
       }`}
     >
-      {loading ? "Entrando..." : "Participar"}
+      {loading ? "Enviando..." : "Participar"}
     </button>
   );
 }
