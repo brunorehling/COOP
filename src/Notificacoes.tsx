@@ -1,4 +1,4 @@
-// NotificationModal.tsx - VERSÃO ATUALIZADA COM SENDER_ID
+// NotificationModal.tsx - VERSÃO COM MARCAÇÃO DE LIDAS
 import { useEffect, useRef, useState } from "react";
 import { customFetcher } from "./api/fetcher";
 
@@ -8,7 +8,7 @@ export interface Notification {
   type: string;
   content: string;
   projectId?: number | null;
-  senderId?: number | null;  // ← NOVO CAMPO!
+  senderId?: number | null;
   isRead: boolean;
   createdAt: string;
 }
@@ -21,6 +21,26 @@ interface Props {
 export function NotificationModal({ open, onClose }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  // FUNÇÃO PARA MARCAR NOTIFICAÇÃO COMO LIDA
+  async function markAsRead(notificationId: number) {
+    try {
+      const token = localStorage.getItem("token");
+      
+      await customFetcher(`/notifications/${notificationId}/read`, {
+        method: "PATCH",
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+          "Content-Type": "application/json",
+        },
+      });
+      
+      console.log(`✅ Notificação ${notificationId} marcada como lida`);
+    } catch (error) {
+      console.error(`❌ Erro ao marcar notificação como lida:`, error);
+      // Continua mesmo com erro - faz fallback local
+    }
+  }
 
   // FUNÇÃO MELHORADA - Agora usa senderId direto da notificação
   function getNotificationInfo(notification: Notification): { 
@@ -69,26 +89,40 @@ export function NotificationModal({ open, onClose }: Props) {
       });
 
       const data = (res as { data?: Notification[] }).data ?? [];
-      const filtered = data.filter((n) => Number(n.userId) === loggedUserId);
+      
+      // Filtrar apenas notificações NÃO LIDAS do usuário logado
+      const filtered = data.filter((n) => 
+        Number(n.userId) === loggedUserId && !n.isRead
+      );
+      
       setNotifications(filtered);
     } catch (error) {
       console.error("Erro ao buscar notificações:", error);
     }
   }
 
-  // ACEITAR - Agora com senderId confiável
-  async function handleAccept(projectId: number, senderId: number, senderName: string, projectName: string) {
+  // ACEITAR - Agora marca como lida
+  async function handleAccept(
+    notificationId: number, 
+    projectId: number, 
+    senderId: number, 
+    senderName: string, 
+    projectName: string
+  ) {
     try {
       const token = localStorage.getItem("token");
 
-      console.log('✅ Aceitando solicitação...', { projectId, senderId, senderName });
+      console.log('✅ Aceitando solicitação...', { 
+        notificationId, projectId, senderId, senderName 
+      });
 
-      // Remove a notificação
-      setNotifications(prev => prev.filter(n => 
-        !(n.projectId === projectId && n.senderId === senderId)
-      ));
+      // 1. MARCA NOTIFICAÇÃO COMO LIDA
+      await markAsRead(notificationId);
 
-      // Tenta aceitar via backend
+      // 2. REMOVE DA LISTA LOCAL
+      setNotifications(prev => prev.filter(n => n.id !== notificationId));
+
+      // 3. TENTA ACEITAR VIA BACKEND
       try {
         await customFetcher(`/projects/${projectId}/accept/${senderId}`, {
           method: "POST",
@@ -103,7 +137,7 @@ export function NotificationModal({ open, onClose }: Props) {
         // Continua mesmo com erro - sistema fallback
       }
 
-      // Notifica o usuário que foi aceito
+      // 4. NOTIFICA O USUÁRIO QUE FOI ACEITO
       try {
         const currentUsername = localStorage.getItem("username") || "Administrador";
         const acceptMessage = 
@@ -135,19 +169,28 @@ export function NotificationModal({ open, onClose }: Props) {
     }
   }
 
-  // RECUSAR - Com senderId
-  async function handleReject(projectId: number, senderId: number, senderName: string, projectName: string) {
+  // RECUSAR - Agora marca como lida
+  async function handleReject(
+    notificationId: number,
+    projectId: number, 
+    senderId: number, 
+    senderName: string, 
+    projectName: string
+  ) {
     try {
       const token = localStorage.getItem("token");
 
-      console.log('❌ Recusando solicitação...', { projectId, senderId });
+      console.log('❌ Recusando solicitação...', { 
+        notificationId, projectId, senderId 
+      });
 
-      // Remove a notificação
-      setNotifications(prev => prev.filter(n => 
-        !(n.projectId === projectId && n.senderId === senderId)
-      ));
+      // 1. MARCA NOTIFICAÇÃO COMO LIDA
+      await markAsRead(notificationId);
 
-      // Usa o endpoint de reject que funciona
+      // 2. REMOVE DA LISTA LOCAL
+      setNotifications(prev => prev.filter(n => n.id !== notificationId));
+
+      // 3. USA O ENDPOINT DE REJECT
       try {
         await customFetcher(`/projects/${projectId}/reject/${senderId}`, {
           method: "POST",
@@ -168,6 +211,27 @@ export function NotificationModal({ open, onClose }: Props) {
     }
   }
 
+  // FUNÇÃO PARA MARCAR TODAS COMO LIDAS
+  async function markAllAsRead() {
+    try {
+      const token = localStorage.getItem("token");
+      
+      // Marca todas as notificações visíveis como lidas
+      const markPromises = notifications.map(notification => 
+        markAsRead(notification.id)
+      );
+      
+      await Promise.all(markPromises);
+      
+      // Limpa a lista local
+      setNotifications([]);
+      
+      alert('Todas as notificações marcadas como lidas!');
+    } catch (error) {
+      console.error('❌ Erro ao marcar todas como lidas:', error);
+    }
+  }
+
   useEffect(() => {
     if (!open) return;
     fetchNotifications();
@@ -181,18 +245,35 @@ export function NotificationModal({ open, onClose }: Props) {
         ref={ref}
         className="pointer-events-auto absolute top-20 right-14 w-96 bg-[#2f3a52] rounded-xl shadow-lg border border-[#3d475f] p-4"
       >
-        <h2 className="text-white font-semibold mb-3 text-lg">Notificações</h2>
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="text-white font-semibold text-lg">Notificações</h2>
+          
+          {/* BOTÃO MARCAR TODAS COMO LIDAS */}
+          {notifications.length > 0 && (
+            <button
+              onClick={markAllAsRead}
+              className="text-xs bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded text-white"
+            >
+              Marcar todas como lidas
+            </button>
+          )}
+        </div>
 
         <div className="space-y-3 max-h-[400px] overflow-y-auto">
           {notifications.length === 0 && (
-            <p className="text-gray-300 text-center py-4">Nenhuma notificação</p>
+            <p className="text-gray-300 text-center py-4">Nenhuma notificação não lida</p>
           )}
 
           {notifications.map((notification) => {
             const { senderId, senderName, projectName } = getNotificationInfo(notification);
             
             return (
-              <div key={notification.id} className="bg-[#364159] rounded-xl p-4 text-white">
+              <div 
+                key={notification.id} 
+                className={`bg-[#364159] rounded-xl p-4 text-white ${
+                  notification.isRead ? 'opacity-60' : ''
+                }`}
+              >
                 <div className="flex justify-between items-start mb-2">
                   <span className="font-medium capitalize">{notification.type}</span>
                   <span className="text-gray-400 text-xs">
@@ -206,46 +287,57 @@ export function NotificationModal({ open, onClose }: Props) {
                 />
 
                 {/* INFO DE DEBUG */}
-                <div className="text-xs text-gray-400 mb-2">
-                  👤 Sender: {senderId || 'não identificado'} | 
-                  📋 Projeto: {projectName || 'não identificado'}
+                <div className="text-xs text-[#3d475f] mb-2">
+                  Sender: {senderId || 'não identificado'} | 
+                  Status: {notification.isRead ? 'Lida' : 'Não lida'}
                 </div>
 
-                {/* BOTÕES PARA SOLICITAÇÕES */}
-                // NotificationModal.tsx - VERSÃO ROBUSTA
-              // ... no lugar da condição dos botões ...
+                {/* BOTÕES ACEITAR/RECUSAR - apenas para notificações de solicitação */}
+                {(notification.type.includes("Solicitação") || 
+                  notification.type.includes("solicitação") ||
+                  notification.type.includes("participação") ||
+                  notification.type.includes("participacao")) && 
+                notification.projectId && senderId && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleAccept(
+                        notification.id, // ✅ AGORA PASSA O ID DA NOTIFICAÇÃO
+                        notification.projectId!, 
+                        senderId, 
+                        senderName || 'Usuário',
+                        projectName || 'Projeto'
+                      )}
+                      className="flex-1 bg-green-600 px-3 py-2 rounded text-sm hover:bg-green-700 transition"
+                    >
+                      ✅ Aceitar
+                    </button>
+                    <button
+                      onClick={() => handleReject(
+                        notification.id, // ✅ AGORA PASSA O ID DA NOTIFICAÇÃO
+                        notification.projectId!, 
+                        senderId, 
+                        senderName || 'Usuário',
+                        projectName || 'Projeto'
+                      )}
+                      className="flex-1 bg-red-600 px-3 py-2 rounded text-sm hover:bg-red-700 transition"
+                    >
+                      ❌ Recusar
+                    </button>
+                  </div>
+                )}
 
-              {/* BOTÕES PARA QUALQUER TIPO DE SOLICITAÇÃO */}
-              {(notification.type.includes("Solicitação") || 
-                notification.type.includes("solicitação") ||
-                notification.type.includes("participação") ||
-                notification.type.includes("participacao")) && 
-              notification.projectId && senderId && (
-                <div className="flex gap-2">
+                {/* BOTÃO MARCAR COMO LIDA PARA OUTROS TIPOS DE NOTIFICAÇÃO */}
+                {!notification.type.includes("Solicitação") && 
+                 !notification.type.includes("solicitação") &&
+                 !notification.type.includes("participação") &&
+                 !notification.type.includes("participacao") && (
                   <button
-                    onClick={() => handleAccept(
-                      notification.projectId!, 
-                      senderId, 
-                      senderName || 'Usuário',
-                      projectName || 'Projeto'
-                    )}
-                    className="flex-1 bg-green-600 px-3 py-2 rounded text-sm hover:bg-green-700 transition"
+                    onClick={() => markAsRead(notification.id)}
+                    className="w-full bg-gray-600 hover:bg-gray-700 px-3 py-2 rounded text-sm transition"
                   >
-                    ✅ Aceitar
+                    ✅ Marcar como lida
                   </button>
-                  <button
-                    onClick={() => handleReject(
-                      notification.projectId!, 
-                      senderId, 
-                      senderName || 'Usuário',
-                      projectName || 'Projeto'
-                    )}
-                    className="flex-1 bg-red-600 px-3 py-2 rounded text-sm hover:bg-red-700 transition"
-                  >
-                    ❌ Recusar
-                  </button>
-                </div>
-              )}
+                )}
               </div>
             );
           })}

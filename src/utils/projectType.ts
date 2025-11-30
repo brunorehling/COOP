@@ -1,4 +1,4 @@
-// projectType.ts
+// projectType.ts - Adicione currentMembers se necessário
 export type Project = {
   id: number;
   name: string;
@@ -19,4 +19,7 @@ export type Project = {
   };
 
   memberIds: number[];
+  
+  // ✅ Adicione se o backend retornar currentMembers
+  currentMembers?: number;
 };
