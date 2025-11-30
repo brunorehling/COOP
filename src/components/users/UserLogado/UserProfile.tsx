@@ -101,14 +101,14 @@ export function UserProfile() {
         <div className='flex justify-between items-center gap-30 mt-10 w-[25vw]'>
           <Link
             to={`/editar_perfil/${user.id}`}
-            className='bg-[#E64EEB] p-2 rounded-3xl'
+            className='bg-[#E64EEB] p-2 rounded-2xl'
           >
             editar perfil
           </Link>
 
           <button
             onClick={handleLogoff}
-            className='flex bg-black p-2 rounded-3xl w-[5vw] justify-center text-white cursor-pointer'
+            className='flex bg-black p-2 rounded-2xl w-[7vw] justify-center text-white cursor-pointer'
           >
             <p>Log off</p>
           </button>

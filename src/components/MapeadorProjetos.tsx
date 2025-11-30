@@ -42,6 +42,14 @@ export function MapProjects() {
         });
 
         let data = response.data as unknown as Project[];
+        data = data.map(project => ({
+          ...project,
+          memberIds: [
+          ...(project.memberIds ?? []).map(Number),
+          Number(project.owner?.id)
+        ]
+
+        }));
 
         // filtra projetos em que o usuário já é membro
         data = data.filter(project => !(project.memberIds ?? []).includes(userId));

@@ -173,10 +173,10 @@ export default function CreatePortfolio({ portfolio, userProjects = [], userAsse
 
         {/* Botões */}
         <div className="flex flex-row justify-center gap-6 mt-8">
-          <button type="submit" className="bg-[#E64EEB] px-6 py-3 rounded-xl text-white font-semibold">
+          <button type="submit" className="bg-[#E64EEB] px-6 py-3 rounded-xl text-white font-semibold cursor-pointer">
             Salvar Alterações
           </button>
-          <button type="button" className="bg-black px-6 py-3 rounded-xl text-white font-semibold" onClick={() => navigate('/perfil')}>
+          <button type="button" className="bg-black px-6 py-3 rounded-xl text-white font-semibold cursor-pointer" onClick={() => navigate('/perfil')}>
             Descartar
           </button>
         </div>

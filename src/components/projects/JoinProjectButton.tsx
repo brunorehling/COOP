@@ -1,3 +1,4 @@
+// JoinProjectButton.tsx - VERSÃO COM SENDER_ID
 import { useState } from "react";
 import { sendNotification } from "../../utils/sendNotifications";
 
@@ -11,52 +12,72 @@ export function JoinProjectButton({ projectId, ownerId, projectName }: JoinProje
   const [loading, setLoading] = useState(false);
 
   async function handleJoin() {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const token = localStorage.getItem("token");
-      const currentUserId = localStorage.getItem("userId");
-      const currentUsername = localStorage.getItem("username");
+    const currentUserId = Number(localStorage.getItem("userId")); // ✅ Já convertendo
+    const currentUsername = localStorage.getItem("username");
 
-      if (!currentUserId) {
-        alert("Usuário não encontrado (ID).");
-        return;
-      }
-
-      if (!currentUsername) {
-        alert("Username não está no localStorage.");
-        return;
-      }
-
-      // 🔥 Agora NÃO entra mais no projeto, só envia a notificação
-
-      const profileUrl = `/perfil/${currentUserId}`;
-
-      const message =
-        `<a href="${profileUrl}" style="color:#e64eeb;">${currentUsername}</a> ` +
-        `solicitou participação no projeto <b>${projectName}</b>.`;
-
-      // Envia notificação pro dono
-      await sendNotification(ownerId, message, "Solicitação de perticipação", projectId);
-
-      alert("Solicitação enviada!");
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao enviar solicitação.");
-    } finally {
-      setLoading(false);
+    if (!currentUserId || !currentUsername) {
+      alert("Usuário não encontrado.");
+      return;
     }
+
+    console.log('🔵 [JoinProjectButton] Enviando solicitação...', {
+      projectId: projectId, // ← Já deve ser number
+      ownerId: ownerId,     // ← Já deve ser number  
+      currentUserId,        // ← Já é number
+      currentUsername,
+      projectName
+    });
+
+    // ✅ GARANTIR que ownerId é number
+    const numericOwnerId = Number(ownerId);
+    const numericProjectId = Number(projectId);
+
+    const profileUrl = `/perfil/${currentUserId}`;
+    const message =
+      `<a href="${profileUrl}" style="color:#e64eeb;">${currentUsername}</a> ` +
+      `solicitou participação no projeto <b>${projectName}</b>.`;
+
+    // ENVIA NOTIFICAÇÃO COM NÚMEROS
+    await sendNotification(
+      numericOwnerId,                    // ✅ NUMBER
+      message,
+      "Solicitação de participação",
+      numericProjectId,                  // ✅ NUMBER
+      currentUserId                      // ✅ NUMBER
+    );
+
+    console.log('✅ Solicitação enviada com IDs numéricos!');
+    alert("✅ Solicitação enviada!\n\nAguarde a aprovação do dono do projeto.");
+
+  } catch (error: any) {
+    console.error('❌ Erro ao enviar solicitação:', error);
+    alert("Erro ao enviar solicitação: " + (error.message || 'Tente novamente'));
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <button
       onClick={handleJoin}
       disabled={loading}
-      className={`px-4 py-2 rounded-2xl text-white ${
-        loading ? "bg-gray-500" : "bg-[#e64eeb] hover:bg-[#c13cc7]"
+      className={`px-6 py-3 rounded-2xl text-white font-medium transition-all ${
+        loading 
+          ? "bg-gray-500 cursor-not-allowed" 
+          : "bg-[#e64eeb] hover:bg-[#c13cc7] hover:scale-105 shadow-lg"
       }`}
     >
-      {loading ? "Enviando..." : "Participar"}
+      {loading ? (
+        <span className="flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          Enviando...
+        </span>
+      ) : (
+        "Participar"
+      )}
     </button>
   );
 }

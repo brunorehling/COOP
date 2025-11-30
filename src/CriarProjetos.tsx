@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProjectForm from "./components/projects/FormProjetos";
 import type { ProjectFormData } from "./components/projects/FormProjetos";
@@ -6,41 +6,40 @@ import SelecionarTech from "./components/projects/SelecionarTech";
 import { Cabecalho2 } from "./components/Cabecalho2";
 import { Navegacao } from "./components/Navegacao";
 import api from "./api/api"; 
-
 export function CriarProjetos() {
-  const [error, setError] = useState("");
-  const [tecnologias, setTecnologias] = useState<string[]>([]);
-  const navigate = useNavigate();
+  const [error, setError] = useState("")
+  const [tecnologias, setTecnologias] = useState<string[]>([])
+  const navigate = useNavigate()
 
   async function handleCreateProject(data: ProjectFormData) {
-    const membersLimit = Math.floor(Number(data.integrantes));
-  
-    if (isNaN(membersLimit) || membersLimit < 1 || membersLimit > 50) {
-      setError("O número de integrantes deve ser entre 1 e 50");
-      return;
+    const membersLimit = Number(data.integrantes)
+
+    if (membersLimit < 1 || membersLimit > 50) {
+      setError("O número de integrantes deve ser entre 1 e 50.")
+      return
     }
-  
+
     try {
       await api.post("/projects", {
         name: data.nome,
         description: data.descricao,
+        membersLimit,
         status: data.status || "IN_PROGRESS",
-        tags: tecnologias,    
-        bannerUrl: data.bannerUrl || "https://example.com/banner.png", 
-        membersLimit: membersLimit,
-      });
-  
-      navigate("/feed");
+        bannerUrl: data.bannerUrl,
+        tags: tecnologias,
+      })
+
+      navigate("/feed")
     } catch (err: any) {
-      console.error(err);
-      setError(err.response?.data?.message || "Erro ao criar projeto");
+      setError(err.response?.data?.message || "Erro ao criar projeto")
     }
   }
 
   return (
-    <main className="bg-[#212b41] min-h-screen">
+    <main className=" min-h-screen">
       <Cabecalho2 />
       <Navegacao />
+
       <div className="flex flex-col items-center m-20 gap-10">
         <ProjectForm onSubmit={handleCreateProject} />
 
@@ -54,7 +53,7 @@ export function CriarProjetos() {
         <div className="flex gap-4 mt-6">
           <button
             onClick={() => navigate("/feed")}
-            className="bg-black text-white px-6 py-2 rounded-full hover:opacity-80 transition"
+            className="bg-black text-white px-6 py-2 rounded-full cursor-pointer"
           >
             Descartar Projeto
           </button>
@@ -62,12 +61,12 @@ export function CriarProjetos() {
           <button
             type="submit"
             form="project-form"
-            className="bg-pink-500 text-white px-6 py-2 rounded-full hover:opacity-80 transition"
+            className="bg-pink-500 text-white px-6 py-2 rounded-full cursor-pointer"
           >
             Publicar Projeto
           </button>
         </div>
       </div>
     </main>
-  );
+  )
 }

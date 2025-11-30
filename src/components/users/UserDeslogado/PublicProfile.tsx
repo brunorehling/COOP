@@ -80,11 +80,10 @@ export function PublicProfile() {
         <UserInfo user={user} />
 
         <PortfolioSection portfolio={portfolio} isPublic={true}/>
-
-        <div className="flex justify-between items-center gap-30 mt-10 w-[25vw]">
+        <div className="flex justify-between justify-center items-center gap-30 mt-10 w-[25vw]">
           <Link
             to="/feed"
-            className="bg-[#E64EEB] p-2 rounded-3xl"
+            className="flex bg-[#E64EEB] p-3 rounded-2xl w-[7vw] items-center justify-center "
           >
             voltar
           </Link>
