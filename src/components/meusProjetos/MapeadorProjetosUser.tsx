@@ -124,22 +124,32 @@ export function MapProjectsUser() {
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
               }`}
             >
-              <div>
-                <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
-                <div className="flex flex-wrap gap-4">
-                  {project.tags?.map((tag) => {
-                    const src = techLookup[tag.toLowerCase()];
-                    if (!src) return null;
-                    return (
-                      <div key={tag} className="flex items-center gap-2">
-                        <img src={src} alt={tag} className="w-[41px] h-[35px]" />
-                        <p className="text-black text-lg">{tag}</p>
+                <div>
+                  <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
+                  <div className="flex flex-wrap gap-4">
+                    {project.tags?.slice(0, 5).map(tag => {
+                      const src = techLookup[tag.toLowerCase()];
+                      if (!src) return null;
+                      return (
+                        <div key={tag} className="flex items-center gap-2 border-1 rounded-2xl">
+                          <div className="flex items-center px-2 py-1 ">
+                          <img src={src} alt={tag} className="w-[41px] h-[35px]" />
+                          <p className="text-black text-lg">{tag}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    
+                    {project.tags && project.tags.length > 5 && (
+                      <div className="flex items-center gap-2">
+                        <div className="w-[50px] h-[45px] flex items-center justify-center border-1 rounded-2xl">
+                          <span className="text-black text-lg font-semibold">+{project.tags.length - 5}</span>
+                        </div>
                       </div>
-                    );
-                  })}
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
+              <div className="flex flex-col md:flex-row items-center justify-between mt-8 gap-4 ml-2">
                   <Link to={`/gestao/${project.id}`}>
                     <p className="hidden md:flex text-2xl font-normal font-Jost bg-[#e64eeb] rounded-2xl px-2 py-1 hover:border">
                       Inspecionar

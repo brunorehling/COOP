@@ -48,8 +48,6 @@ export function CriarProjetos() {
           <SelecionarTech onChange={setTecnologias} />
         </div>
 
-        {error && <p className="text-red-400">{error}</p>}
-
         <div className="flex gap-4 mt-6">
           <button
             onClick={() => navigate("/feed")}

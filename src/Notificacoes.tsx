@@ -16,6 +16,7 @@ export interface Notification {
 interface Props {
   open: boolean;
   onClose: () => void;
+  onMarkAsRead?: () => void; // Adicione esta linha
 }
 
 export function NotificationModal({ open, onClose }: Props) {
@@ -292,7 +293,6 @@ export function NotificationModal({ open, onClose }: Props) {
                   Status: {notification.isRead ? 'Lida' : 'Não lida'}
                 </div>
 
-                {/* BOTÕES ACEITAR/RECUSAR - apenas para notificações de solicitação */}
                 {(notification.type.includes("Solicitação") || 
                   notification.type.includes("solicitação") ||
                   notification.type.includes("participação") ||
@@ -333,7 +333,7 @@ export function NotificationModal({ open, onClose }: Props) {
                  !notification.type.includes("participacao") && (
                   <button
                     onClick={() => markAsRead(notification.id)}
-                    className="w-full bg-gray-600 hover:bg-gray-700 px-3 py-2 rounded text-sm transition"
+                    className="w-full bg-gray-600 hover:bg-gray-700 px-3 py-2 rounded text-sm transition w-[5vw]"
                   >
                     ✅ Marcar como lida
                   </button>

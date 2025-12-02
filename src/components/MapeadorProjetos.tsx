@@ -6,7 +6,6 @@ import { tecnologias } from "./projects/ListaTech";
 import { UserInfo } from "./users/cabecalho_user_card";
 import { JoinProjectButton } from "./projects/JoinProjectButton";
 
-// criar lookup rápido: nome da tag (minúsculo) -> src
 const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
 );
@@ -51,8 +50,10 @@ export function MapProjects() {
 
         }));
 
-        // filtra projetos em que o usuário já é membro
-        data = data.filter(project => !(project.memberIds ?? []).includes(userId));
+        data = data.filter(project => 
+          project.status !== 'FINISHED' && 
+          !(project.memberIds ?? []).includes(userId)
+        );
 
         setProjects(data || []);
         setError(null);
@@ -121,21 +122,31 @@ export function MapProjects() {
               }`}
             >
               <div className="flex justify-between">
-              <div>
-                <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
-                <div className="flex flex-wrap gap-4">
-                  {project.tags?.map(tag => {
-                    const src = techLookup[tag.toLowerCase()];
-                    if (!src) return null;
-                    return (
-                      <div key={tag} className="flex items-center gap-2">
-                        <img src={src} alt={tag} className="w-[41px] h-[35px]" />
-                        <p className="text-black text-lg">{tag}</p>
+                <div>
+                  <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
+                  <div className="flex flex-wrap gap-4">
+                    {project.tags?.slice(0, 5).map(tag => {
+                      const src = techLookup[tag.toLowerCase()];
+                      if (!src) return null;
+                      return (
+                        <div key={tag} className="flex items-center gap-2">
+                          <img src={src} alt={tag} className="w-[41px] h-[35px]" />
+                          <p className="text-black text-lg">{tag}</p>
+                        </div>
+                      );
+                    })}
+                    
+                    {/* Mostrar indicador "+" se houver mais de 5 tags */}
+                    {project.tags && project.tags.length > 5 && (
+                      <div className="flex items-center gap-2">
+                        <div className="w-[41px] h-[35px] flex items-center justify-center bg-gray-100 rounded">
+                          <span className="text-black text-lg font-semibold">+{project.tags.length - 5}</span>
+                        </div>
+                        <p className="text-black text-lg">mais</p>
                       </div>
-                    );
-                  })}
+                    )}
+                  </div>
                 </div>
-              </div>
 
               {/* Footer expandido: botão participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">

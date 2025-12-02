@@ -59,6 +59,20 @@ export default function EditarProjeto() {
       setError(err.response?.data?.message || "Erro ao salvar projeto.")
     }
   }
+  async function handleFinishProject() {
+  if (!confirm("Tem certeza que deseja finalizar este projeto? Esta ação não pode ser desfeita.")) return;
+  
+  try {
+    await api.patch(`/projects/${id}`, {
+      status: "FINISHED"
+    });
+    
+    alert("✅ Projeto finalizado com sucesso!");
+    navigate("/feed");
+  } catch (err: any) {
+    setError(err.response?.data?.message || "Erro ao finalizar projeto.");
+  }
+}
 
   if (loading) return <p className="text-white">Carregando...</p>
 
@@ -91,6 +105,12 @@ export default function EditarProjeto() {
             type="submit"
             form="project-form"
             className="bg-pink-500 text-white px-6 py-2 rounded-full hover:opacity-80 transition"> Salvar Alterações</button>
+
+           <button
+              onClick={handleFinishProject}
+              className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition">
+               Finalizar Projeto
+            </button>
 
           <button
             onClick={async () => {
