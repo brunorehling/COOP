@@ -230,8 +230,6 @@ export function UserProfileEdit() {
                 <option value="ux">UX/UI Designer</option>
                 <option value="tester">QA/Tester</option>
                 <option value="data_scientist">Data Scientist</option>
-                <option value="devops">DevOps</option>
-                <option value="fullstack">Full Stack</option>
               </select>
             </div>
 

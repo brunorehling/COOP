@@ -1,6 +1,6 @@
 export default {
   myApi: {
-    input: 'url do render/api-json',
+    input: 'https://projeto-api-7h8d.onrender.com/api-json',
     output: {
       mode: 'tags-split',
       target: './src/api/orval',

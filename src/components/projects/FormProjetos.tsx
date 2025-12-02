@@ -69,22 +69,35 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
       id="project-form"
     >
       {/* Banner */}
+      
+
       <div className="flex flex-col items-center gap-2">
         <label className="text-sm font-bold">Banner do projeto</label>
-        <input
-          type="file"
-          accept="image/*"
-          {...register("bannerFile")}
-          onChange={(e) => {
-            if (e.target.files?.[0]) {
-              setPreview(URL.createObjectURL(e.target.files[0]))
-            }
-          }}
-          className="flex bg-[#e64eeb] p-3 rounded-2xl text-white justify-center" 
-        />
-
         {preview && <img src={preview} className="mt-2 w-[300px] rounded-lg" />}
+        
+        {/* Container relativo para posicionamento absoluto */}
+        <div className="relative">
+          <input
+            type="file"
+            accept="image/*"
+            {...register("bannerFile")}
+            onChange={(e) => {
+              if (e.target.files?.[0]) {
+                setPreview(URL.createObjectURL(e.target.files[0]))
+              }
+            }}
+            className="flex bg-[#e64eeb] p-3 rounded-2xl text-white justify-center"
+            style={{
+              color: 'transparent',
+              width: '200px'
+            }}
+          />
+          <span className="absolute left-0 top-0 w-full h-full flex items-center justify-center pointer-events-none text-white font-semibold">
+            Escolher Banner
+          </span>
+        </div>
       </div>
+        
 
       {/* Inputs principais */}
       <div className="flex items-center justify-center gap-16 w-[60vw] min-w-[600px] max-w-[900px]">
