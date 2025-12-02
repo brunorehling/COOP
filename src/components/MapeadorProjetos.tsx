@@ -41,20 +41,33 @@ export function MapProjects() {
         });
 
         let data = response.data as unknown as Project[];
+        
+        // Processar memberIds incluindo o owner
         data = data.map(project => ({
           ...project,
           memberIds: [
-          ...(project.memberIds ?? []).map(Number),
-          Number(project.owner?.id)
-        ]
-
+            ...(project.memberIds ?? []).map(Number),
+            Number(project.owner?.id)
+          ]
         }));
 
-        data = data.filter(project => 
-          project.status !== 'FINISHED' && 
-          !(project.memberIds ?? []).includes(userId)
-        );
-
+        data = data.filter(project => {
+          // Valores com fallback
+          const currentMembers = project.currentMembers ?? 0;
+          const membersLimit = project.membersLimit ?? 0;
+          const memberIds = project.memberIds ?? [];
+          const status = project.status || 'IN_PROGRESS';
+          
+          // Se membersLimit for 0 ou undefined, considera que tem vaga
+          const hasVacancy = membersLimit === 0 || currentMembers < membersLimit;
+          
+          return (
+            status !== 'FINISHED' && 
+            !memberIds.includes(userId) && 
+            hasVacancy
+          );
+        });
+        
         setProjects(data || []);
         setError(null);
       } catch (err: any) {
@@ -147,17 +160,20 @@ export function MapProjects() {
                     )}
                   </div>
                 </div>
+              </div> {/* Fechar a div do flex justify-between */}
 
               {/* Footer expandido: botão participar */}
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <JoinProjectButton projectId={project.id} ownerId={project.owner.id} projectName={project.name}/>
+                <JoinProjectButton 
+                  projectId={project.id} 
+                  ownerId={project.owner.id} 
+                  projectName={project.name}
+                />
               </div>
-            </div>
-          </div>
-          </div>
+            </div> {/* Fechar a div da aba expandida */}
+          </div> // Fechar a div do projeto
         );
       })}
     </div>
-    
   );
 }

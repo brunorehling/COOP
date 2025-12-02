@@ -15,10 +15,10 @@ export function FormContainer({
   onSubmit,
   isLoading = false,
   submitLabel = 'Enviar',
-  fullHeight = false, // default false
+  fullHeight = false, 
 }: FormContainerProps) {
   return (
-    <div className={`flex justify-center bg-[#212b41] ${fullHeight ? 'items-center min-h-screen' : 'items-start'}`}>
+    <div className={`flex justify-center ${fullHeight ? 'items-center min-h-screen' : 'items-start'}`}>
       <form
         onSubmit={(e) => {
           e.preventDefault()

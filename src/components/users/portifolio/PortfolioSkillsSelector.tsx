@@ -1,6 +1,6 @@
 // PortfolioSkillsSelector.tsx
 import { useState, useEffect, useMemo } from "react"
-import SkillCard from './skillCard'
+import SkillCard from './SkillCard'
 import { SiReact, SiAngular, SiVuedotjs, SiNodedotjs, SiPython, SiTypescript, SiJavascript, SiPostgresql, SiMongodb, SiDocker, SiKubernetes, SiAmazon, SiGit } from 'react-icons/si'
 import { FaJava } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";

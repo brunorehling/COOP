@@ -68,14 +68,12 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
       className="flex flex-col justify-center items-center gap-10 text-white w-full py-10"
       id="project-form"
     >
-      {/* Banner */}
       
 
       <div className="flex flex-col items-center gap-2">
         <label className="text-sm font-bold">Banner do projeto</label>
         {preview && <img src={preview} className="mt-2 w-[300px] rounded-lg" />}
         
-        {/* Container relativo para posicionamento absoluto */}
         <div className="relative">
           <input
             type="file"
@@ -99,7 +97,6 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
       </div>
         
 
-      {/* Inputs principais */}
       <div className="flex items-center justify-center gap-16 w-[60vw] min-w-[600px] max-w-[900px]">
         <div className="flex flex-col gap-2 w-[40%]">
           <label className="text-sm font-bold">Nº de integrantes</label>
@@ -120,7 +117,6 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
         </div>
       </div>
 
-      {/* Descrição */}
       <div className="w-[60vw] min-w-[600px] max-w-[900px] ml-[6vw]">
         <label className="text-sm mb-1 block font-bold">Descrição do projeto</label>
         <textarea

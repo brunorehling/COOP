@@ -99,10 +99,11 @@ export default function CreatePortfolio({ portfolio, userProjects = [], userAsse
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
-            className="w-full max-w-[350px] p-2 rounded bg-[#DADADA] text-black"
+            className="p-3 rounded-lg bg-[#2D3D5B] text-white border border-gray-600 focus:border-[#E64EEB] focus:outline-none"
             required
           />
         </div>
+
 
         {/* Local */}
         <div className="flex flex-col items-center gap-4">
@@ -111,17 +112,17 @@ export default function CreatePortfolio({ portfolio, userProjects = [], userAsse
             type="text"
             value={location}
             onChange={e => setLocation(e.target.value)}
-            className="w-full max-w-[350px] p-2 rounded bg-[#DADADA] text-black"
+            className="p-3 rounded-lg bg-[#2D3D5B] text-white border border-gray-600 focus:border-[#E64EEB] focus:outline-none"
           />
         </div>
 
         {/* Bio */}
         <div className="flex flex-col items-center">
-          <p className="text-lg font-semibold mb-4">Breve descrição sobre você</p>
+          <p className="text-lg font-semibold mb-4 text-[#E64EEB]">Breve descrição sobre você</p>
           <textarea
             value={bio}
             onChange={e => setBio(e.target.value)}
-            className="w-full max-w-[700px] min-h-[180px] p-4 rounded-xl bg-[#DADADA] text-black"
+            className="w-full max-w-[700px] min-h-[180px] bg-[#2D3D5B] text-white border border-gray-600 focus:border-[#E64EEB] focus:outline-none rounded-lg"
           />
         </div>
 

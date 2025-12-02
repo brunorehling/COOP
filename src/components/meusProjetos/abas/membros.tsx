@@ -95,21 +95,11 @@ export default function ProjectMembers({ project }: Props) {
           // Silenciar erro
         }
 
-        // 3. Carregar informações dos membros
-        const otherMemberIds = memberIds.filter(id => id !== owner.id);
-        const allMemberIds = [owner.id, ...otherMemberIds];
+        // 3. Carregar informações dos membros (APENAS membros, não o owner)
+        const otherMemberIds = memberIds.filter(id => id !== Number(owner.id));
         
-        const membersPromises = allMemberIds.map(async (memberId): Promise<MemberInfo> => {
+        const membersPromises = otherMemberIds.map(async (memberId): Promise<MemberInfo> => {
           try {
-            if (memberId === owner.id) {
-              return {
-                id: owner.id,
-                username: owner.username,
-                avatarUrl: owner.avatarUrl || undefined,
-                role: 'Owner'
-              };
-            }
-            
             const response = await customFetcher(`/users/${memberId}`) as any;
             
             let userData: User;
@@ -161,12 +151,22 @@ export default function ProjectMembers({ project }: Props) {
     };
   }, [project.id, owner.id, owner.username, owner.avatarUrl, memberIds, currentUserId]);
 
-  // Separar owner e membros
-  const projectOwner = membersInfo.find(member => member.role === 'Owner');
-  const activeMembers = membersInfo.filter(member => member.role === 'Membro');
+  // Criar objeto do owner separado
+  const projectOwner: MemberInfo = {
+    id: owner.id,
+    username: owner.username,
+    avatarUrl: owner.avatarUrl || undefined,
+    role: 'Owner'
+  };
+
+  // Membros ativos são apenas os que não são owner
+  const activeMembers = membersInfo; // Já filtramos no carregamento
 
   // Verificar se o usuário atual é o owner
   const isOwner = currentUserId === owner.id;
+
+  // Contar total de pessoas no projeto (owner + membros)
+  const totalProjectMembers = 1 + activeMembers.length; // Owner + membros
 
   if (loading) {
     return (
@@ -191,13 +191,13 @@ export default function ProjectMembers({ project }: Props) {
         </div>
         <div className="flex justify-between w-[30vw] gap-5 mt-2">
           <div className="bg-pink-600 px-2 py-1 rounded text-center">
-            Limite de membros: {project.membersLimit}
+            Limite: {project.membersLimit}
           </div>
           <div className="bg-blue-700 px-2 py-1 rounded text-center">
-            Membros atuais: {activeMembers.length + 1}
+            Atuais: {totalProjectMembers}
           </div>
           <div className="bg-purple-600 px-2 py-1 rounded text-center">
-            Convites pendentes: {myPendingInvitations.length}
+            Convites: {myPendingInvitations.length}
           </div>
           <div className="bg-yellow-600 px-2 py-1 rounded text-center">
             Solicitações: {joinRequests.length}
@@ -205,29 +205,27 @@ export default function ProjectMembers({ project }: Props) {
         </div>
       </div>
 
-      {/* Owner */}
+      {/* Owner - SEPARADO */}
       <div>
         <h2 className="text-lg font-semibold mb-4 border-b border-gray-600 pb-2">
           Dono do Projeto
         </h2>
-        {projectOwner && (
-          <div className="flex items-center gap-3 p-3 bg-[#364159] rounded-lg">
-            {projectOwner.avatarUrl ? (
-              <img src={projectOwner.avatarUrl} alt={projectOwner.username} className="w-10 h-10 rounded-full object-cover" />
-            ) : (
-              <div className="w-10 h-10 rounded-full bg-[#e64eeb] flex items-center justify-center text-white font-semibold">
-                {projectOwner.username.charAt(0).toUpperCase()}
-              </div>
-            )}
-            <div>
-              <p className="font-medium">{projectOwner.username}</p>
-              <p className="text-sm text-gray-300">{projectOwner.role}</p>
+        <div className="flex items-center gap-3 p-3 bg-[#364159] rounded-lg">
+          {projectOwner.avatarUrl ? (
+            <img src={projectOwner.avatarUrl} alt={projectOwner.username} className="w-10 h-10 rounded-full object-cover" />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-[#e64eeb] flex items-center justify-center text-white font-semibold">
+              {projectOwner.username.charAt(0).toUpperCase()}
             </div>
+          )}
+          <div>
+            <p className="font-medium">{projectOwner.username}</p>
+            <p className="text-sm text-gray-300">{projectOwner.role}</p>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Membros Ativos */}
+      {/* Membros Ativos - APENAS membros (sem owner) */}
       <div>
         <h2 className="text-lg font-semibold mb-4 border-b border-gray-600 pb-2">
           Membros do Projeto ({activeMembers.length})

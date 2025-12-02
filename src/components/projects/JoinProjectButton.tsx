@@ -15,7 +15,7 @@ export function JoinProjectButton({ projectId, ownerId, projectName }: JoinProje
   try {
     setLoading(true);
 
-    const currentUserId = Number(localStorage.getItem("userId")); // ✅ Já convertendo
+    const currentUserId = Number(localStorage.getItem("userId")); 
     const currentUsername = localStorage.getItem("username");
 
     if (!currentUserId || !currentUsername) {
@@ -24,14 +24,13 @@ export function JoinProjectButton({ projectId, ownerId, projectName }: JoinProje
     }
 
     console.log('🔵 [JoinProjectButton] Enviando solicitação...', {
-      projectId: projectId, // ← Já deve ser number
-      ownerId: ownerId,     // ← Já deve ser number  
-      currentUserId,        // ← Já é number
+      projectId: projectId,
+      ownerId: ownerId,    
+      currentUserId,       
       currentUsername,
       projectName
     });
 
-    // ✅ GARANTIR que ownerId é number
     const numericOwnerId = Number(ownerId);
     const numericProjectId = Number(projectId);
 
@@ -40,20 +39,18 @@ export function JoinProjectButton({ projectId, ownerId, projectName }: JoinProje
       `<a href="${profileUrl}" style="color:#e64eeb;">${currentUsername}</a> ` +
       `solicitou participação no projeto <b>${projectName}</b>.`;
 
-    // ENVIA NOTIFICAÇÃO COM NÚMEROS
+
     await sendNotification(
-      numericOwnerId,                    // ✅ NUMBER
+      numericOwnerId,                    
       message,
       "Solicitação de participação",
-      numericProjectId,                  // ✅ NUMBER
-      currentUserId                      // ✅ NUMBER
+      numericProjectId,                 
+      currentUserId                      
     );
 
-    console.log('✅ Solicitação enviada com IDs numéricos!');
     alert("✅ Solicitação enviada!\n\nAguarde a aprovação do dono do projeto.");
 
   } catch (error: any) {
-    console.error('❌ Erro ao enviar solicitação:', error);
     alert("Erro ao enviar solicitação: " + (error.message || 'Tente novamente'));
   } finally {
     setLoading(false);

@@ -8,12 +8,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'url do render',
+        target: 'url',
         changeOrigin: true,
         secure: true,
       },
       '/projects': {
-        target: 'url do render',
+        target: 'url',
         changeOrigin: true,
         secure: true,
       },
