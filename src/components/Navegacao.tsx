@@ -30,20 +30,20 @@ export function Navegacao() {
 
       {/* Meus Projetos */}
       <div className="flex items-center justify-left md:gap-6">
-        <Link to="/meus_projetos">
+        <Link to="/meusProjetos">
           <img
             src={
-              location.pathname === '/meus_projetos'
+              location.pathname === '/meusProjetos'
                 ? '/explore_selected.webp'
                 : '/explore_not_selected.webp'
             }
             alt="Meus Projetos"
           />
         </Link>
-        <Link to="/meus_projetos">
+        <Link to="/meusProjetos">
           <p
             className={`hidden md:flex text-2xl font-normal font-Jost ${
-              location.pathname === '/meus_projetos'
+              location.pathname === '/meusProjetos'
                 ?  'text-white underline decoration-[#e64eeb] decoration-2' 
                 : 'text-white'
             }`}

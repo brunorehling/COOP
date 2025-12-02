@@ -13,6 +13,8 @@ import { UserProfileEdit } from './components/users/UserLogado/ProfileEdit.tsx'
 import  CreatePortfolio  from './components/users/portifolio/PortifolioCreate.tsx'
 import EditarProjeto from './EditarProjeto.tsx'
 import { PublicProfile } from './components/users/UserDeslogado/PublicProfile.tsx'
+import { UserProvider } from './context/UserContext'
+
 
 export default function App() {
   const token = localStorage.getItem('token') 
