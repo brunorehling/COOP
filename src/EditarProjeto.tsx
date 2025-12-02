@@ -97,9 +97,6 @@ export default function EditarProjeto() {
         {error && <p className="text-red-400">{error}</p>}
 
         <div className="flex gap-4 mt-6">
-          <button
-            onClick={() => navigate("/feed")}
-            className="bg-black text-white px-6 py-2 rounded-full"> Voltar </button>
 
           <button
             type="submit"

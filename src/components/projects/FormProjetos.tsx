@@ -106,7 +106,7 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
           <input
             type="number"
             {...register("integrantes", { required: true })}
-            className="bg-white border border-gray-700 w-[40%] rounded-2xl p-2 text-black"
+            className="p-2 rounded-2xl bg-[#2D3D5B] text-white border border-gray-600 focus:border-[#E64EEB] focus:outline-none"
           />
         </div>
 
@@ -115,7 +115,7 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
           <input
             type="text"
             {...register("nome", { required: true })}
-            className="bg-white border border-gray-700 w-full rounded-2xl p-2 text-black"
+            className="p-2 rounded-2xl bg-[#2D3D5B] text-white border border-gray-600 focus:border-[#E64EEB] focus:outline-none"
           />
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function ProjectForm({ defaultValues, onSubmit }: ProjectFormProp
         <label className="text-sm mb-1 block font-bold">Descrição do projeto</label>
         <textarea
           {...register("descricao", { required: true })}
-          className="bg-white border border-gray-700 w-[90%] h-[25vh] p-3 rounded-2xl text-black resize-none"
+          className="bg-[#2D3D5B] border border-gray-700 w-[90%] h-[25vh] p-3 rounded-2xl text-white resize-none"
           placeholder="Descreva o projeto..."
         />
       </div>

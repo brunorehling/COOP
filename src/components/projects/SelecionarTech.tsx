@@ -11,12 +11,11 @@ export default function TechSelector({ onChange, defaultValues = [] }: TechSelec
   const [busca, setBusca] = useState("")
   const [selecionadas, setSelecionadas] = useState<string[]>(defaultValues)
 
-  // Só sincroniza defaultValues quando realmente mudar
   useEffect(() => {
     if (defaultValues && defaultValues.length > 0) {
       setSelecionadas(defaultValues)
     }
-  }, [defaultValues.join(",")]) // ← evita recriar array e dar loop
+  }, [defaultValues.join(",")]) 
 
   // Notifica o pai
   useEffect(() => {
@@ -43,7 +42,7 @@ export default function TechSelector({ onChange, defaultValues = [] }: TechSelec
           placeholder="Pesquisar tecnologia"
           value={busca}
           onChange={e => setBusca(e.target.value)}
-          className="w-full p-3 rounded-full bg-white text-black text-center outline-none"
+          className="w-full p-3 rounded-full bg-[#2D3D5B] text-white text-center border border-gray-600 focus:border-[#E64EEB] focus:outline-none"
         />
       </div>
 
@@ -61,3 +60,4 @@ export default function TechSelector({ onChange, defaultValues = [] }: TechSelec
     </div>
   )
 }
+
