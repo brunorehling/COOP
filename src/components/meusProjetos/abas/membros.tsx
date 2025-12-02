@@ -29,6 +29,7 @@ export default function ProjectMembers({ project }: Props) {
   const [myPendingInvitations, setMyPendingInvitations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+  const [leaving, setLeaving] = useState(false);
 
   const owner = project.owner as any;
   const memberIds = project.memberIds ?? [];
@@ -164,9 +165,48 @@ export default function ProjectMembers({ project }: Props) {
 
   // Verificar se o usuário atual é o owner
   const isOwner = currentUserId === owner.id;
+  
+  // Verificar se o usuário atual é um membro (não owner)
+  const isMember = !isOwner && memberIds.includes(currentUserId || 0);
 
   // Contar total de pessoas no projeto (owner + membros)
   const totalProjectMembers = 1 + activeMembers.length; // Owner + membros
+
+  // Função para sair do projeto (APENAS para membros não-owners)
+  const handleLeaveProject = async () => {
+    if (!currentUserId || isOwner) {
+      alert('Apenas membros podem sair do projeto. Owners não podem sair.');
+      return;
+    }
+    
+    // Confirmação
+    if (!window.confirm('Tem certeza que deseja sair deste projeto?\n\nVocê perderá acesso a todas as funcionalidades do projeto e esta ação não pode ser desfeita.')) {
+      return;
+    }
+    
+    setLeaving(true);
+    
+    try {
+      const response = await customFetcher(`/projects/${project.id}/leave`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      console.log('✅ Saiu do projeto com sucesso:', response);
+      alert('Você saiu do projeto com sucesso!');
+      
+      // Recarregar a página para atualizar os dados
+      window.location.reload();
+      
+    } catch (error) {
+      console.error('❌ Erro ao sair do projeto:', error);
+      alert('Erro ao sair do projeto. Tente novamente mais tarde.');
+    } finally {
+      setLeaving(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -205,6 +245,7 @@ export default function ProjectMembers({ project }: Props) {
         </div>
       </div>
 
+     
       {/* Owner - SEPARADO */}
       <div>
         <h2 className="text-lg font-semibold mb-4 border-b border-gray-600 pb-2">
@@ -256,9 +297,40 @@ export default function ProjectMembers({ project }: Props) {
                   <p className="font-medium">{member.username}</p>
                   <p className="text-sm text-gray-300">{member.role}</p>
                 </div>
+                
+                {/* Mostrar "Você" se for o usuário atual */}
+                {member.id === currentUserId && (
+                  <span className="text-xs bg-blue-600 px-2 py-1 rounded">Você</span>
+                )}
+                
                 <span className="text-xs bg-green-600 px-2 py-1 rounded">Ativo</span>
               </div>
             ))}
+             {/* Botão de Sair do Projeto - SOMENTE para membros não-owners */}
+      {isMember && (
+        <div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleLeaveProject}
+              disabled={leaving}
+              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {leaving ? (
+                <>
+                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  Saindo...
+                </>
+              ) : (
+                '🚪 Sair do Projeto'
+              )}
+            </button>
+          </div>
+          <p className="text-gray-500 text-xs text-center mt-2">
+            Esta ação remove você da lista de membros do projeto
+          </p>
+        </div>
+      )}
+
           </div>
         )}
       </div>

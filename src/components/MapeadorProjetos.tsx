@@ -130,11 +130,11 @@ export function MapProjects() {
 
             {/* Aba expandida */}
             <div
-              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+              className={`w-full px-6 flex justify-between overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
               }`}
             >
-              <div className="flex justify-between">
+              <div className="flex flex-wrap justify-between">
                 <div>
                   <p className="font-semibold mb-3 text-gray-800">Tecnologias</p>
                   <div className="flex flex-wrap gap-4">
