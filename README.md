@@ -12,7 +12,7 @@ Desenvolvido durante as aulas, sem deploy por enquanto.
 
 Criar projetos
 
-Participar de projetos de uoptros usuarios
+Participar de projetos de outros usuarios
 
 Visualizar projetos existentes
 
