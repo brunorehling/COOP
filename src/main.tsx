@@ -15,7 +15,7 @@ import {CreatePortfolio} from './components/users/portifolio/PortifolioCreate.ts
 import axios from 'axios'
 import { UserProfileEdit } from './components/users/ProfileEdit.tsx'
 
-axios.defaults.baseURL = import.meta.env.DEV ? '/' : 'https://projeto-api-7h8d.onrender.com'
+axios.defaults.baseURL = import.meta.env.DEV ? '/' : 'url da api aqui'
 
 
 axios.interceptors.request.use((config) => {
