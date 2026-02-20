@@ -2,7 +2,7 @@ export const customFetcher = async <T>(
   url: string,
   options?: RequestInit
 ): Promise<T> => {
-  const baseUrl = import.meta.env.VITE_API_URL || 'https://projeto-api-7h8d.onrender.com';
+  const baseUrl = import.meta.env.VITE_API_URL || 'url da api aqui';
   const fullUrl = `${baseUrl}${url}`;
 
   const token = localStorage.getItem("token");
