@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { projectsControllerFindAll } from "../../api/orval/projects/projects";
 import { authControllerGetProfile } from "../../api/orval/auth/auth";
 import type { Project } from "../../utils/projectType";
-import type { User } from "../../utils/UserType";
 import { tecnologias } from "../projects/ListaTech";
 import { UserInfo } from "../users/cabecalho_user_card";
+import { Link } from "react-router-dom";
 
 const techLookup = Object.fromEntries(
   tecnologias.map(([src, nome]) => [nome.toLowerCase(), src])
 );
+
+
+  const statusMap = {
+  IN_PROGRESS: "EM ANDAMENTO",
+  TESTING: "FASE DE TESTES",
+  FINISHED: "FINALIZADO",
+};
 
 export function MapProjectsUser() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -67,7 +74,7 @@ export function MapProjectsUser() {
   }, []);
 
   if (loading) return <p className="text-white">Carregando projetos...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error) return <p className="text-red-500">Erro</p>;
   if (projects.length === 0) return <p className="text-white">Nenhum projeto encontrado.</p>;
 
   return (
@@ -80,8 +87,8 @@ export function MapProjectsUser() {
             <div className="flex justify-between items-center p-6">
               <div className="flex flex-wrap gap-20 justify-center items-center">
                 <UserInfo owner={project.owner} />
-                <div className="flex flex-wrap gap-5">
-                  <img src="./userBranco.png" alt="" />
+                <div className="flex flex-wrap gap-5 mb-5 ">
+                  <img src="./userBranco.png" alt="" className="w-7 h-7"/>
                   <h1 className="text-2xl text-white font-jost">{project.membersLimit}</h1>
                 </div>
               </div>
@@ -92,7 +99,7 @@ export function MapProjectsUser() {
               <img
                 src={project.bannerUrl || "./foto_1.png"}
                 alt="Foto Computador"
-                className="w-[370px] h-[250px] object-cover"
+                className="w-full md:w-[15vw] md:h-[20vh] h-auto rounded-xl object-cover"
               />
               <div className="flex flex-col justify-center items-start gap-4 w-full md:w-[600px]">
                 <p className="text-white text-lg">{project.description}</p>
@@ -100,7 +107,7 @@ export function MapProjectsUser() {
             </div>
 
             <div className="flex justify-between items-center px-6 pb-6">
-              <p className="text-white text-lg">{project.status}</p>
+              <p className="text-white text-lg">{statusMap[project.status]}</p>
               <button
                 onClick={() => toggleAba(project.id)}
                 className="bg-black text-white px-4 py-2 rounded-lg hover:bg-[#e64eeb] transition"
@@ -110,7 +117,7 @@ export function MapProjectsUser() {
             </div>
 
             <div
-              className={`w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
+              className={` flex flex-warp justify-between w-full px-6 overflow-hidden transition-all bg-white rounded-b-[2rem] duration-500 ease-in-out ${
                 isExpanded ? "max-h-[400px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
               }`}
             >
@@ -130,9 +137,11 @@ export function MapProjectsUser() {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-center justify-between mt-4 gap-4">
-                <button className="bg-[#e64eeb] text-white px-4 py-2 rounded-lg font-semibold hover:bg-pink-600 transition">
-                  Participar
-                </button>
+                  <Link to={`/gestao/${project.id}`}>
+                    <p className="hidden md:flex text-2xl font-normal font-Jost bg-[#e64eeb] rounded-2xl px-2 py-1 hover:border">
+                      Inspecionar
+                    </p>
+                  </Link>
               </div>
             </div>
           </div>

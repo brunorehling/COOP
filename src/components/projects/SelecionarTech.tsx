@@ -4,11 +4,24 @@ import { tecnologias } from "./ListaTech"
 
 interface TechSelectorProps {
   onChange?: (techs: string[]) => void
+  defaultValues?: string[] 
 }
 
-export default function TechSelector({ onChange }: TechSelectorProps) {
+export default function TechSelector({ onChange, defaultValues = [] }: TechSelectorProps) {
   const [busca, setBusca] = useState("")
-  const [selecionadas, setSelecionadas] = useState<string[]>([])
+  const [selecionadas, setSelecionadas] = useState<string[]>(defaultValues)
+
+  // Só sincroniza defaultValues quando realmente mudar
+  useEffect(() => {
+    if (defaultValues && defaultValues.length > 0) {
+      setSelecionadas(defaultValues)
+    }
+  }, [defaultValues.join(",")]) // ← evita recriar array e dar loop
+
+  // Notifica o pai
+  useEffect(() => {
+    onChange?.(selecionadas)
+  }, [selecionadas])
 
   const filtradas = tecnologias
     .filter(([_, nome]) => nome.toLowerCase().includes(busca.toLowerCase()))
@@ -21,10 +34,6 @@ export default function TechSelector({ onChange }: TechSelectorProps) {
         : [...prev, tec]
     )
   }
-
-  useEffect(() => {
-    onChange?.(selecionadas)
-  }, [selecionadas, onChange])
 
   return (
     <div className="flex flex-col items-center gap-6 text-white">
